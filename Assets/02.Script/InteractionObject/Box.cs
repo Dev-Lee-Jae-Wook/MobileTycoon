@@ -1,3 +1,4 @@
+using EverythingStore.Actor;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,11 +6,14 @@ using static UnityEditor.Progress;
 
 namespace EverythingStore.InteractionObject
 {
-	public class Box : MonoBehaviour
+	public class Box : MonoBehaviour,IPlayerInteraction
 	{
 		#region Filed
 		[SerializeField] private GachaProbaility _gachaData;
 		private Stack<SellObject> _items;
+
+		//박스에 상태에 따른 비주얼 오브젝트들
+		[SerializeField] private List<GameObject> _boxVisuals;
 
 		/// <summary>
 		/// 생성된 아이템들의 위치
@@ -48,48 +52,35 @@ namespace EverythingStore.InteractionObject
 			_items = new Stack<SellObject>();
 			_itemSpawnPoint = transform.Find("SpawnPoint");
 		}
-
-		private void Start()
-		{
-			Open();
-		}
 		#endregion
 
 		#region Methods
+		#region Private
 
-		#region Public
 		/// <summary>
 		/// 상자를 오픈합니다.
 		/// </summary>
-		public void Open()
+		private void Open()
 		{
 			SetUp();
-			OnOpenBox?.Invoke();
+			ChangeState(State.Open);
 		}
 
 		/// <summary>
-		/// 상자에서 아이템 꺼내기를 시도합니다.
+		/// 상자에서 아이템 꺼냅니다.
 		/// </summary>
-		public bool TryPopSellObject(out SellObject sellObject)
+		private SellObject PopSellObject(Hand hand)
 		{
-			sellObject = null;
+			var sellObject = _items.Pop();
 
-			if (_items.Count > 0)
+			if (_items.Count == 0)
 			{
-				sellObject = _items.Pop();
-
-				if (_items.Count == 0)
-				{
-					EmptyBox();
-				}
-				return true;
+				EmptyBox();
 			}
 
-			return false;
+			return sellObject;
 		}
-		#endregion
 
-		#region Private
 		/// <summary>
 		/// 상자에 들어가는 아이템을 랜덤으로 설정합니다.
 		/// </summary>
@@ -107,15 +98,13 @@ namespace EverythingStore.InteractionObject
 		{
 			ChangeState(State.Emtpy);
 		}
-		#endregion
-
-		#endregion
 
 		/// <summary>
 		/// 상자의 상태에 따라 맞는 행동을 정의합니다.
 		/// </summary>
 		private void ChangeState(State state)
 		{
+			_boxVisuals[(int)_state].SetActive(false);
 			_state = state;
 			switch (_state)
 			{
@@ -126,9 +115,37 @@ namespace EverythingStore.InteractionObject
 					break;
 				case State.Emtpy:
 					OnEmtpyBox?.Invoke();
-					Destroy(gameObject);
+					//Destroy(gameObject);
+					break;
+			}
+			_boxVisuals[(int)_state].SetActive(true);
+		}
+
+		void IPlayerInteraction.InteractionPlayer(Hand hand)
+		{
+			switch (_state)
+			{
+				case State.BeforeOpen:
+					Open();
+					break;
+				case State.Open:
+					if(hand.CanPickUp() == true)
+					{
+						var popObject = PopSellObject(hand);
+						hand.PickUp(popObject);
+					}
+					break;
+				case State.Emtpy:
 					break;
 			}
 		}
+
+		#endregion
+
+		#endregion
+
+
+
+
 	}
 }

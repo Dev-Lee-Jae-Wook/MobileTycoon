@@ -22,7 +22,7 @@ namespace EverythingStore.Animation
 
 			if(_movementEvent != null)
 			{
-				_movementEvent.OnMovement += Movement;
+				_movementEvent.OnAnimationMovement += Movement;
 			}
 		}
 
