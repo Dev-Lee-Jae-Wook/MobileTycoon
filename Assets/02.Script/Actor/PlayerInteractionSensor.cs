@@ -7,6 +7,14 @@ namespace EverythingStore.Actor
 {
     public class PlayerInteractionSensor : MonoBehaviour
     {
+		#region Debug
+		private bool _isPlayer = true;
+		private void DebugInteractionCustomer(ICustomerInteraction interaction)
+		{
+			interaction.InteractionCustomer(_hand);
+		}
+		#endregion
+
 		#region Field
 		[SerializeField] private LayerMask _interactionLayerMask;
 		[SerializeField] private Vector3 _sensorPivot;
@@ -16,10 +24,20 @@ namespace EverythingStore.Actor
 		#region UnityCycle
 		private void Update()
 		{
+			if(Input.GetKeyDown(KeyCode.F))
+			{
+				_isPlayer = !_isPlayer;
+			}
+
 			var hits = Physics.RaycastAll(transform.position + _sensorPivot, transform.forward, 1.0f, _interactionLayerMask);
 			if (hits.Length > 0)
 			{
-				Intreaction(hits[0].collider.GetComponent<IPlayerInteraction>());
+
+
+				if (_isPlayer == true)
+					Intreaction(hits[0].collider.GetComponent<IPlayerInteraction>());
+				else
+					DebugInteractionCustomer(hits[0].collider.GetComponent<ICustomerInteraction>());
 			}
 		}
 		#endregion
@@ -32,6 +50,7 @@ namespace EverythingStore.Actor
 		{
 			interaction.InteractionPlayer(_hand);
 		}
+
 		#endregion
 	}
 }
