@@ -128,4 +128,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2796a03933b10474bae45075a6319c24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Gold>k__BackingField: 1000
+  <Money>k__BackingField: 100

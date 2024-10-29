@@ -1,9 +1,6 @@
 using EverythingStore.InteractionObject;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Reflection;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.Port;
 
 namespace EverythingStore.Util
 {
@@ -22,7 +19,7 @@ namespace EverythingStore.Util
 		//인스텍터의 값이 변경이되면 호출됩니다.
 		private void OnValidate()
 		{
-			if(_salesStand == null || _pivotData == null || _pivot == null)
+			if (_salesStand == null || _pivotData == null || _pivot == null)
 			{
 				return;
 			}
@@ -32,6 +29,11 @@ namespace EverythingStore.Util
 
 		private void OnDrawGizmos()
 		{
+			if (points == null)
+			{
+				return;
+			}
+
 			foreach (Vector3 p in points)
 			{
 				Gizmos.DrawCube(p, Vector3.one * 0.1f);
@@ -40,7 +42,15 @@ namespace EverythingStore.Util
 
 		private void CalculationPivotData()
 		{
-			points.Clear();
+			if (_pivotData != null)
+			{
+				points.Clear();
+			}
+			else
+			{
+				points = new List<Vector3>();
+			}
+
 			Vector3 point = _pivot.position;
 			int capacity = _salesStand.Capacity;
 

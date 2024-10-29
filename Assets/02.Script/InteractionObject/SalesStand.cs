@@ -1,12 +1,11 @@
 using EverythingStore.Actor;
 using System.Collections.Generic;
 using UnityEngine;
-using Sirenix.OdinInspector;
 
 //가챠 확률 데이터는 좀 더 개량이 필요합니다.
 namespace EverythingStore.InteractionObject
 {
-	public class SalesStand:MonoBehaviour,IPlayerInteraction,ICustomerInteraction
+	public class SalesStand : MonoBehaviour, IPlayerInteraction, ICustomerInteraction
 	{
 		#region Field
 		private Stack<SellObject> _salesObjectStack = new Stack<SellObject>();
@@ -35,7 +34,7 @@ namespace EverythingStore.InteractionObject
 		#region Public
 		public void InteractionPlayer(Hand hand)
 		{
-			if(hand.IsPickUpObject() == false)
+			if (hand.IsPickUpObject() == false)
 			{
 				return;
 			}
@@ -45,17 +44,21 @@ namespace EverythingStore.InteractionObject
 				return;
 			}
 
-			PushSellObject(hand.Pop());
+
+			if (hand.PeekObject().type == PickableObject.PickableObjectType.SellObject)
+			{
+				PushSellObject(hand.Pop().GetComponent<SellObject>());
+			}
 		}
 
 		public void InteractionCustomer(Hand hand)
 		{
-			if(hand.IsPickUpObject() == true)
+			if (hand.IsPickUpObject() == true)
 			{
 				return;
 			}
 
-			if(CanPopSellObject() == false)
+			if (CanPopSellObject() == false)
 			{
 				return;
 			}
@@ -77,7 +80,7 @@ namespace EverythingStore.InteractionObject
 		/// 판매대에서 아이템을 추가 합니다.
 		/// </summary>
 		/// <param name="sellObject"></param>
-		private void PushSellObject(SellObject sellObject) 
+		private void PushSellObject(SellObject sellObject)
 		{
 			_salesObjectStack.Push(sellObject);
 

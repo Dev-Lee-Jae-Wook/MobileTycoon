@@ -54,8 +54,7 @@ namespace EverythingStore.InteractionObject
 		}
 		#endregion
 
-		#region Methods
-		#region Private
+		#region Private Method
 
 		/// <summary>
 		/// 상자를 오픈합니다.
@@ -141,11 +140,5 @@ namespace EverythingStore.InteractionObject
 		}
 
 		#endregion
-
-		#endregion
-
-
-
-
 	}
 }

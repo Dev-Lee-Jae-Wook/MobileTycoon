@@ -30,9 +30,7 @@ namespace EverythingStore.Actor
 		#endregion
 
 
-
-		#region Method
-		#region Public
+		#region Public Method
 		/// <summary>
 		/// 입력에 따라 움직임을 갱신합니다.
 		/// </summary>
@@ -74,8 +72,6 @@ namespace EverythingStore.Actor
 			var rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetAngle, ref _currentVelocity, _rotationSpeed);
 			transform.rotation = Quaternion.Euler(0f, rotation, 0f);
 		}
-		#endregion
-
-		#endregion
+		#endregion Method
 	}
 }

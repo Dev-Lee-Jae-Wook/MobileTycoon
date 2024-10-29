@@ -7,31 +7,40 @@ namespace EverythingStore.Actor
 	public class Hand:MonoBehaviour
 	{
 		[SerializeField] private Transform _hand;
-		private SellObject _sellObject;
+		private PickableObject _pickableObject;
+
+		public int pickUpObjectCount {  get; private set; }
 
 		public bool CanPickUp()
 		{
 			return true;
 		}
 
-		public void PickUp(SellObject sellObject)
+		public void PickUp(PickableObject pickableObject)
 		{
-			sellObject.transform.parent = _hand;
-			sellObject.transform.localPosition = Vector3.zero;
-			sellObject.transform.localRotation = Quaternion.identity;
-			_sellObject = sellObject;
+			pickableObject.transform.parent = _hand;
+			pickableObject.transform.localPosition = Vector3.zero;
+			pickableObject.transform.localRotation = Quaternion.identity;
+			_pickableObject = pickableObject;
+			pickUpObjectCount++;
 		}
 
-		public SellObject Pop()
+		public PickableObject Pop()
 		{
-			SellObject popObject = _sellObject;
-			_sellObject = null;
+			PickableObject popObject = _pickableObject;
+			_pickableObject = null;
+			pickUpObjectCount--;
 			return popObject;
 		}
 
 		internal bool IsPickUpObject()
 		{
-			return _sellObject != null;
+			return _pickableObject != null;
+		}
+
+		public PickableObject PeekObject()
+		{
+			return _pickableObject;
 		}
 	}
 }
