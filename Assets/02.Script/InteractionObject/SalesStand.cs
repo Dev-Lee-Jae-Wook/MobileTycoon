@@ -24,7 +24,8 @@ namespace EverythingStore.InteractionObject
 			Gizmos.color = Color.cyan;
 			foreach (Vector3 p in _pivotData.PivotPoints)
 			{
-				Gizmos.DrawCube(p, Vector3.one * 0.1f);
+				Vector3 worldPos = _pivot.position + p;
+				Gizmos.DrawCube(worldPos, Vector3.one * 0.1f);
 			}
 		}
 		#endregion
@@ -34,7 +35,7 @@ namespace EverythingStore.InteractionObject
 		#region Public
 		public void InteractionPlayer(PickupAndDrop hand)
 		{
-			if (hand.IsPickUpObject() == false)
+			if (hand.IsPickUpObject() == false || hand.CanPopup() == false)
 			{
 				return;
 			}
@@ -47,13 +48,18 @@ namespace EverythingStore.InteractionObject
 
 			if (hand.PeekObject().type == PickableObject.PickableObjectType.SellObject)
 			{
-				PushSellObject(hand.Pop().GetComponent<SellObject>());
+				var sellObject = hand.PeekObject().GetComponent<SellObject>();
+				hand.Pop(_pivot, GetCurrentSloatPosition(), () =>
+				{
+					sellObject.transform.localRotation = Quaternion.Euler(0.0f, 180f, 0.0f);
+				});
+				PushSellObject(sellObject);
 			}
 		}
 
 		public void InteractionCustomer(PickupAndDrop hand)
 		{
-			if (hand.IsPickUpObject() == true)
+			if (hand.CanPickup() == false)
 			{
 				return;
 			}
@@ -83,10 +89,12 @@ namespace EverythingStore.InteractionObject
 		private void PushSellObject(SellObject sellObject)
 		{
 			_salesObjectStack.Push(sellObject);
+		}
 
-			sellObject.transform.parent = _pivot;
-			sellObject.transform.position = _pivotData.PivotPoints[_salesObjectStack.Count - 1];
-			sellObject.transform.localRotation = Quaternion.identity;
+
+		private Vector3 GetCurrentSloatPosition()
+		{
+			return _pivotData.PivotPoints[_salesObjectStack.Count];
 		}
 
 		/// <summary>

@@ -32,7 +32,7 @@ namespace EverythingStore.Actor
 			var hits = Physics.RaycastAll(transform.position + _sensorPivot, transform.forward, 1.0f, _interactionLayerMask);
 			if (hits.Length > 0)
 			{
-
+				Debug.Log(hits[0].collider.name);
 
 				if (_isPlayer == true)
 					Intreaction(hits[0].collider.GetComponent<IPlayerInteraction>());

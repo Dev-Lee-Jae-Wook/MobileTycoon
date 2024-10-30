@@ -14,6 +14,7 @@ namespace EverythingStore.InteractionObject
 
 		#region Property
 		public bool IsPackage { get; private set; } = false;
+		public Transform PackagePoint => _packagePoint;
 
 		public override PickableObjectType type => PickableObjectType.Package;
 		#endregion
@@ -30,9 +31,6 @@ namespace EverythingStore.InteractionObject
 		/// </summary>
 		public void AddSellItem(SellObject sellObject)
 		{
-			sellObject.transform.parent = _packagePoint;
-			sellObject.transform.localPosition = Vector3.zero;
-			sellObject.transform.localRotation = Quaternion.identity;
 			_totalMoney += sellObject.Money;
 		}
 

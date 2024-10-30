@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace EverythingStore.Animation
 {
-    public class ActorAnimation : MonoBehaviour
-    {
-		[SerializeField]private Animator _animator;
+	public class ActorAnimation : MonoBehaviour
+	{
+		[SerializeField] private Animator _animator;
 
 		private IAnimationEventMovement _movementEvent;
 		private IAnimationEventPickupAndDrop _pickupAndDrop;
@@ -17,21 +15,9 @@ namespace EverythingStore.Animation
 			_movementEvent = GetComponent<IAnimationEventMovement>();
 			_pickupAndDrop = GetComponent<IAnimationEventPickupAndDrop>();
 
-			if (_animator == null)
-			{
-				Debug.LogError($"{gameObject.name} does not have Animator");
-			}
-
-			if(_movementEvent != null)
-			{
-				_movementEvent.OnAnimationMovement += Movement;
-			}
-
-			if(_pickupAndDrop != null)
-			{
-				_pickupAndDrop.OnAnimationPickup += Pickup;
-				_pickupAndDrop.OnAnimationDrop += Drop;
-			}
+			_movementEvent.OnAnimationMovement += Movement;
+			_pickupAndDrop.OnAnimationPickup += Pickup;
+			_pickupAndDrop.OnAnimationDrop += Drop;
 		}
 
 		private void Movement(float move)

@@ -128,7 +128,7 @@ namespace EverythingStore.InteractionObject
 					Open();
 					break;
 				case State.Open:
-					if(hand.CanPickUp() == true)
+					if(hand.CanPickup() == true)
 					{
 						var popObject = PopSellObject(hand);
 						hand.PickUp(popObject);

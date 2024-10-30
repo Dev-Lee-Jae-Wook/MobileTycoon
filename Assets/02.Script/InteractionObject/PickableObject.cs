@@ -4,6 +4,7 @@ namespace EverythingStore.InteractionObject
 { 
 	public abstract class PickableObject : MonoBehaviour
 	{
+		[field: SerializeField] public float Height { get; private set; }
 		public enum PickableObjectType
 		{
 			None,

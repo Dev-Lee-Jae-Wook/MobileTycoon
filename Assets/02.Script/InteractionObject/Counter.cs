@@ -1,7 +1,5 @@
 using EverythingStore.Actor;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using static EverythingStore.InteractionObject.PickableObject;
 
@@ -14,6 +12,7 @@ namespace EverythingStore.InteractionObject
 		[SerializeField] private Transform _spawnPoint;
 		private SellPackage _sellpackage;
 		private PickupAndDrop _customer;
+		private int _money;
 		#endregion
 
 		#region Property
@@ -38,41 +37,46 @@ namespace EverythingStore.InteractionObject
 		#region Public Method
 		public void InteractionCustomer(PickupAndDrop hand)
 		{
-			//손에 구매 상품이 없다면
-			if(hand.IsPickUpObject() == false)
+			if (hand.CanPopup() == false)
 			{
 				return;
 			}
 
-			if(hand.PeekObject().type != PickableObjectType.SellObject)
+			if (hand.PeekObject().type != PickableObjectType.SellObject)
 			{
 				return;
 			}
 
 			_customer = hand;
-			_sellpackage.AddSellItem(hand.Pop().GetComponent<SellObject>());
-			
+			var sellObject = hand.Pop(_sellpackage.PackagePoint, Vector3.zero).GetComponent<SellObject>();
+			_sellpackage.AddSellItem(sellObject);
+
 		}
 
 		public void InteractionPlayer(PickupAndDrop hand)
 		{
-			if(_sellpackage == null && _sellpackage.IsPackage == false)
+			if (_sellpackage == null || _customer == null)
 			{
 				return;
 			}
 
-			if(_customer.pickUpObjectCount > 0)
+			if (_sellpackage.IsPackage == false)
 			{
-				return;
+				_money = _sellpackage.Package();
+			}
+			else if (_customer.CanPickup() == true)
+			{
+				SendPackageToCustomer();
+				CreateMoney(_money);
+				_money = 0;
+				ExitToCustomer();
 			}
 
-			int money = _sellpackage.Package();
-			SendPackageToCustomer();
-			CreateMoney(money);
 		}
 		#endregion
 
 		#region Private Method
+
 		/// <summary>
 		/// 손님에게 포장지를 건네줍니다.
 		/// </summary>
@@ -95,6 +99,7 @@ namespace EverythingStore.InteractionObject
 		private void ExitToCustomer()
 		{
 			Debug.Log("손님 나가라고 요청");
+			_customer = null;
 		}
 
 		/// <summary>

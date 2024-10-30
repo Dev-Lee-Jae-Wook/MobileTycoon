@@ -36,7 +36,8 @@ namespace EverythingStore.Util
 
 			foreach (Vector3 p in points)
 			{
-				Gizmos.DrawCube(p, Vector3.one * 0.1f);
+				Vector3 worldPos = _pivot.position + p;
+				Gizmos.DrawCube(worldPos, Vector3.one * 0.1f);
 			}
 		}
 
@@ -51,7 +52,7 @@ namespace EverythingStore.Util
 				points = new List<Vector3>();
 			}
 
-			Vector3 point = _pivot.position;
+			Vector3 point = Vector3.zero;
 			int capacity = _salesStand.Capacity;
 
 			while (capacity > 0)
@@ -62,7 +63,7 @@ namespace EverythingStore.Util
 					capacity--;
 					point.x += _nextX;
 				}
-				point.x = _pivot.position.x;
+				point.x = 0.0f;
 				point.z += _nextZ;
 			}
 
