@@ -68,7 +68,7 @@ namespace EverythingStore.InteractionObject
 		/// <summary>
 		/// 상자에서 아이템 꺼냅니다.
 		/// </summary>
-		private SellObject PopSellObject(Hand hand)
+		private SellObject PopSellObject(PickupAndDrop hand)
 		{
 			var sellObject = _items.Pop();
 
@@ -120,7 +120,7 @@ namespace EverythingStore.InteractionObject
 			_boxVisuals[(int)_state].SetActive(true);
 		}
 
-		void IPlayerInteraction.InteractionPlayer(Hand hand)
+		void IPlayerInteraction.InteractionPlayer(PickupAndDrop hand)
 		{
 			switch (_state)
 			{

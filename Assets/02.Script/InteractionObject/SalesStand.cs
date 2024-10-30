@@ -32,7 +32,7 @@ namespace EverythingStore.InteractionObject
 		#region Method
 
 		#region Public
-		public void InteractionPlayer(Hand hand)
+		public void InteractionPlayer(PickupAndDrop hand)
 		{
 			if (hand.IsPickUpObject() == false)
 			{
@@ -51,7 +51,7 @@ namespace EverythingStore.InteractionObject
 			}
 		}
 
-		public void InteractionCustomer(Hand hand)
+		public void InteractionCustomer(PickupAndDrop hand)
 		{
 			if (hand.IsPickUpObject() == true)
 			{

@@ -13,7 +13,7 @@ namespace EverythingStore.InteractionObject
 		[SerializeField] private SellPackage _prefab;
 		[SerializeField] private Transform _spawnPoint;
 		private SellPackage _sellpackage;
-		private Hand _customer;
+		private PickupAndDrop _customer;
 		#endregion
 
 		#region Property
@@ -36,7 +36,7 @@ namespace EverythingStore.InteractionObject
 		#endregion
 
 		#region Public Method
-		public void InteractionCustomer(Hand hand)
+		public void InteractionCustomer(PickupAndDrop hand)
 		{
 			//손에 구매 상품이 없다면
 			if(hand.IsPickUpObject() == false)
@@ -54,7 +54,7 @@ namespace EverythingStore.InteractionObject
 			
 		}
 
-		public void InteractionPlayer(Hand hand)
+		public void InteractionPlayer(PickupAndDrop hand)
 		{
 			if(_sellpackage == null && _sellpackage.IsPackage == false)
 			{

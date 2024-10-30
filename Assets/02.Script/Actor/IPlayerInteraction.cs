@@ -2,6 +2,6 @@
 {
 	internal interface IPlayerInteraction
 	{
-		void InteractionPlayer(Hand hand);
+		void InteractionPlayer(PickupAndDrop hand);
 	}
 }

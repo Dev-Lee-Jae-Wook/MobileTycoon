@@ -2,6 +2,6 @@
 {
 	internal interface ICustomerInteraction
 	{
-		void InteractionCustomer(Hand hand);
+		void InteractionCustomer(PickupAndDrop hand);
 	}
 }

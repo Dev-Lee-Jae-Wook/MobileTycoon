@@ -18,7 +18,7 @@ namespace EverythingStore.Actor
 		#region Field
 		[SerializeField] private LayerMask _interactionLayerMask;
 		[SerializeField] private Vector3 _sensorPivot;
-		[SerializeField] private Hand _hand;
+		[SerializeField] private PickupAndDrop _hand;
 		#endregion
 
 		#region UnityCycle
