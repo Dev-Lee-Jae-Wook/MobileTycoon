@@ -1,4 +1,6 @@
 using EverythingStore.Actor;
+using EverythingStore.Actor.Customer;
+using EverythingStore.Actor.Player;
 using System;
 using UnityEngine;
 using static EverythingStore.InteractionObject.PickableObject;

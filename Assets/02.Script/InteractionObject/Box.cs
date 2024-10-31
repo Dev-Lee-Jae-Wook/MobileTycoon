@@ -1,8 +1,8 @@
 using EverythingStore.Actor;
+using EverythingStore.Actor.Player;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 namespace EverythingStore.InteractionObject
 {

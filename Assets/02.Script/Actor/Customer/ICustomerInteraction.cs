@@ -1,4 +1,4 @@
-﻿namespace EverythingStore.Actor
+﻿namespace EverythingStore.Actor.Customer
 {
 	internal interface ICustomerInteraction
 	{

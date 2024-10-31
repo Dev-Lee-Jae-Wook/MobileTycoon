@@ -1,10 +1,8 @@
 using EverythingStore.Animation;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace EverythingStore.Actor
+namespace EverythingStore.Actor.Player
 {
     public class PlayerCharacterMovement : MonoBehaviour, IAnimationEventMovement
     {

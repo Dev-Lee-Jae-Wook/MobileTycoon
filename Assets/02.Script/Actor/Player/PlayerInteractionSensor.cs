@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+using EverythingStore.Actor.Customer;
 using UnityEngine;
 
-namespace EverythingStore.Actor
+namespace EverythingStore.Actor.Player
 {
     public class PlayerInteractionSensor : MonoBehaviour
     {

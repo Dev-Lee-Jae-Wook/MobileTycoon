@@ -1,4 +1,4 @@
-﻿namespace EverythingStore.Actor
+﻿namespace EverythingStore.Actor.Player
 {
 	internal interface IPlayerInteraction
 	{

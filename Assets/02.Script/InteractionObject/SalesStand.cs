@@ -1,4 +1,6 @@
 using EverythingStore.Actor;
+using EverythingStore.Actor.Customer;
+using EverythingStore.Actor.Player;
 using System.Collections.Generic;
 using UnityEngine;
 
