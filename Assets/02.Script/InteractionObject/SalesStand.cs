@@ -37,7 +37,7 @@ namespace EverythingStore.InteractionObject
 		#region Public
 		public void InteractionPlayer(PickupAndDrop hand)
 		{
-			if (hand.IsPickUpObject() == false || hand.CanPopup() == false)
+			if (hand.HasPickupObject() == false || hand.CanPopup() == false)
 			{
 				return;
 			}
@@ -51,11 +51,11 @@ namespace EverythingStore.InteractionObject
 			if (hand.PeekObject().type == PickableObject.PickableObjectType.SellObject)
 			{
 				var sellObject = hand.PeekObject().GetComponent<SellObject>();
-				hand.Pop(_pivot, GetCurrentSloatPosition(), () =>
+				hand.ProductionDrop(_pivot, GetCurrentSloatPosition(), () =>
 				{
 					sellObject.transform.localRotation = Quaternion.Euler(0.0f, 180f, 0.0f);
+					PushSellObject(sellObject);
 				});
-				PushSellObject(sellObject);
 			}
 		}
 
@@ -71,15 +71,13 @@ namespace EverythingStore.InteractionObject
 				return;
 			}
 
-			hand.PickUp(PopSellObject());
+			hand.ProductionPickup(PopSellObject());
 		}
-		#endregion
-
-		#region Private
+		
 		/// <summary>
 		/// 판매대의 Top에 위치한 아이템을 반환합니다.
 		/// </summary>
-		private SellObject PopSellObject()
+		public SellObject PopSellObject()
 		{
 			return _salesObjectStack.Pop();
 		}
@@ -88,10 +86,13 @@ namespace EverythingStore.InteractionObject
 		/// 판매대에서 아이템을 추가 합니다.
 		/// </summary>
 		/// <param name="sellObject"></param>
-		private void PushSellObject(SellObject sellObject)
+		public void PushSellObject(SellObject sellObject)
 		{
 			_salesObjectStack.Push(sellObject);
 		}
+		#endregion
+
+		#region Private
 
 
 		private Vector3 GetCurrentSloatPosition()

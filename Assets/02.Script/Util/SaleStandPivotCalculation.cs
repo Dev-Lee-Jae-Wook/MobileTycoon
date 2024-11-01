@@ -14,7 +14,7 @@ namespace EverythingStore.Util
 		[SerializeField] private SalesStand _salesStand;
 		[SerializeField] private SaleStandPivotData _pivotData;
 
-		private List<Vector3> points;
+		private List<Vector3> points = new();
 
 		//인스텍터의 값이 변경이되면 호출됩니다.
 		private void OnValidate()

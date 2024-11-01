@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace EverythingStore.Actor.Player
 {
+	[RequireComponent(typeof(CharacterController))]
     public class PlayerCharacterMovement : MonoBehaviour, IAnimationEventMovement
     {
 		#region Field

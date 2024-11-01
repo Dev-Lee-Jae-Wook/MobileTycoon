@@ -85,43 +85,61 @@ namespace EverythingStore.Actor
 		}
 
 		/// <summary>
+		/// 연출 없이 아이템을 픽업합니다.
+		/// </summary>
+		public void Pickup(PickableObject pickableObject)
+		{
+			_pickObjectStack.Push(pickableObject);
+			_nextHeight += pickableObject.Height;
+		}
+
+		/// <summary>
+		/// 연출 없이 아이템을 드랍합니다.
+		/// </summary>
+		/// <returns></returns>
+		public PickableObject Drop()
+		{
+			PickableObject popObject = _pickObjectStack.Pop();
+			_nextHeight = Mathf.Clamp(_nextHeight - popObject.Height, 0.0f, float.MaxValue);
+			return popObject;
+		}
+
+		/// <summary>
 		/// 픽업 연출 이후 최종적으로 픽업이 진행됩니다.
 		/// </summary>
-		public void PickUp(PickableObject pickableObject)
+		public void ProductionPickup(PickableObject pickableObject)
 		{
 			_bezierCurve.Movement(pickableObject.transform, _pickupPoint, _pickupPoint.position.y + 1.0f, GetPickupLocalPosition(),
-				()=> {
+				() =>
+				{
 					OnAnimationPickup?.Invoke();
 				});
-
-			_nextHeight += pickableObject.Height;
-			_pickObjectStack.Push(pickableObject);
+			Pickup(pickableObject);
 			StartCoolTime();
 		}
 
-
 		/// <summary>
-		/// 가장 위에 있는 아이템을 드랍한다.
+		/// 가장 위에 있는 아이템을 포물선 움직임 연출을 하면서 드랍합니다.
 		/// </summary>
-		public PickableObject Pop(Transform endTarget, Vector3 localPos,Action callback = null)
+		public PickableObject ProductionDrop(Transform endTarget, Vector3 localPos,Action callback = null)
 		{
-			PickableObject popObject = _pickObjectStack.Pop();
-
-			_bezierCurve.Movement(popObject.transform, endTarget, endTarget.position.y + 1.0f, localPos,
-				callback);
+			PickableObject popObject = Drop();
 
 			if (pickUpObjectCount == 0)
 			{
 				OnAnimationDrop?.Invoke();
 			}
-
-			_nextHeight = Mathf.Clamp(_nextHeight - popObject.Height, 0.0f, float.MaxValue);
+			_bezierCurve.Movement(popObject.transform, endTarget, endTarget.position.y + 1.0f, localPos,
+				callback);
 			StartCoolTime();
 
 			return popObject;
 		}
 
-		public bool IsPickUpObject()
+		/// <summary>
+		///  아이템을 한개라도 가지고 있는가?
+		/// </summary>
+		public bool HasPickupObject()
 		{
 			return _pickObjectStack.Count > 0;
 		}

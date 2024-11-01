@@ -6,7 +6,6 @@ namespace EverythingStore.InteractionObject
 	{
 		#region Field
 		[SerializeField] private Transform _packagePoint;
-		private int _totalMoney;
 
 		[SerializeField] private GameObject _openPackage;
 		[SerializeField] private GameObject _clasePackage;
@@ -26,26 +25,15 @@ namespace EverythingStore.InteractionObject
 		#endregion
 
 		#region Public Method
-		/// <summary>
-		/// 포장지에 구매 아이템을 추가합니다.
-		/// </summary>
-		public void AddSellItem(SellObject sellObject)
-		{
-			_totalMoney += sellObject.Money;
-		}
 
 		/// <summary>
 		/// 포장을 하고 구매 비용을 반환합니다.
 		/// </summary>
-		public int Package()
+		public void Package()
 		{
-			Debug.Log($"포장을 완료합니다. 총 가격: {_totalMoney}");
-
 			_openPackage.SetActive(false);
 			_clasePackage.SetActive(true);
 			IsPackage = true;
-
-			return _totalMoney;
 		}
 		#endregion
 

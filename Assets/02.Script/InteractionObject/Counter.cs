@@ -18,6 +18,10 @@ namespace EverythingStore.InteractionObject
 		#endregion
 
 		#region Property
+		/// <summary>
+		/// 구매 상품의 총합
+		/// </summary>
+		public int Money => _money;
 		#endregion
 
 		#region Event
@@ -50,9 +54,8 @@ namespace EverythingStore.InteractionObject
 			}
 
 			_customer = hand;
-			var sellObject = hand.Pop(_sellpackage.PackagePoint, Vector3.zero).GetComponent<SellObject>();
-			_sellpackage.AddSellItem(sellObject);
-
+			var sellObject = hand.ProductionDrop(_sellpackage.PackagePoint, Vector3.zero).GetComponent<SellObject>();
+			_money += sellObject.Money;
 		}
 
 		public void InteractionPlayer(PickupAndDrop hand)
@@ -64,7 +67,7 @@ namespace EverythingStore.InteractionObject
 
 			if (_sellpackage.IsPackage == false)
 			{
-				_money = _sellpackage.Package();
+				_sellpackage.Package();
 			}
 			else if (_customer.CanPickup() == true)
 			{
@@ -75,17 +78,26 @@ namespace EverythingStore.InteractionObject
 			}
 
 		}
-		#endregion
 
-		#region Private Method
+		/// <summary>
+		/// Test용 코드
+		/// </summary>
+		public void Package()
+		{
+			_sellpackage.Package();
+		}
 
 		/// <summary>
 		/// 손님에게 포장지를 건네줍니다.
 		/// </summary>
-		private void SendPackageToCustomer()
+		public void SendPackageToCustomer()
 		{
-			_customer.PickUp(_sellpackage);
+			_customer.ProductionPickup(_sellpackage);
 		}
+		#endregion
+
+		#region Private Method
+
 
 		/// <summary>
 		/// 돈을 생성합니다.
@@ -98,7 +110,7 @@ namespace EverythingStore.InteractionObject
 		/// <summary>
 		/// 손님에게 나가라고 요청합니다.
 		/// </summary>
-		private void ExitToCustomer()
+		public void ExitToCustomer()
 		{
 			Debug.Log("손님 나가라고 요청");
 			_customer = null;

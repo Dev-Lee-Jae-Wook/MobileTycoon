@@ -131,7 +131,7 @@ namespace EverythingStore.InteractionObject
 					if(hand.CanPickup() == true)
 					{
 						var popObject = PopSellObject(hand);
-						hand.PickUp(popObject);
+						hand.ProductionPickup(popObject);
 					}
 					break;
 				case State.Emtpy:
