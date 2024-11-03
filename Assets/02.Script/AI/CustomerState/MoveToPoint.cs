@@ -1,9 +1,9 @@
 using EverythingStore.Actor.Customer;
 using UnityEngine;
 
-namespace EverythingStore.AI
+namespace EverythingStore.AI.CustomerState
 {
-	public  class CustomerState_MoveToPoint : CustomerStateBase, IFSMState
+	public  class MoveToPoint : CustomerStateBase, IFSMState
 	{
 		#region Field
 		private CustomerMove _move;
@@ -19,7 +19,7 @@ namespace EverythingStore.AI
 		#endregion
 
 		#region Public Method
-		public CustomerState_MoveToPoint(Customer owner, Vector3 arrivePoint, FSMStateType type, FSMStateType arriveState, Transform lookAtTarget = null) : base(owner)
+		public MoveToPoint(Customer owner, Vector3 arrivePoint, FSMStateType type, FSMStateType arriveState, Transform lookAtTarget = null) : base(owner)
 		{
 			_type = type;
 			_move = owner.Move;

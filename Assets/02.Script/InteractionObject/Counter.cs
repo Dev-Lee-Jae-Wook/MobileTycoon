@@ -12,6 +12,7 @@ namespace EverythingStore.InteractionObject
 		#region Field
 		[SerializeField] private SellPackage _prefab;
 		[SerializeField] private Transform _spawnPoint;
+		[SerializeField] private WatingLine _watingLine;
 		private SellPackage _sellpackage;
 		private PickupAndDrop _customer;
 		private int _money;
@@ -22,6 +23,8 @@ namespace EverythingStore.InteractionObject
 		/// 구매 상품의 총합
 		/// </summary>
 		public int Money => _money;
+
+		public bool IsWaitingLineEmpty => _watingLine.WaitingCustomerCount == 0;
 		#endregion
 
 		#region Event
@@ -41,6 +44,7 @@ namespace EverythingStore.InteractionObject
 		#endregion
 
 		#region Public Method
+		//손님 카운터 앞에 선 상황
 		public void InteractionCustomer(PickupAndDrop hand)
 		{
 			if (hand.CanPopup() == false)
@@ -52,7 +56,7 @@ namespace EverythingStore.InteractionObject
 			{
 				return;
 			}
-
+			//손님이 상품을 놓도록한다.
 			_customer = hand;
 			var sellObject = hand.ProductionDrop(_sellpackage.PackagePoint, Vector3.zero).GetComponent<SellObject>();
 			_money += sellObject.Money;
@@ -69,6 +73,7 @@ namespace EverythingStore.InteractionObject
 			{
 				_sellpackage.Package();
 			}
+			//손님 손에 아무것도 없는 경우
 			else if (_customer.CanPickup() == true)
 			{
 				SendPackageToCustomer();
@@ -94,10 +99,19 @@ namespace EverythingStore.InteractionObject
 		{
 			_customer.ProductionPickup(_sellpackage);
 		}
+
+		public bool IsEmpty()
+		{
+			return _customer == null;
+		}
+
+		public void EnterWaitingLine(Customer customer)
+		{
+			_watingLine.EnqueueCustomer(customer);
+		}
 		#endregion
 
 		#region Private Method
-
 
 		/// <summary>
 		/// 돈을 생성합니다.
@@ -114,6 +128,13 @@ namespace EverythingStore.InteractionObject
 		{
 			Debug.Log("손님 나가라고 요청");
 			_customer = null;
+			SpawnPackage();
+
+			//여기 작업해야됨
+			if (_watingLine.WaitingCustomerCount > 0)
+			{
+				_watingLine.DequeueCustomer().OnTriggerGoToCounter();
+			}
 		}
 
 		/// <summary>

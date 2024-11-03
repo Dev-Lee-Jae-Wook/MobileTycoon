@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EverythingStore.AI
+namespace EverythingStore.AI.CustomerState
 {
 	public abstract class CustomerStateBase
 	{

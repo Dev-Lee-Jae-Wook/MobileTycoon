@@ -1,6 +1,7 @@
 using EverythingStore.Actor;
 using EverythingStore.Actor.Customer;
 using EverythingStore.AI;
+using EverythingStore.AI.CustomerState;
 using EverythingStore.InteractionObject;
 using EverythingStore.Util;
 using NUnit.Framework;
@@ -33,9 +34,9 @@ public class CustomerTest
 		_sellObject2 = TestUtil.Instantiate<SellObject>("TestSellObjectPenguin");
 		_counter = TestUtil.Instantiate<Counter>("TestCounter");
 
-		states.Add(new CustomerState_CounterCaculationWait(_customer));
-		states.Add(new CustomerState_CounterDropSellObject(_customer));
-		states.Add(new CustomerState_SaleStationWait(_customer));
+		states.Add(new CounterCaculationWait(_customer));
+		states.Add(new CounterDropSellObject(_customer));
+		states.Add(new SaleStationWait(_customer));
 	}
 
 	[TearDown]

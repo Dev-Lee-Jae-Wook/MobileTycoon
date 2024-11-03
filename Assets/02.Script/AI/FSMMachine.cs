@@ -15,7 +15,7 @@ namespace EverythingStore.AI
 		#endregion
 
 		#region Property
-		public bool IsRunning { get; private set; } = false;
+		public bool IsRunning { get;  set; } = false;
 		public FSMStateType CurrentStateType => _currentState.Type;
 		#endregion
 

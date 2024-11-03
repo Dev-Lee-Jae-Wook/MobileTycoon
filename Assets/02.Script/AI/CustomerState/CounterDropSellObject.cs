@@ -2,9 +2,9 @@ using EverythingStore.Actor;
 using EverythingStore.Actor.Customer;
 using EverythingStore.Sensor;
 
-namespace EverythingStore.AI
+namespace EverythingStore.AI.CustomerState
 {
-	public  class CustomerState_CounterDropSellObject : CustomerStateBase, IFSMState
+	public  class CounterDropSellObject : CustomerStateBase, IFSMState
 	{
 		#region Field
 		private PickupAndDrop _pickupAndDrop;
@@ -16,7 +16,7 @@ namespace EverythingStore.AI
 		#endregion
 
 		#region Public Method
-		public CustomerState_CounterDropSellObject(Customer owner) : base(owner)
+		public CounterDropSellObject(Customer owner) : base(owner)
 		{
 			_pickupAndDrop = owner.pickupAndDrop;
 			_interactionSensor = owner.Sensor;

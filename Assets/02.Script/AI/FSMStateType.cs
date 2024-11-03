@@ -12,6 +12,8 @@ namespace EverythingStore.AI
 		Customer_MoveToCounter,
 		Customer_CounterDropSellObject,
 		Customer_CounterCaculationWait,
-		Customer_Exit,
+		Customer_GoToOutSide,
+		Customer_TriggerWait,
+		Customer_GoToCounter,
 	}
 }

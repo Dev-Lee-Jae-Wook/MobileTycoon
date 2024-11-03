@@ -2,9 +2,9 @@ using EverythingStore.Actor;
 using EverythingStore.Actor.Customer;
 using UnityEngine;
 
-namespace EverythingStore.AI
+namespace EverythingStore.AI.CustomerState
 {
-	public  class CustomerState_Exit : CustomerStateBase, IFSMState
+	public  class GoToOutSide : CustomerStateBase, IFSMState
 	{
 		#region Filde
 		private CustomerMove _move;
@@ -12,11 +12,11 @@ namespace EverythingStore.AI
 		#endregion
 
 		#region Property
-		public FSMStateType Type => FSMStateType.Customer_Exit;
+		public FSMStateType Type => FSMStateType.Customer_GoToOutSide;
 		#endregion
 
 		#region Public Method
-		public CustomerState_Exit(Customer owner, Vector3 exitPoint) : base(owner)
+		public GoToOutSide(Customer owner, Vector3 exitPoint) : base(owner)
 		{
 			_move = owner.Move;
 			_exitPoint = exitPoint;

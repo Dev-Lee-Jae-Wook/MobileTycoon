@@ -1,39 +1,38 @@
 using EverythingStore.Actor;
 using EverythingStore.Actor.Customer;
-using EverythingStore.Sensor;
 
-namespace EverythingStore.AI
+namespace EverythingStore.AI.CustomerState
 {
-	public  class CustomerState_SaleStationWait : CustomerStateBase, IFSMState
+	public  class CounterCaculationWait : CustomerStateBase, IFSMState
 	{
 		#region Field
 		private PickupAndDrop _pickupAndDrop;
-		private CustomerInteractionSensor _interactionSensor;
 		#endregion
 
 		#region Property
-		public FSMStateType Type => FSMStateType.Customer_SaleStationWait;
+		public FSMStateType Type => FSMStateType.Customer_CounterCaculationWait;
 		#endregion
 
 		#region Public Method
-		public CustomerState_SaleStationWait(Customer owner) : base(owner)
+		public CounterCaculationWait(Customer owner) : base(owner)
 		{
 			_pickupAndDrop = owner.pickupAndDrop;
-			_interactionSensor = owner.Sensor;
 		}
 
 		public void Enter()
 		{
+			
 		}
 
 		public FSMStateType Excute()
 		{
 			FSMStateType next = Type;
-			_interactionSensor.RayCastAndInteraction();
+
 			if(_pickupAndDrop.HasPickupObject() == true)
 			{
-				next = FSMStateType.Customer_MoveToCounter;
+				next = FSMStateType.Customer_GoToOutSide;
 			}
+
 			return next;
 		}
 

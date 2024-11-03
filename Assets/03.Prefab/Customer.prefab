@@ -1667,7 +1667,7 @@ GameObject:
   - component: {fileID: 5166652407693028712}
   - component: {fileID: 4116039512996670181}
   - component: {fileID: 8817996790114405166}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Customer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1763,7 +1763,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 100
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 240
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -1771,7 +1771,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!114 &5166652407693028712
 MonoBehaviour:
   m_ObjectHideFlags: 0
