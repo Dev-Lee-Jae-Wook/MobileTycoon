@@ -2,6 +2,7 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 namespace EverythingStore.InteractionObject
@@ -20,6 +21,7 @@ namespace EverythingStore.InteractionObject
         {
             PivotPoints.Clear();
             PivotPoints = pp.ToList();
-        }
+			EditorUtility.SetDirty(this);
+		}
     }
 }

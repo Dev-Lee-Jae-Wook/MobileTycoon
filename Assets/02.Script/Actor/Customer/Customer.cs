@@ -99,16 +99,14 @@ namespace EverythingStore.Actor.Customer
 			_stateList.Add(new MoveToPoint(this,
 				_salesStationPoint.position,
 				FSMStateType.Customer_MoveToSalesStation,
-				FSMStateType.Customer_SaleStationWait, 
-				_salesStation));
+				FSMStateType.Customer_SaleStationWait));
 			//판매대에서 물건 대기
 			_stateList.Add(new SaleStationWait(this));
 			//계산대에 입장
 			_stateList.Add(new MoveToPoint(this,
 				_counterPoint.position,
 				FSMStateType.Customer_MoveToCounter,
-				FSMStateType.Customer_CounterDropSellObject,
-				_counter.transform));
+				FSMStateType.Customer_CounterDropSellObject));
 			//계산대에 물건 내려놓기
 			_stateList.Add(new CounterDropSellObject(this));
 			//계산대에서 대기

@@ -32,6 +32,7 @@ namespace EverythingStore.AI.CustomerState
 			//카운터에 아무도 없는 경우
 			if(_counter.IsEmpty() == true)
 			{
+				_counter.SetCustomer(owner);
 				next = FSMStateType.Customer_MoveToCounter;
 			}
             else

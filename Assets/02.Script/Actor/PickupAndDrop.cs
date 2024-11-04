@@ -121,7 +121,7 @@ namespace EverythingStore.Actor
 		/// <summary>
 		/// 가장 위에 있는 아이템을 포물선 움직임 연출을 하면서 드랍합니다.
 		/// </summary>
-		public PickableObject ProductionDrop(Transform endTarget, Vector3 localPos,Action callback = null)
+		public PickableObject ParabolaDrop(Transform endTarget, Vector3 localPos,Action callback = null)
 		{
 			PickableObject popObject = Drop();
 

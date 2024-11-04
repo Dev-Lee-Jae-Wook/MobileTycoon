@@ -1,4 +1,5 @@
 using EverythingStore.InteractionObject;
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,20 +7,21 @@ namespace EverythingStore.Util
 {
 	public class SaleStandPivotCalculation : MonoBehaviour
 	{
-		[SerializeField] private Transform _pivot;
+		[SerializeField] private SalesStand _salesStand;
 		[SerializeField] private float _nextX;
 		[SerializeField] private float _nextZ;
 		[SerializeField] private int _lineNum;
 
-		[SerializeField] private SalesStand _salesStand;
-		[SerializeField] private SaleStandPivotData _pivotData;
-
 		private List<Vector3> points = new();
 
-		//인스텍터의 값이 변경이되면 호출됩니다.
 		private void OnValidate()
 		{
-			if (_salesStand == null || _pivotData == null || _pivot == null)
+			if(_salesStand == null || _salesStand.Pivot == null || _salesStand.PivotData == null)
+			{
+				return;
+			}
+
+			if(_lineNum <= 0)
 			{
 				return;
 			}
@@ -27,23 +29,9 @@ namespace EverythingStore.Util
 			CalculationPivotData();
 		}
 
-		private void OnDrawGizmos()
-		{
-			if (points == null)
-			{
-				return;
-			}
-
-			foreach (Vector3 p in points)
-			{
-				Vector3 worldPos = _pivot.position + p;
-				Gizmos.DrawCube(worldPos, Vector3.one * 0.1f);
-			}
-		}
-
 		private void CalculationPivotData()
 		{
-			if (_pivotData != null)
+			if (_salesStand.PivotData != null)
 			{
 				points.Clear();
 			}
@@ -67,8 +55,7 @@ namespace EverythingStore.Util
 				point.z += _nextZ;
 			}
 
-			_pivotData.SetPivotData(points);
+			_salesStand.PivotData.SetPivotData(points);
 		}
-
 	}
 }

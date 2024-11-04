@@ -11,7 +11,6 @@ namespace EverythingStore.AI.CustomerState
 		private FSMStateType _arriveState;
 		private FSMStateType _type;
 		private Vector3 _arrivePoint;
-		private Transform _lookAtTarget;
 		#endregion
 
 		#region Property
@@ -19,13 +18,12 @@ namespace EverythingStore.AI.CustomerState
 		#endregion
 
 		#region Public Method
-		public MoveToPoint(Customer owner, Vector3 arrivePoint, FSMStateType type, FSMStateType arriveState, Transform lookAtTarget = null) : base(owner)
+		public MoveToPoint(Customer owner, Vector3 arrivePoint, FSMStateType type, FSMStateType arriveState) : base(owner)
 		{
 			_type = type;
 			_move = owner.Move;
 			_arriveState = arriveState;
 			_arrivePoint = arrivePoint;
-			_lookAtTarget = lookAtTarget;
 		}
 
 		public void Enter()
@@ -46,10 +44,6 @@ namespace EverythingStore.AI.CustomerState
 
 		public void Exit()
 		{
-			if (_lookAtTarget != null)
-			{
-				owner.transform.LookAt(_lookAtTarget);
-			}
 		}
 		#endregion
 

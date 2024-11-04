@@ -130,9 +130,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0692c0fd3939b3b4181895c46f8d00c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pivot: {fileID: 4609373679961758228}
-  _pivotData: {fileID: 11400000, guid: 0785d8627c5e5d1499545e49edc3b7a9, type: 2}
   _capacity: 10
+  <Pivot>k__BackingField: {fileID: 4609373679961758228}
+  <PivotData>k__BackingField: {fileID: 11400000, guid: 0785d8627c5e5d1499545e49edc3b7a9,
+    type: 2}
 --- !u!65 &3958916411815542111
 BoxCollider:
   m_ObjectHideFlags: 0

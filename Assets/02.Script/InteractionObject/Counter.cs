@@ -51,14 +51,8 @@ namespace EverythingStore.InteractionObject
 			{
 				return;
 			}
-
-			if (hand.PeekObject().type != PickableObjectType.SellObject)
-			{
-				return;
-			}
-			//손님이 상품을 놓도록한다.
-			_customer = hand;
-			var sellObject = hand.ProductionDrop(_sellpackage.PackagePoint, Vector3.zero).GetComponent<SellObject>();
+			
+			var sellObject = hand.ParabolaDrop(_sellpackage.PackagePoint, Vector3.zero).GetComponent<SellObject>();
 			_money += sellObject.Money;
 		}
 
@@ -69,6 +63,12 @@ namespace EverythingStore.InteractionObject
 				return;
 			}
 
+			if(_customer.HasPickupObject() == true)
+			{
+				return;
+			}
+
+			//포장이 되어있지 않았다면 포장을 한다.
 			if (_sellpackage.IsPackage == false)
 			{
 				_sellpackage.Package();
@@ -130,10 +130,12 @@ namespace EverythingStore.InteractionObject
 			_customer = null;
 			SpawnPackage();
 
-			//여기 작업해야됨
+			//대기하고 있는 손님이 있는 경우
 			if (_watingLine.WaitingCustomerCount > 0)
 			{
-				_watingLine.DequeueCustomer().OnTriggerGoToCounter();
+				var nextCustomer = _watingLine.DequeueCustomer();
+				nextCustomer.OnTriggerGoToCounter();
+				SetCustomer(nextCustomer);
 			}
 		}
 
@@ -143,6 +145,14 @@ namespace EverythingStore.InteractionObject
 		private void SpawnPackage()
 		{
 			_sellpackage = Instantiate(_prefab, _spawnPoint);
+		}
+
+		/// <summary>
+		/// 손님을 설정한다.
+		/// </summary>
+		internal void SetCustomer(Customer customer)
+		{
+			_customer = customer.GetComponent<PickupAndDrop>();
 		}
 
 		#endregion

@@ -11,22 +11,31 @@ namespace EverythingStore.InteractionObject
 	{
 		#region Field
 		private Stack<SellObject> _salesObjectStack = new Stack<SellObject>();
-		[SerializeField] private Transform _pivot;
-		[SerializeField] private SaleStandPivotData _pivotData;
 		[SerializeField] private int _capacity;
+		#endregion
 
+		#region Property
+		[field:SerializeField] public Transform Pivot { get; private set; }
+		[field: SerializeField] public SaleStandPivotData PivotData { get; private set; }
 		public int Capacity => _capacity;
 		#endregion
+
+
 
 
 		#region UnityCycle
 		//디버그용 놓일 위치를 표시합니다.
 		private void OnDrawGizmos()
 		{
-			Gizmos.color = Color.cyan;
-			foreach (Vector3 p in _pivotData.PivotPoints)
+			if(PivotData == null)
 			{
-				Vector3 worldPos = _pivot.position + p;
+				return;
+			}
+
+			Gizmos.color = Color.cyan;
+			foreach (Vector3 p in PivotData.PivotPoints)
+			{
+				Vector3 worldPos = Pivot.position + p;
 				Gizmos.DrawCube(worldPos, Vector3.one * 0.1f);
 			}
 		}
@@ -51,7 +60,7 @@ namespace EverythingStore.InteractionObject
 			if (hand.PeekObject().type == PickableObject.PickableObjectType.SellObject)
 			{
 				var sellObject = hand.PeekObject().GetComponent<SellObject>();
-				hand.ProductionDrop(_pivot, GetCurrentSloatPosition(), () =>
+				hand.ParabolaDrop(Pivot, GetCurrentSloatPosition(), () =>
 				{
 					sellObject.transform.localRotation = Quaternion.Euler(0.0f, 180f, 0.0f);
 					PushSellObject(sellObject);
@@ -97,7 +106,7 @@ namespace EverythingStore.InteractionObject
 
 		private Vector3 GetCurrentSloatPosition()
 		{
-			return _pivotData.PivotPoints[_salesObjectStack.Count];
+			return PivotData.PivotPoints[_salesObjectStack.Count];
 		}
 
 		/// <summary>

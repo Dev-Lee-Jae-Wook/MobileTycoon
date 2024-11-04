@@ -41,13 +41,13 @@ namespace EverythingStore.Actor.Customer
 		/// <summary>
 		/// 목표 위치까지 이동하고 도착하면 CallBack함수를 호출합니다.
 		/// </summary>
-		public void MovePoint(Vector3 point, Action callBack = null)
+		public void MovePoint(Vector3 point,Action callBack = null)
 		{
 			if(_cMovePoint != null)
 			{
 				StopCoroutine(_cMovePoint);
 			}
-			_cMovePoint = C_MovePoint(point, callBack);
+			_cMovePoint = C_MovePoint(point,  callBack);
 			StartCoroutine(_cMovePoint);
 		}
 		#endregion
@@ -56,7 +56,7 @@ namespace EverythingStore.Actor.Customer
 		/// <summary>
 		/// 도착하면 CallBack을 호출하고 해당 코루틴을 담고 있는 변수를 초기화 합니다.
 		/// </summary>
-		private IEnumerator C_MovePoint(Vector3 point, Action callback)
+		private IEnumerator C_MovePoint(Vector3 point,Action callback)
 		{
 			_agent.SetDestination(point);
 			yield return null;
@@ -66,6 +66,10 @@ namespace EverythingStore.Actor.Customer
 				yield return null;
 			}
 			callback?.Invoke();
+
+			//방향 벡터에 따라 바라보는 각도
+			transform.LookAt(point);
+
 			_cMovePoint = null;
 		}
 		#endregion
