@@ -18,6 +18,7 @@ namespace EverythingStore.Actor
 		/// </summary>
 		[SerializeField] private int _capacity;
 		[SerializeField] private Transform _pickupPoint;
+		[SerializeField] private Transform _getPoint;
 		[SerializeField] private float _coolTime;
 		[ReadOnly][SerializeField] private float _currentCoolTime;
 
@@ -33,6 +34,8 @@ namespace EverythingStore.Actor
 		/// 현재 픽업한 아이템의 갯수
 		/// </summary>
 		public int pickUpObjectCount => _pickObjectStack.Count;
+
+		public Transform GetPoint => _getPoint;
 		#endregion
 
 		#region Event

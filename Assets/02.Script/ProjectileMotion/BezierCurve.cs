@@ -21,20 +21,20 @@ namespace EverythingStore.ProjectileMotion
 		#endregion
 
 		#region Public Method
-/// <summary>
-/// 포물선 운동을 요청합니다.
-/// </summary>
-/// <param name="target">포물선 운동의 대상</param>
-/// <param name="endTarget">목표 Transfrom</param>
-/// <param name="midHeight">중간 위치의 높이 world 기준</param>
-/// <param name="endPointHeight">endTarget의 자식이 되었을 때의 LocalPosition</param>
-/// <param name="callback">포물선 움직임을 끝났을 때 호출할 메소드</param>
-		public void Movement(Transform target, Transform endTarget,float midHeight, Vector3 endLocalPos, Action callback = null)
+		/// <summary>
+		/// 포물선 운동을 요청합니다.
+		/// </summary>
+		/// <param name="movementTarget">포물선 운동의 대상</param>
+		/// <param name="endTarget">목표 Transfrom</param>
+		/// <param name="midHeight">중간 위치의 높이 world 기준</param>
+		/// <param name="endLocalPos">endTarget의 자식이 되었을 때의 LocalPosition</param>
+		/// <param name="callback">포물선 움직임을 끝났을 때 호출할 메소드</param>
+		public void Movement(Transform movementTarget, Transform endTarget,float midHeight, Vector3 endLocalPos, Action callback = null)
 		{
-			Vector3 mid = Vector3.Lerp(target.position, endTarget.position, 0.5f);
+			Vector3 mid = Vector3.Lerp(movementTarget.position, endTarget.position, 0.5f);
 			mid.y = midHeight;
 
-			BezierCurveData newData = new(target, target.position, endTarget, mid, endLocalPos, callback);
+			BezierCurveData newData = new(movementTarget, movementTarget.position, endTarget, mid, endLocalPos, callback);
 			_dataQueue.Enqueue(newData);
 		}
 		#endregion

@@ -16,6 +16,7 @@ namespace EverythingStore.InteractionObject
 		[SerializeField] private Transform _spawnPoint;
 		[SerializeField] private Transform _enterPoint;
 		[SerializeField] private Transform _interactionPoint;
+		[SerializeField] private MoneySpawner _moneySpawner;
 
 		private SellPackage _sellpackage;
 		private Customer _useCustomer;
@@ -139,7 +140,7 @@ namespace EverythingStore.InteractionObject
 		/// </summary>
 		private void CreateMoney(int money)
 		{
-			Debug.Log($"돈이 추가됩니다. {money}");
+			_moneySpawner.AddMoney(money);
 		}
 
 		/// <summary>
