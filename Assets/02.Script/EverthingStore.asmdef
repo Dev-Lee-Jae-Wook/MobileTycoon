@@ -2,7 +2,8 @@
     "name": "EverthingStore",
     "rootNamespace": "",
     "references": [
-        "GUID:7f7d1af65c2641843945d409d28f2e20"
+        "GUID:7f7d1af65c2641843945d409d28f2e20",
+        "GUID:88c1d10a4defbdd4b9db2abe32d368e2"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

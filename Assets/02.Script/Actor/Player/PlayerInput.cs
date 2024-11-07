@@ -7,6 +7,7 @@ namespace EverythingStore.Actor.Player
     public class PlayerInput : MonoBehaviour
     {
 		#region Field
+		[SerializeField] private FixedJoystick _joyStick;
 		[SerializeField] private PlayerCharacterMovement _playerMovement;
 		#endregion
 
@@ -17,18 +18,15 @@ namespace EverythingStore.Actor.Player
 		#region UnityCycle
 		private void Update()
 		{
-			Vector2 dir;
-			dir.x = Input.GetAxisRaw("Horizontal");
-			dir.y = Input.GetAxisRaw("Vertical");
-			dir.Normalize();
+			Vector3 dir = _joyStick.Direction;
 
-			_playerMovement.MovementUpdate(dir);
+			Quaternion r = Quaternion.Euler(30.0f, 0f, 0f);
+
+			Vector3 newDir = Quaternion.Euler(0f, 0f, -30f) * dir;
+
+			_playerMovement.MovementUpdate(newDir);
 		}
 		#endregion
 
-		public void TestCode()
-		{
-
-		}
 	}
 }

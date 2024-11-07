@@ -25,10 +25,12 @@ namespace EverythingStore.Util
 			{
 				return;
 			}
-
+#if UNITY_EDITOR
 			CalculationPivotData();
+#endif
 		}
 
+#if UNITY_EDITOR
 		private void CalculationPivotData()
 		{
 			if (_salesStand.PivotData != null)
@@ -57,5 +59,6 @@ namespace EverythingStore.Util
 
 			_salesStand.PivotData.SetPivotData(points);
 		}
+#endif
 	}
 }

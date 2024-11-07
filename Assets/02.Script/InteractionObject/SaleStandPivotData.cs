@@ -12,7 +12,7 @@ namespace EverythingStore.InteractionObject
     {
 		[field:SerializeField] public List<Vector3> PivotPoints {  get; private set; }
 
-
+#if UNITY_EDITOR
         /// <summary>
         /// PivotPoints에 대한 정보를 설정합니다.
         /// </summary>
@@ -23,5 +23,6 @@ namespace EverythingStore.InteractionObject
             PivotPoints = pp.ToList();
 			EditorUtility.SetDirty(this);
 		}
+#endif
     }
 }

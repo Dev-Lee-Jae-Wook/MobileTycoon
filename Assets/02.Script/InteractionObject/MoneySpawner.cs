@@ -4,8 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.Port;
-using static UnityEngine.GraphicsBuffer;
 
 namespace EverythingStore.InteractionObject
 {
@@ -94,7 +92,8 @@ namespace EverythingStore.InteractionObject
 		private void InstanlateMoney()
 		{
 			var newMoney = Instantiate(_prefab);
-			newMoney.transform.position = SpawnPointData.SpawnPoints[_moneys.Count];
+			newMoney.transform.parent = SpawnPoint;
+			newMoney.transform.localPosition = SpawnPointData.SpawnPoints[_moneys.Count];
 			_moneys.Add(newMoney);
 		}
 

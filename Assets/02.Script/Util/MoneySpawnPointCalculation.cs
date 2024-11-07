@@ -24,7 +24,9 @@ namespace EverythingStore.Util
 				return;
 			}
 
+#if UNITY_EDITOR
 			CalculationMoneySpawnPoint();
+#endif
 		}
 
 		private void OnDrawGizmos()
@@ -35,17 +37,20 @@ namespace EverythingStore.Util
 			}
 
 			Gizmos.color = _debugColor;
+			Vector3 spawnPoint = _moneySpanwer.SpawnPoint.position;
 
-			foreach(var point in _moneySpanwer.SpawnPointData.SpawnPoints)
+			foreach (var point in _moneySpanwer.SpawnPointData.SpawnPoints)
 			{
-				Gizmos.DrawCube(point, _debugCubeSize * Vector3.one);
+				Vector3 worldPos = point + spawnPoint;
+				Gizmos.DrawCube(worldPos, _debugCubeSize * Vector3.one);
 			}
 		}
 
+#if UNITY_EDITOR
 		[Button]
 		private void CalculationMoneySpawnPoint()
 		{
-			Vector3 point = _moneySpanwer.SpawnPoint.position;
+			Vector3 point = Vector3.zero;
 			Vector3 origin = point;
 			Vector3Int spawnArea = _moneySpanwer.SpawnSize;
 
@@ -69,5 +74,6 @@ namespace EverythingStore.Util
 
 			_moneySpanwer.SpawnPointData.SaveSpawPointData(_moneySpanwer.Capacity, spawnPoints);
 		}
+#endif
 	}
 }
