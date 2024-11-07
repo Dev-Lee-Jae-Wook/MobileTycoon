@@ -67,9 +67,6 @@ namespace EverythingStore.Actor.Customer
 			}
 			callback?.Invoke();
 
-			//방향 벡터에 따라 바라보는 각도
-			transform.LookAt(point);
-
 			_cMovePoint = null;
 		}
 		#endregion

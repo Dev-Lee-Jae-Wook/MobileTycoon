@@ -34,9 +34,9 @@ public class CustomerTest
 		_sellObject2 = TestUtil.Instantiate<SellObject>("TestSellObjectPenguin");
 		_counter = TestUtil.Instantiate<Counter>("TestCounter");
 
-		states.Add(new CounterCaculationWait(_customer));
+		states.Add(new CounterWaitSendPackage(_customer));
 		states.Add(new CounterDropSellObject(_customer));
-		states.Add(new SaleStationWait(_customer));
+		states.Add(new SaleStationInteraction(_customer));
 	}
 
 	[TearDown]
@@ -55,13 +55,13 @@ public class CustomerTest
 
 		_customer.Setup(
 		states,
-		FSMStateType.Customer_SaleStationWait
+		FSMStateType.Customer_Interaction_SaleStation
 		);
 
 		//판매대에 없는 상태에서 아이템 픽업 하고자 할 때
 		_customer.Sensor.RayCastAndInteraction();
 		yield return null;
-		Assert.AreEqual(_customer.CurrentState, FSMStateType.Customer_SaleStationWait);
+		Assert.AreEqual(_customer.CurrentState, FSMStateType.Customer_Interaction_SaleStation);
 		yield return null;
 		
 		//판매대에 아이템 추가
@@ -69,7 +69,7 @@ public class CustomerTest
 		_customer.Sensor.RayCastAndInteraction();
 
 		yield return null;
-		Assert.AreEqual(_customer.CurrentState, FSMStateType.Customer_MoveToCounter);
+		Assert.AreEqual(_customer.CurrentState, FSMStateType.Customer_MoveTo_Counter);
 	}
 
 	[UnityTest]

@@ -1,27 +1,34 @@
 using EverythingStore.Actor;
 using EverythingStore.Actor.Customer;
 using EverythingStore.Actor.Player;
+using EverythingStore.AI;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 //가챠 확률 데이터는 좀 더 개량이 필요합니다.
 namespace EverythingStore.InteractionObject
 {
-	public class SalesStand : MonoBehaviour, IPlayerInteraction, ICustomerInteraction
+	public class SalesStand : MonoBehaviour, IPlayerInteraction, ICustomerInteraction, IInteractionPoint, IWaitingInteraction, IEnterPoint
 	{
 		#region Field
 		private Stack<SellObject> _salesObjectStack = new Stack<SellObject>();
 		[SerializeField] private int _capacity;
+		[SerializeField] private Transform _interactionPoint;
+		[SerializeField] private WaitingLine _waitingLine;
+		[SerializeField] private Transform _enterPoint;
+		private Customer _useCustomer;
 		#endregion
 
 		#region Property
 		[field:SerializeField] public Transform Pivot { get; private set; }
 		[field: SerializeField] public SaleStandPivotData PivotData { get; private set; }
 		public int Capacity => _capacity;
+
+		public Vector3 InteractionPoint => _interactionPoint.position;
+
+		public Vector3 EnterPoint => _enterPoint.position;
 		#endregion
-
-
-
 
 		#region UnityCycle
 		//디버그용 놓일 위치를 표시합니다.
@@ -41,9 +48,8 @@ namespace EverythingStore.InteractionObject
 		}
 		#endregion
 
-		#region Method
+		#region Public Method 
 
-		#region Public
 		public void InteractionPlayer(PickupAndDrop hand)
 		{
 			if (hand.HasPickupObject() == false || hand.CanPopup() == false)
@@ -70,6 +76,11 @@ namespace EverythingStore.InteractionObject
 
 		public void InteractionCustomer(PickupAndDrop hand)
 		{
+			if(_useCustomer.pickupAndDrop != hand)
+			{
+				return;
+			}
+
 			if (hand.CanPickup() == false)
 			{
 				return;
@@ -81,6 +92,7 @@ namespace EverythingStore.InteractionObject
 			}
 
 			hand.ProductionPickup(PopSellObject());
+			ExitCustomer();
 		}
 		
 		/// <summary>
@@ -99,11 +111,27 @@ namespace EverythingStore.InteractionObject
 		{
 			_salesObjectStack.Push(sellObject);
 		}
+
+		public bool IsWaitingEmpty()
+		{
+			return _useCustomer == null && _waitingLine.CustomerCount == 0;
+		}
+
+		public FSMStateType EnterInteraction(Customer customer)
+		{
+			_useCustomer = customer;
+			return FSMStateType.Customer_MoveTo_SalesStation;
+		}
+
+		public FSMStateType EnterWaitingLine(Customer customer)
+		{
+			_waitingLine.EnqueueCustomer(customer);
+			return FSMStateType.Stop;
+		}
+
 		#endregion
 
-		#region Private
-
-
+		#region Private Method
 		private Vector3 GetCurrentSloatPosition()
 		{
 			return PivotData.PivotPoints[_salesObjectStack.Count];
@@ -124,8 +152,22 @@ namespace EverythingStore.InteractionObject
 		{
 			return _salesObjectStack.Count > 0;
 		}
-		#endregion
 
+		internal Vector3 GetInteractionPoint()
+		{
+			return _interactionPoint.position;
+		}
+
+		private void ExitCustomer()
+		{
+			_useCustomer = null;
+
+			if (_waitingLine.CustomerCount > 0)
+			{
+				_useCustomer = _waitingLine.DequeueCustomer();
+				_useCustomer.MoveToSaleStation();
+			}
+		}
 		#endregion
 	}
 }

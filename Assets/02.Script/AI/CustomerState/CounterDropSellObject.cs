@@ -12,7 +12,7 @@ namespace EverythingStore.AI.CustomerState
 		#endregion
 
 		#region Property
-		public FSMStateType Type => FSMStateType.Customer_CounterDropSellObject;
+		public FSMStateType Type => FSMStateType.Customer_Counter_DropSellObject;
 		#endregion
 
 		#region Public Method
@@ -35,7 +35,7 @@ namespace EverythingStore.AI.CustomerState
 			
 			if(_pickupAndDrop.HasPickupObject() == false)
 			{
-				next = FSMStateType.Customer_CounterCaculationWait;
+				next = FSMStateType.Customer_Counter_WaitSendPackage;
 			}
 
 			return next;

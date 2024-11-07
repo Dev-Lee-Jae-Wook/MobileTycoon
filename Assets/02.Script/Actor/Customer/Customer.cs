@@ -19,7 +19,7 @@ namespace EverythingStore.Actor.Customer
 		private FSMMachine _machine;
 
 		[Title("MovePoint")]
-		[SerializeField] private Transform _salesStationPoint;
+		[SerializeField] private SalesStand _salesStand;
 		[SerializeField] private Transform _counterPoint;
 		[SerializeField] private Transform _exitPoint;
 		[Title("LookAtTarget")]
@@ -80,54 +80,67 @@ namespace EverythingStore.Actor.Customer
 		{
 			Move.MovePoint(point);
 		}
-
-		/// <summary>
-		/// Counter에 대기열에 있을 경우 대기열에 빠져나올 떄 해당 함수를 호출하시면 됩니다.
-		/// </summary>
-		public void OnTriggerGoToCounter()
+		public FSMMachine GetMachine()
 		{
-			_goToCounter.OnTrigger();
+			return _machine;
 		}
 
+		/// <summary>
+		/// 상태를 판매대 이동으로 변경합니다.
+		/// </summary>
+		public void MoveToSaleStation()
+		{
+			_machine.ChangeState(FSMStateType.Customer_MoveTo_SalesStation);
+		}
+
+		/// <summary>
+		/// 상태를 계산대 이동으로 변경합니다.
+		/// </summary>
+		public void MoveToCounter()
+		{
+			_machine.ChangeState(FSMStateType.Customer_MoveTo_Counter);
+		}
 		#endregion
 
 		#region Private Method
 		private void Init()
 		{
 			List<IFSMState> _stateList = new();
-			//입장 해서 판매대로
-			_stateList.Add(new MoveToPoint(this,
-				_salesStationPoint.position,
-				FSMStateType.Customer_MoveToSalesStation,
-				FSMStateType.Customer_SaleStationWait));
-			//판매대에서 물건 대기
-			_stateList.Add(new SaleStationWait(this));
-			//계산대에 입장
-			_stateList.Add(new MoveToPoint(this,
-				_counterPoint.position,
-				FSMStateType.Customer_MoveToCounter,
-				FSMStateType.Customer_CounterDropSellObject));
-			//계산대에 물건 내려놓기
-			_stateList.Add(new CounterDropSellObject(this));
-			//계산대에서 대기
-			_stateList.Add(new CounterCaculationWait(this));
-			//나가기
-			_stateList.Add(new GoToOutSide(this, _exitPoint.position));
+
+			//----머신 멈추기 상태----
+			_stateList.Add(new StopState(this));
+			//----판매대----
+			//판매대 입장 포인트로 이동
+			_stateList.Add(new MoveToPoint(this, _salesStand.EnterPoint, FSMStateType.Customer_MoveTo_EnterPoint_SalesStand, FSMStateType.Customer_EnterSalesStand));
+			//판매대에 접근
+			_stateList.Add(new EnterWaitingInteraction(this, FSMStateType.Customer_EnterSalesStand, _salesStand));
+			//판매대로 이동
+			_stateList.Add(new MoveToPoint(this, _salesStand.GetInteractionPoint(),FSMStateType.Customer_MoveTo_SalesStation, FSMStateType.Customer_Interaction_SaleStation));
+			//판매대와 상호작용
+			_stateList.Add(new SaleStationInteraction(this));
 			
-			//계산대 대기열 대기
-			TriggerWait counterWaitingLine = new(this, FSMStateType.Customer_MoveToCounter);
-			_stateList.Add(counterWaitingLine);
-			_goToCounter = counterWaitingLine;
-
-			//계산대 가기전에 확인
-			_stateList.Add(new CounterCaculationWait(this));
-
+			//----계산대----
+			//계산대 입장 포인트로 이동
+			_stateList.Add(new MoveToPoint(this, _counter.EnterPoint, FSMStateType.Customer_MoveTo_EnterPoint_Counter, FSMStateType.Customer_EnterCounter));
+			//계산대에 접근
+			_stateList.Add(new EnterWaitingInteraction(this, FSMStateType.Customer_EnterCounter, _counter));
 			//계산대로 이동
-			_stateList.Add(new GoToCounter(this));
+			_stateList.Add(new MoveToPoint(this, _counter.InteractionPoint, FSMStateType.Customer_MoveTo_Counter, FSMStateType.Customer_Counter_DropSellObject));
+			//계산대에 구매 상품 내려놓기
+			_stateList.Add(new CounterDropSellObject(this));
+			//포장된 상품을 받기 까지 대기
+			_stateList.Add(new CounterWaitSendPackage(this));
+			//나가기
+			_stateList.Add(new MoveToPoint(this, _exitPoint.position, FSMStateType.Customer_GoOutSide, FSMStateType.Stop));
 
 
-			Setup(_stateList, FSMStateType.Customer_MoveToSalesStation);
+			Setup(_stateList, FSMStateType.Customer_MoveTo_EnterPoint_SalesStand);
 		}
+
+
+
+
+
 
 
 		#endregion

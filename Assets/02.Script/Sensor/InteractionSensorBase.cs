@@ -27,7 +27,6 @@ namespace EverythingStore.Sensor
 		{
 			Vector3 origin = transform.position + _sensorPivot;
 			Vector3 dir = transform.forward;
-			float distance = 1.0f;
 
 			return Physics.Raycast(origin, dir, out hit, _distance, _interactionLayerMask);
 		}

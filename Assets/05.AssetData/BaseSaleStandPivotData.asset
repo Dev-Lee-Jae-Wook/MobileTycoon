@@ -14,12 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <PivotPoints>k__BackingField:
   - {x: 0, y: 0, z: 0}
-  - {x: 0.4, y: 0, z: 0}
   - {x: 0.8, y: 0, z: 0}
-  - {x: 1.2, y: 0, z: 0}
   - {x: 1.6, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0.4}
-  - {x: 0.4, y: 0, z: 0.4}
-  - {x: 0.8, y: 0, z: 0.4}
-  - {x: 1.2, y: 0, z: 0.4}
-  - {x: 1.6, y: 0, z: 0.4}
+  - {x: 0, y: 0, z: 0.45}
+  - {x: 0.8, y: 0, z: 0.45}
+  - {x: 1.6, y: 0, z: 0.45}

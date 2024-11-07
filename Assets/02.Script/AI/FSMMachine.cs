@@ -16,7 +16,7 @@ namespace EverythingStore.AI
 
 		#region Property
 		public bool IsRunning { get;  set; } = false;
-		public FSMStateType CurrentStateType => _currentState.Type;
+		[ReadOnly] public FSMStateType CurrentStateType;
 		#endregion
 
 		#region Event
@@ -71,19 +71,21 @@ namespace EverythingStore.AI
 		{
 			IsRunning = false;
 		}
-		#endregion
 
-		#region Private Method
-		
 		/// <summary>
 		/// 이전 상태를 종료 시키고 새로운 상태에 접근합니다.
 		/// </summary>
-		private void ChangeState(FSMStateType nextState)
+		public void ChangeState(FSMStateType nextState)
 		{
 			_currentState?.Exit();
 			_currentState = _stateTable[nextState];
 			_currentState.Enter();
+			CurrentStateType = _currentState.Type;
 		}
+		#endregion
+
+		#region Private Method
+		
 		#endregion
 	}
 }

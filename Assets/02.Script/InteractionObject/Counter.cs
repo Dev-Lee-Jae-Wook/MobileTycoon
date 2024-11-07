@@ -1,20 +1,24 @@
 using EverythingStore.Actor;
 using EverythingStore.Actor.Customer;
 using EverythingStore.Actor.Player;
+using EverythingStore.AI;
 using System;
 using UnityEngine;
 using static EverythingStore.InteractionObject.PickableObject;
 
 namespace EverythingStore.InteractionObject
 {
-	public class Counter : MonoBehaviour, IPlayerInteraction, ICustomerInteraction
+	public class Counter : MonoBehaviour, IPlayerInteraction, ICustomerInteraction, IWaitingInteraction, IEnterPoint, IInteractionPoint
 	{
 		#region Field
 		[SerializeField] private SellPackage _prefab;
+		[SerializeField] private WaitingLine _watingLine;
 		[SerializeField] private Transform _spawnPoint;
-		[SerializeField] private WatingLine _watingLine;
+		[SerializeField] private Transform _enterPoint;
+		[SerializeField] private Transform _interactionPoint;
+
 		private SellPackage _sellpackage;
-		private PickupAndDrop _customer;
+		private Customer _useCustomer;
 		private int _money;
 		#endregion
 
@@ -24,7 +28,11 @@ namespace EverythingStore.InteractionObject
 		/// </summary>
 		public int Money => _money;
 
-		public bool IsWaitingLineEmpty => _watingLine.WaitingCustomerCount == 0;
+		public bool IsWaitingLineEmpty => _watingLine.CustomerCount == 0;
+
+		public Vector3 EnterPoint => _enterPoint.position;
+
+		public Vector3 InteractionPoint => _interactionPoint.position;
 		#endregion
 
 		#region Event
@@ -58,12 +66,13 @@ namespace EverythingStore.InteractionObject
 
 		public void InteractionPlayer(PickupAndDrop hand)
 		{
-			if (_sellpackage == null || _customer == null)
+			if (_sellpackage == null || _useCustomer == null)
 			{
 				return;
 			}
 
-			if(_customer.HasPickupObject() == true)
+			//손님이 픽업한 오브젝트가 있는 경우
+			if(_useCustomer.pickupAndDrop.HasPickupObject() == true)
 			{
 				return;
 			}
@@ -74,7 +83,7 @@ namespace EverythingStore.InteractionObject
 				_sellpackage.Package();
 			}
 			//손님 손에 아무것도 없는 경우
-			else if (_customer.CanPickup() == true)
+			else
 			{
 				SendPackageToCustomer();
 				CreateMoney(_money);
@@ -97,17 +106,29 @@ namespace EverythingStore.InteractionObject
 		/// </summary>
 		public void SendPackageToCustomer()
 		{
-			_customer.ProductionPickup(_sellpackage);
+			_useCustomer.pickupAndDrop.ProductionPickup(_sellpackage);
 		}
 
 		public bool IsEmpty()
 		{
-			return _customer == null;
+			return _useCustomer == null;
+		}
+		
+		public bool IsWaitingEmpty()
+		{
+			return _useCustomer == null && _watingLine.CustomerCount == 0;
 		}
 
-		public void EnterWaitingLine(Customer customer)
+		public FSMStateType EnterInteraction(Customer customer)
+		{
+			_useCustomer = customer;
+			return FSMStateType.Customer_MoveTo_Counter;
+		}
+
+		public FSMStateType EnterWaitingLine(Customer customer)
 		{
 			_watingLine.EnqueueCustomer(customer);
+			return FSMStateType.Stop;
 		}
 		#endregion
 
@@ -124,18 +145,16 @@ namespace EverythingStore.InteractionObject
 		/// <summary>
 		/// 손님에게 나가라고 요청합니다.
 		/// </summary>
-		public void ExitToCustomer()
+		private void ExitToCustomer()
 		{
 			Debug.Log("손님 나가라고 요청");
-			_customer = null;
+			_useCustomer = null;
 			SpawnPackage();
 
-			//대기하고 있는 손님이 있는 경우
-			if (_watingLine.WaitingCustomerCount > 0)
+			if(_watingLine.CustomerCount > 0)
 			{
-				var nextCustomer = _watingLine.DequeueCustomer();
-				nextCustomer.OnTriggerGoToCounter();
-				SetCustomer(nextCustomer);
+			_useCustomer = _watingLine.DequeueCustomer();
+				_useCustomer.MoveToCounter();
 			}
 		}
 
@@ -147,13 +166,6 @@ namespace EverythingStore.InteractionObject
 			_sellpackage = Instantiate(_prefab, _spawnPoint);
 		}
 
-		/// <summary>
-		/// 손님을 설정한다.
-		/// </summary>
-		internal void SetCustomer(Customer customer)
-		{
-			_customer = customer.GetComponent<PickupAndDrop>();
-		}
 
 		#endregion
 	}

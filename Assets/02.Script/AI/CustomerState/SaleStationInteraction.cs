@@ -4,7 +4,7 @@ using EverythingStore.Sensor;
 
 namespace EverythingStore.AI.CustomerState
 {
-	public  class SaleStationWait : CustomerStateBase, IFSMState
+	public  class SaleStationInteraction : CustomerStateBase, IFSMState
 	{
 		#region Field
 		private PickupAndDrop _pickupAndDrop;
@@ -12,11 +12,11 @@ namespace EverythingStore.AI.CustomerState
 		#endregion
 
 		#region Property
-		public FSMStateType Type => FSMStateType.Customer_SaleStationWait;
+		public FSMStateType Type => FSMStateType.Customer_Interaction_SaleStation;
 		#endregion
 
 		#region Public Method
-		public SaleStationWait(Customer owner) : base(owner)
+		public SaleStationInteraction(Customer owner) : base(owner)
 		{
 			_pickupAndDrop = owner.pickupAndDrop;
 			_interactionSensor = owner.Sensor;
@@ -32,7 +32,7 @@ namespace EverythingStore.AI.CustomerState
 			_interactionSensor.RayCastAndInteraction();
 			if(_pickupAndDrop.HasPickupObject() == true)
 			{
-				next = FSMStateType.Customer_GoToCounter;
+				next = FSMStateType.Customer_MoveTo_EnterPoint_Counter;
 			}
 			return next;
 		}

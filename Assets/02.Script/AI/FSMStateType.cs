@@ -7,13 +7,18 @@ namespace EverythingStore.AI
 	public enum FSMStateType
 	{
 		None,
-		Customer_MoveToSalesStation,
-		Customer_SaleStationWait,
-		Customer_MoveToCounter,
-		Customer_CounterDropSellObject,
-		Customer_CounterCaculationWait,
-		Customer_GoToOutSide,
+		Customer_MoveTo_SalesStation,
+		Customer_Interaction_SaleStation,
+		Customer_MoveTo_Counter,
+		Customer_Counter_DropSellObject,
+		Customer_Counter_WaitSendPackage,
+		Customer_GoOutSide,
 		Customer_TriggerWait,
 		Customer_GoToCounter,
+		Customer_EnterSalesStand,
+		Stop,
+		Customer_MoveTo_EnterPoint_SalesStand,
+		Customer_MoveTo_EnterPoint_Counter,
+		Customer_EnterCounter,
 	}
 }
