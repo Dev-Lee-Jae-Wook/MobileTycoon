@@ -71,7 +71,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="S6JVJ0GuF54kaxucYCdO" name="Part 1 기획">
-    <mxGraphModel dx="671" dy="377" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="649" dy="365" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1386,11 +1386,44 @@
         <mxCell id="uHJ0kDEoexfASFIVlv53-8" value="Box" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;container=0;" parent="uHJ0kDEoexfASFIVlv53-7" vertex="1">
           <mxGeometry y="26" width="400" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="uHJ0kDEoexfASFIVlv53-14" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Box Spawn Task&lt;/h1&gt;&lt;p&gt;&lt;strike&gt;1. 박스 생성&lt;/strike&gt;&lt;/p&gt;&lt;p&gt;&lt;strike&gt;2. 박스 아이템 픽업 후 박스 사라지기&lt;/strike&gt;&lt;/p&gt;&lt;p&gt;3. 박스 사라지고 일정 시간 후 &quot;생성 가능&quot; 로그 출력&lt;/p&gt;&lt;p&gt;4. 아이템 픽업 후 쿨타임 후 박스 재생성&amp;nbsp;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
+        <mxCell id="uHJ0kDEoexfASFIVlv53-14" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Box Spawn Task&lt;/h1&gt;&lt;p&gt;&lt;strike&gt;1. 박스 생성&lt;/strike&gt;&lt;/p&gt;&lt;p&gt;&lt;strike&gt;2. 박스 아이템 픽업 후 박스 사라지기&lt;/strike&gt;&lt;/p&gt;&lt;p&gt;&lt;strike&gt;3. 박스 사라지고 일정 시간 후 &quot;생성 가능&quot; 로그 출력&lt;/strike&gt;&lt;/p&gt;&lt;p&gt;&lt;strike&gt;4. 아이템 픽업 후 쿨타임 후 박스 재생성&amp;nbsp;&lt;/strike&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="3220" y="4390" width="280" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="56QD2g7JSZLKVIeNdDYr-1" value="Text" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="56QD2g7JSZLKVIeNdDYr-1" value="ㄴㅇㄹ" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="3570" y="4650" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uHJ0kDEoexfASFIVlv53-16" value="CustomerSpawnwer" style="rounded=0;whiteSpace=wrap;html=1;container=0;" vertex="1" parent="1">
+          <mxGeometry x="2790" y="4660" width="400" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uHJ0kDEoexfASFIVlv53-17" value="Responsibility (책임)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;container=0;" vertex="1" parent="1">
+          <mxGeometry x="2790" y="4700" width="400" height="156" as="geometry" />
+        </mxCell>
+        <mxCell id="uHJ0kDEoexfASFIVlv53-18" value="손님을 소환할 수 있다." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;container=0;" vertex="1" parent="uHJ0kDEoexfASFIVlv53-17">
+          <mxGeometry y="26" width="400" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="uHJ0kDEoexfASFIVlv53-19" value="쿨타임을 가지고 있다." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;container=0;" vertex="1" parent="uHJ0kDEoexfASFIVlv53-17">
+          <mxGeometry y="52" width="400" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="uHJ0kDEoexfASFIVlv53-22" value="매장내에 손님의 수를 알고 있다." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;container=0;" vertex="1" parent="uHJ0kDEoexfASFIVlv53-17">
+          <mxGeometry y="78" width="400" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="uHJ0kDEoexfASFIVlv53-27" value="매장내에 최대 손님의 수를 알고 있다." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;container=0;" vertex="1" parent="uHJ0kDEoexfASFIVlv53-17">
+          <mxGeometry y="104" width="400" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="uHJ0kDEoexfASFIVlv53-28" value="손님이 퇴장하였을 때를 알 수 있다." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;container=0;" vertex="1" parent="uHJ0kDEoexfASFIVlv53-17">
+          <mxGeometry y="130" width="400" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="uHJ0kDEoexfASFIVlv53-20" value="Collaboration (협업)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;swimlaneLine=1;container=0;" vertex="1" parent="1">
+          <mxGeometry x="2790" y="4856" width="400" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="uHJ0kDEoexfASFIVlv53-21" value="Customer" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;container=0;" vertex="1" parent="uHJ0kDEoexfASFIVlv53-20">
+          <mxGeometry y="26" width="400" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="uHJ0kDEoexfASFIVlv53-29" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Box Spawn Task&lt;/h1&gt;&lt;p&gt;&lt;/p&gt;&lt;ol&gt;&lt;li&gt;손님 하나 소황&lt;/li&gt;&lt;li&gt;일정 간격으로 손님 소환&lt;/li&gt;&lt;li&gt;매장내에 한계 손님 수가 되면 소환하지 않는다.&lt;/li&gt;&lt;li&gt;손님이 퇴장하면 손님 수 카운트 내려가기&lt;/li&gt;&lt;li&gt;한계치가 아니면 2번 진행&lt;/li&gt;&lt;/ol&gt;&lt;p&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="3230" y="4660" width="320" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="56QD2g7JSZLKVIeNdDYr-2" value="Text" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="3360" y="4890" width="60" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

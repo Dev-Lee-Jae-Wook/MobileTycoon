@@ -20,5 +20,6 @@ namespace EverythingStore.AI
 		Customer_MoveTo_EnterPoint_SalesStand,
 		Customer_MoveTo_EnterPoint_Counter,
 		Customer_EnterCounter,
+		Customer_ExitStore,
 	}
 }

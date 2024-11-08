@@ -17,15 +17,6 @@ namespace EverythingStore.Actor.Customer
 	{
 		#region Field
 		private FSMMachine _machine;
-
-		[Title("MovePoint")]
-		[SerializeField] private SalesStand _salesStand;
-		[SerializeField] private Transform _counterPoint;
-		[SerializeField] private Transform _exitPoint;
-		[Title("LookAtTarget")]
-		[SerializeField] private Transform _salesStation;
-		[SerializeField] private Counter _counter;
-
 		private ITrigger _goToCounter;
 		#endregion
 
@@ -34,28 +25,10 @@ namespace EverythingStore.Actor.Customer
 		public CustomerMove Move { get; private set; }
 		public PickupAndDrop pickupAndDrop { get; private set; }
 		public FSMStateType CurrentState => _machine.CurrentStateType;
-
-		public Counter Counter => _counter;
 		#endregion
 
 		#region Event
-		#endregion
-
-		#region UnityCycle
-		private void Awake()
-		{	
-			Sensor =  GetComponent<CustomerInteractionSensor>();
-			Move =	GetComponent<CustomerMove>();
-			pickupAndDrop = GetComponent<PickupAndDrop>();
-			_machine = GetComponent<FSMMachine>();
-		}
-
-		private void Start()
-		{
-			Init();
-		}
-
-
+		public event Action<GameObject> OnExitStore;
 		#endregion
 
 		#region Public Method
@@ -100,49 +73,63 @@ namespace EverythingStore.Actor.Customer
 		{
 			_machine.ChangeState(FSMStateType.Customer_MoveTo_Counter);
 		}
-		#endregion
 
-		#region Private Method
-		private void Init()
+		/// <summary>
+		/// 손님에게 필요한 설정을 진행하고 FSM을 실행합니다.
+		/// </summary>
+		/// <param name="counter"></param>
+		/// <param name="salesStand"></param>
+		/// <param name="exitPoint"></param>
+		public void Setup(Counter counter, SalesStand salesStand, Vector3 exitPoint)
 		{
+			//----내부 컴포넌트 가져오기----
+			Sensor = GetComponent<CustomerInteractionSensor>();
+			Move = GetComponent<CustomerMove>();
+			pickupAndDrop = GetComponent<PickupAndDrop>();
+			_machine = GetComponent<FSMMachine>();
+
+			//----FSM 설정----
 			List<IFSMState> _stateList = new();
 
 			//----머신 멈추기 상태----
 			_stateList.Add(new StopState(this));
 			//----판매대----
 			//판매대 입장 포인트로 이동
-			_stateList.Add(new MoveToPoint(this, _salesStand.EnterPoint, FSMStateType.Customer_MoveTo_EnterPoint_SalesStand, FSMStateType.Customer_EnterSalesStand));
+			_stateList.Add(new MoveToPoint(this, salesStand.EnterPoint, FSMStateType.Customer_MoveTo_EnterPoint_SalesStand, FSMStateType.Customer_EnterSalesStand));
 			//판매대에 접근
-			_stateList.Add(new EnterWaitingInteraction(this, FSMStateType.Customer_EnterSalesStand, _salesStand));
+			_stateList.Add(new EnterWaitingInteraction(this, FSMStateType.Customer_EnterSalesStand, salesStand));
 			//판매대로 이동
-			_stateList.Add(new MoveToPoint(this, _salesStand.GetInteractionPoint(),FSMStateType.Customer_MoveTo_SalesStation, FSMStateType.Customer_Interaction_SaleStation));
+			_stateList.Add(new MoveToPoint(this, salesStand.GetInteractionPoint(),FSMStateType.Customer_MoveTo_SalesStation, FSMStateType.Customer_Interaction_SaleStation));
 			//판매대와 상호작용
 			_stateList.Add(new SaleStationInteraction(this));
-			
+
 			//----계산대----
 			//계산대 입장 포인트로 이동
-			_stateList.Add(new MoveToPoint(this, _counter.EnterPoint, FSMStateType.Customer_MoveTo_EnterPoint_Counter, FSMStateType.Customer_EnterCounter));
+			_stateList.Add(new MoveToPoint(this, counter.EnterPoint, FSMStateType.Customer_MoveTo_EnterPoint_Counter, FSMStateType.Customer_EnterCounter));
 			//계산대에 접근
-			_stateList.Add(new EnterWaitingInteraction(this, FSMStateType.Customer_EnterCounter, _counter));
+			_stateList.Add(new EnterWaitingInteraction(this, FSMStateType.Customer_EnterCounter, counter));
 			//계산대로 이동
-			_stateList.Add(new MoveToPoint(this, _counter.InteractionPoint, FSMStateType.Customer_MoveTo_Counter, FSMStateType.Customer_Counter_DropSellObject));
+			_stateList.Add(new MoveToPoint(this, counter.InteractionPoint, FSMStateType.Customer_MoveTo_Counter, FSMStateType.Customer_Counter_DropSellObject));
 			//계산대에 구매 상품 내려놓기
 			_stateList.Add(new CounterDropSellObject(this));
 			//포장된 상품을 받기 까지 대기
 			_stateList.Add(new CounterWaitSendPackage(this));
-			//나가기
-			_stateList.Add(new MoveToPoint(this, _exitPoint.position, FSMStateType.Customer_GoOutSide, FSMStateType.Stop));
+			//가게에서 나오기
+			_stateList.Add(new MoveToPoint(this, exitPoint, FSMStateType.Customer_GoOutSide, FSMStateType.Customer_ExitStore));
+			//가게에서 퇴장 완료
+			_stateList.Add(new ExitStore(this));
 
 
 			Setup(_stateList, FSMStateType.Customer_MoveTo_EnterPoint_SalesStand);
 		}
 
-
-
-
-
-
-
+		/// <summary>
+		/// FSM에 ExitStore에서 호출됩니다. 다른 곳에서 사용하지 말아주세요.
+		/// </summary>
+		public void Exit()
+		{
+			OnExitStore?.Invoke(gameObject);
+		}
 		#endregion
 	}
 }

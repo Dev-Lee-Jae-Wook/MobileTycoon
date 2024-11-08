@@ -49,7 +49,6 @@ namespace EverythingStore.Actor.Customer
 		public Customer DequeueCustomer()
 		{
 			var outCustomer = _customerQueue.Dequeue();
-
 			int index = 0;
 
 			//한 칸 씩 앞으로 이동
@@ -58,6 +57,7 @@ namespace EverythingStore.Actor.Customer
 				item.Move.MovePoint(GetPoint(index++));
 			}
 
+			_nextWaitingPoint = GetPoint(_customerQueue.Count);
 			return outCustomer;
 		}
 
