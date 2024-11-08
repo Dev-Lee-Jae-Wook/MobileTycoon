@@ -65,7 +65,7 @@ namespace EverythingStore.InteractionObject
 			_money += sellObject.Money;
 		}
 
-		public void InteractionPlayer(PickupAndDrop hand)
+		public void InteractionPlayer(Player player)
 		{
 			if (_sellpackage == null || _useCustomer == null)
 			{

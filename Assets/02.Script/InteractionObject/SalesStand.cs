@@ -50,9 +50,14 @@ namespace EverythingStore.InteractionObject
 
 		#region Public Method 
 
-		public void InteractionPlayer(PickupAndDrop hand)
+		/// <summary>
+		/// 플레이어 손에 있는 판매품을 판매대에 전시합니다.
+		/// </summary>
+		public void InteractionPlayer(Player player)
 		{
-			if (hand.HasPickupObject() == false || hand.CanPopup() == false)
+			var pickupAndDrop = player.PickupAndDrop;
+
+			if (pickupAndDrop.HasPickupObject() == false || pickupAndDrop.CanPopup() == false)
 			{
 				return;
 			}
@@ -63,10 +68,10 @@ namespace EverythingStore.InteractionObject
 			}
 
 
-			if (hand.PeekObject().type == PickableObject.PickableObjectType.SellObject)
+			if (pickupAndDrop.PeekObject().type == PickableObject.PickableObjectType.SellObject)
 			{
-				var sellObject = hand.PeekObject().GetComponent<SellObject>();
-				hand.ParabolaDrop(Pivot, GetCurrentSloatPosition(), () =>
+				var sellObject = pickupAndDrop.PeekObject().GetComponent<SellObject>();
+				pickupAndDrop.ParabolaDrop(Pivot, GetCurrentSloatPosition(), () =>
 				{
 					sellObject.transform.localRotation = Quaternion.Euler(0.0f, 180f, 0.0f);
 					PushSellObject(sellObject);
@@ -74,6 +79,9 @@ namespace EverythingStore.InteractionObject
 			}
 		}
 
+		/// <summary>
+		/// 손님이 판매품을 픽업하고 퇴장합니다.
+		/// </summary>
 		public void InteractionCustomer(PickupAndDrop hand)
 		{
 			if(_useCustomer.pickupAndDrop != hand)

@@ -1,6 +1,7 @@
 using EverythingStore.Actor;
 using EverythingStore.Actor.Player;
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
 namespace EverythingStore.Sensor
 {
@@ -8,13 +9,15 @@ namespace EverythingStore.Sensor
 	public class PlayerInteractionSensor : InteractionSensorBase
     {
 		#region Field
+		private Player _owner;
 		private PickupAndDrop _pickupAndDrop;
+
+
 		#endregion
-
-
 		#region UnityCycle
 		private void Awake()
 		{
+			_owner = GetComponent<Player>();
 			_pickupAndDrop = GetComponent<PickupAndDrop>();
 		}
 
@@ -36,7 +39,7 @@ namespace EverythingStore.Sensor
 		/// </summary>
 		private void Intreaction(IPlayerInteraction interaction)
 		{
-			interaction.InteractionPlayer(_pickupAndDrop);
+			interaction.InteractionPlayer(_owner);
 		}
 
 		#endregion

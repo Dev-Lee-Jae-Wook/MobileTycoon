@@ -115,8 +115,10 @@ namespace EverythingStore.InteractionObject
 			_boxVisuals[(int)_state].SetActive(true);
 		}
 
-		void IPlayerInteraction.InteractionPlayer(PickupAndDrop hand)
+		void IPlayerInteraction.InteractionPlayer(Player player)
 		{
+			PickupAndDrop hand = player.PickupAndDrop;
+
 			switch (_state)
 			{
 				case State.BeforeOpen:

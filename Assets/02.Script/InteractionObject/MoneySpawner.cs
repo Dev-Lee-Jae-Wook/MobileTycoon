@@ -48,21 +48,20 @@ namespace EverythingStore.InteractionObject
 			_toalMoney += money;
 		}
 
-		public void InteractionPlayer(PickupAndDrop pickupAndDrop)
+		public void InteractionPlayer(Player player)
 		{
 			if(_toalMoney == 0)
 			{
 				return;
 			}
 
-			Transform target = pickupAndDrop.GetPoint;
-			SendToMoney(target);
+			SendToMoney(player);
 		}
 
-		private void SendToMoney(Transform target)
+		private void SendToMoney(Player player)
 		{
-			Debug.Log($"µ· È¹µæ {_toalMoney}");
-			StartCoroutine(C_SendToMoney(target));
+			player.AddMoney(_toalMoney);
+			StartCoroutine(C_SendToMoney(player.GetItemPoint));
 			_toalMoney = 0;
 		}
 		#endregion
