@@ -71,12 +71,7 @@ namespace EverythingStore.InteractionObject
 		private SellObject PopSellObject(PickupAndDrop hand)
 		{
 			var sellObject = _items.Pop();
-
-			if (_items.Count == 0)
-			{
-				EmptyBox();
-			}
-
+			sellObject.transform.parent = null;
 			return sellObject;
 		}
 
@@ -132,6 +127,10 @@ namespace EverythingStore.InteractionObject
 					{
 						var popObject = PopSellObject(hand);
 						hand.ProductionPickup(popObject);
+						if(_items.Count == 0)
+						{
+							EmptyBox();
+						}
 					}
 					break;
 				case State.Emtpy:

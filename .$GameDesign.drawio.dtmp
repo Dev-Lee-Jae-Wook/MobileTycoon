@@ -1389,6 +1389,9 @@
         <mxCell id="uHJ0kDEoexfASFIVlv53-14" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Box Spawn Task&lt;/h1&gt;&lt;p&gt;&lt;strike&gt;1. 박스 생성&lt;/strike&gt;&lt;/p&gt;&lt;p&gt;&lt;strike&gt;2. 박스 아이템 픽업 후 박스 사라지기&lt;/strike&gt;&lt;/p&gt;&lt;p&gt;3. 박스 사라지고 일정 시간 후 &quot;생성 가능&quot; 로그 출력&lt;/p&gt;&lt;p&gt;4. 아이템 픽업 후 쿨타임 후 박스 재생성&amp;nbsp;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="3220" y="4390" width="280" height="160" as="geometry" />
         </mxCell>
+        <mxCell id="56QD2g7JSZLKVIeNdDYr-1" value="Text" style="text;strokeColor=none;align=center;fillColor=none;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="3570" y="4650" width="60" height="30" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
