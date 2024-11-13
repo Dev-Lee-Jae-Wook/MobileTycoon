@@ -3,10 +3,10 @@ using EverythingStore.Actor.Player;
 using UnityEngine;
 using static UnityEngine.UI.GridLayoutGroup;
 
-namespace EverythingStore.Sensor
+namespace EverythingStore.RayInteraction
 {
 	[RequireComponent(typeof(PickupAndDrop))]
-	public class PlayerInteractionSensor : InteractionSensorBase
+	public class PlayerRayInteraction : ActorRayInteractionBase
     {
 		#region Field
 		private Player _owner;

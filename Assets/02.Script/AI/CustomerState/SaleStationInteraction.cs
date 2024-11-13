@@ -1,6 +1,6 @@
 using EverythingStore.Actor;
 using EverythingStore.Actor.Customer;
-using EverythingStore.Sensor;
+using EverythingStore.RayInteraction;
 
 namespace EverythingStore.AI.CustomerState
 {
@@ -8,7 +8,7 @@ namespace EverythingStore.AI.CustomerState
 	{
 		#region Field
 		private PickupAndDrop _pickupAndDrop;
-		private CustomerInteractionSensor _interactionSensor;
+		private CustomerRayInteraction _interactionSensor;
 		#endregion
 
 		#region Property

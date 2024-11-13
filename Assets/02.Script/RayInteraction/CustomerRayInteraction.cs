@@ -3,10 +3,10 @@ using EverythingStore.Actor.Customer;
 using EverythingStore.Actor.Player;
 using UnityEngine;
 
-namespace EverythingStore.Sensor
+namespace EverythingStore.RayInteraction
 {
 	[RequireComponent(typeof(PickupAndDrop))]
-	public class CustomerInteractionSensor : InteractionSensorBase
+	public class CustomerRayInteraction : ActorRayInteractionBase
 	{
 		#region Field
 		private PickupAndDrop _pickupAndDrop;

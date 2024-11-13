@@ -1,7 +1,7 @@
 using EverythingStore.AI;
 using EverythingStore.AI.CustomerState;
 using EverythingStore.InteractionObject;
-using EverythingStore.Sensor;
+using EverythingStore.RayInteraction;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace EverythingStore.Actor.Customer
 {
-	[RequireComponent(	typeof(CustomerInteractionSensor),
+	[RequireComponent(	typeof(CustomerRayInteraction),
 											typeof(CustomerMove),
 											typeof(PickupAndDrop))]
 	[RequireComponent (typeof(FSMMachine))]
@@ -21,7 +21,7 @@ namespace EverythingStore.Actor.Customer
 		#endregion
 
 		#region Property
-		public CustomerInteractionSensor Sensor { get; private set; }
+		public CustomerRayInteraction Sensor { get; private set; }
 		public CustomerMove Move { get; private set; }
 		public PickupAndDrop pickupAndDrop { get; private set; }
 		public FSMStateType CurrentState => _machine.CurrentStateType;
@@ -83,7 +83,7 @@ namespace EverythingStore.Actor.Customer
 		public void Setup(Counter counter, SalesStand salesStand, Vector3 exitPoint)
 		{
 			//----내부 컴포넌트 가져오기----
-			Sensor = GetComponent<CustomerInteractionSensor>();
+			Sensor = GetComponent<CustomerRayInteraction>();
 			Move = GetComponent<CustomerMove>();
 			pickupAndDrop = GetComponent<PickupAndDrop>();
 			_machine = GetComponent<FSMMachine>();

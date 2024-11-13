@@ -1,20 +1,20 @@
-#region Field
-#endregion
+	#region Field
+	#endregion
 
-#region Property
-#endregion
+	#region Property
+	#endregion
 
-#region Event
-#endregion
+	#region Event
+	#endregion
 
-#region UnityCycle
-#endregion
+	#region UnityCycle
+	#endregion
 
-#region Public Method
-#endregion
+	#region Public Method
+	#endregion
 
-#region Private Method
-#endregion
+	#region Private Method
+	#endregion
 
-#region Protected Method
-#endregion
+	#region Protected Method
+	#endregion

@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace EverythingStore.Sensor
+namespace EverythingStore.RayInteraction
 {
-	public abstract class InteractionSensorBase : MonoBehaviour
+	public abstract class ActorRayInteractionBase : MonoBehaviour
 	{
 		#region Field
 		[SerializeField] private LayerMask _interactionLayerMask;

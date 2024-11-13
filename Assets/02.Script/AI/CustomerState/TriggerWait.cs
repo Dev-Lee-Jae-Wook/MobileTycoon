@@ -1,6 +1,6 @@
 using EverythingStore.Actor;
 using EverythingStore.Actor.Customer;
-using EverythingStore.Sensor;
+using EverythingStore.RayInteraction;
 
 namespace EverythingStore.AI.CustomerState
 {

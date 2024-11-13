@@ -1,3 +1,4 @@
+using EverythingStore.InteractionObject;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
@@ -35,7 +36,14 @@ namespace EverythingStore.Actor.Player
 		public void AddMoney(int money)
 		{
 			_money += money;
-			OnMoneyChange?.Invoke(money);
+			OnMoneyChange?.Invoke(_money);
+		}
+
+		
+		public void SubtractMoney(int money)
+		{
+			_money -= money;
+			OnMoneyChange?.Invoke(_money);
 		}
 		#endregion
 
@@ -45,5 +53,5 @@ namespace EverythingStore.Actor.Player
 		#region Protected Method
 		#endregion
 
-    }
+	}
 }
