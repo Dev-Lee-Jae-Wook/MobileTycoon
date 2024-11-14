@@ -13,9 +13,9 @@ namespace EverythingStore.Upgrad
 		#region Field
 		[SerializeField] private Canvas _popup;
 		[SerializeField] private Slider _progress;
+		[SerializeField] private TMP_Text _platformLabel;
 		[SerializeField] private TMP_Text _money;
 		[SerializeField] private TMP_Text _info;
-		[SerializeField] private String _infoLabel;
 		#endregion
 
 		#region Event
@@ -29,22 +29,31 @@ namespace EverythingStore.Upgrad
 			moneyArea.OnSetupTargetMoney += SetUpProgress;
 			moneyArea.OnPlayerDown += () => PopupToggle(true);
 			moneyArea.OnPlayerUp += () => PopupToggle(false);
-
+			moneyArea.OnMax += Max;
 			PopupToggle(false);
 		}
+
 
 		#endregion
 
 		#region Private Method
+		private void Max()
+		{
+			_progress.maxValue = 1;
+			_progress.value = 1;
+			_money.text = "MAX";
+			_info.text = $"{_platformLabel.text}\nLV : MAX";
+		}
 		private void UpdataProgress(int money)
 		{
 			_progress.value = _progress.maxValue - money;
 			_money.text = money.ToString();
 		}
 
-		private void SetUpProgress(int lv,int maxValue)
+		private void SetUpProgress(string name, int lv, int maxValue)
 		{
-			_info.text = $"{_infoLabel}\nLV : {lv}";
+			_platformLabel.text = name;
+			_info.text = $"{name}\nLV : {lv}";
 			_progress.value = 0;
 			_progress.maxValue = maxValue;
 			_money.text = maxValue.ToString();

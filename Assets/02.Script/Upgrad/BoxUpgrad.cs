@@ -21,7 +21,7 @@ namespace EverythingStore.Upgrad
 		#region UnityCycle
 		private void Awake()
 		{
-			_subtractMoneyArea.SetupTarget(_lv, _data.UpgradList[_lv].Cost, Upgrad);
+			_subtractMoneyArea.SetupTarget(_data.Name,_lv, _data.UpgradList[_lv].Cost, Upgrad);
 		}
 		#endregion
 
@@ -39,7 +39,7 @@ namespace EverythingStore.Upgrad
 				return;
 			}
 
-			_subtractMoneyArea.SetupTarget(_lv, _data.UpgradList[_lv].Cost, Upgrad);
+			_subtractMoneyArea.SetupTarget(_data.Name, _lv, _data.UpgradList[_lv].Cost, Upgrad);
 		}
 		#endregion
 

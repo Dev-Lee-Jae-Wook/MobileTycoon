@@ -16,7 +16,6 @@ namespace EverythingStore.Actor
 		/// <summary>
 		/// 최대로 들 수 있는 아이템 갯수
 		/// </summary>
-		[SerializeField] private int _capacity;
 		[SerializeField] private Transform _pickupPoint;
 		[SerializeField] private float _coolTime;
 		[ReadOnly][SerializeField] private float _currentCoolTime;
@@ -33,6 +32,7 @@ namespace EverythingStore.Actor
 		/// 현재 픽업한 아이템의 갯수
 		/// </summary>
 		public int pickUpObjectCount => _pickObjectStack.Count;
+		[field:SerializeField] public int Capacity { get; set; }
 		#endregion
 
 		#region Event
@@ -71,7 +71,7 @@ namespace EverythingStore.Actor
 				return false;
 			}
 
-			return pickUpObjectCount < _capacity;
+			return pickUpObjectCount < Capacity;
 		}
 
 		public bool CanPopup()

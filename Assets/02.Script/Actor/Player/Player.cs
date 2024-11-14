@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.Port;
 
 namespace EverythingStore.Actor.Player
 {
@@ -48,14 +49,14 @@ namespace EverythingStore.Actor.Player
 			OnMoneyChange?.Invoke(_money);
 		}
 
-		internal void SetSpeed(float speed)
+		public void SetSpeed(float speed)
 		{
 			_movement.Speed = speed;
 		}
 
-		internal void SetPickupCount(int v)
+		public void SetPickupCapcity(int capacity)
 		{
-			throw new NotImplementedException();
+			_pickupAndDrop.Capacity = capacity;
 		}
 		#endregion
 

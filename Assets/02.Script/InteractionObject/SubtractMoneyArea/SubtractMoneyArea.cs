@@ -23,11 +23,12 @@ namespace EverythingStore.InteractionObject
 		private CoolTime _coolTime;
 		private Player _player;
 
-		private int _subtractMoney = 1;
+		private int _subtractMoney = 50;
 
 		private bool _isTargetCompelte = false;
 		private Action _onComplet;
 		private bool _isPlayerDown = false;
+		private bool _isMax = false;
 		#endregion
 
 		#region Property
@@ -44,7 +45,7 @@ namespace EverythingStore.InteractionObject
 		/// 인자 1 : 현재 레벨
 		/// 인자 2 : 목표 돈
 		/// </summary>
-		public event Action<int,int> OnSetupTargetMoney;
+		public event Action<String,int,int> OnSetupTargetMoney;
 
 		/// <summary>
 		/// 플레이어가 접촉했을 때 호출됩니다.
@@ -54,6 +55,10 @@ namespace EverythingStore.InteractionObject
 		/// 플레이어가 접촉을 끝낼 때 호출 됩니다.
 		/// </summary>
 		public event Action OnPlayerUp;
+		/// <summary>
+		/// 최대치인 경우
+		/// </summary>
+		public event Action OnMax;
 		#endregion
 
 		#region UnityCycle
@@ -81,7 +86,7 @@ namespace EverythingStore.InteractionObject
 					OnPlayerDown?.Invoke();
 				}
 
-				if (_coolTime.IsPlaying == false)
+				if (_coolTime.IsPlaying == false && _isMax == false)
 				{
 					_coolTime.StartCoolTime(_time);
 				}
@@ -96,14 +101,21 @@ namespace EverythingStore.InteractionObject
 		#endregion
 
 		#region Public Method
-		public void SetupTarget(int lv, int targetMoney, Action onComplete)
+		public void SetupTarget(string name, int lv, int targetMoney, Action onComplete)
 		{
 			//lv은 UI에게 넘겨주어야된다.
 			_targetMoney = targetMoney;
 			_isTargetCompelte = false;
 			_onComplet = onComplete;
-			OnSetupTargetMoney?.Invoke(lv, targetMoney);
+			OnSetupTargetMoney?.Invoke(name, lv, targetMoney);
 		}
+
+		public void Max()
+		{
+			_isMax = true;
+			OnMax?.Invoke();
+		}
+
 		#endregion
 
 		#region Private Method

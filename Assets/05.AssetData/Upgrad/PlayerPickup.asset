@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a129409d94cd1a498d300fe2feb3c87, type: 3}
   m_Name: PlayerPickup
   m_EditorClassIdentifier: 
+  <Name>k__BackingField: PICKUP
   UpgradList:
-  - Cost: 100
-    Value: 2
-  - Cost: 200
-    Value: 3
   - Cost: 300
-    Value: 4
+    Value: 2
   - Cost: 500
+    Value: 3
+  - Cost: 800
+    Value: 4
+  - Cost: 1000
     Value: 5
