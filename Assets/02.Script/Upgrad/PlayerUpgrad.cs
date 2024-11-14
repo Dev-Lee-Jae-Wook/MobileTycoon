@@ -1,9 +1,7 @@
 using EverythingStore.Actor.Player;
 using EverythingStore.InteractionObject;
 using Sirenix.OdinInspector;
-using System;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace EverythingStore.Upgrad
 {
@@ -11,8 +9,8 @@ namespace EverythingStore.Upgrad
 	{
 		#region Field
 		[Title("Target")]
-		[SerializeField]private Player _player;
-		
+		[SerializeField] private Player _player;
+
 		[Title("Speed")]
 		[SerializeField] private SubtractMoneyArea _speedUpgradArea;
 		[SerializeField] private UpgradData _speed;
@@ -27,15 +25,15 @@ namespace EverythingStore.Upgrad
 
 		#region Property
 		#endregion
-		
+
 		#region UnityCycle
 		private void Start()
 		{
 			_player.SetSpeed(3.0f);
-			//_player.SetPickupCount(1);
+			_player.SetPickupCapcity(1);
 
-			_speedUpgradArea.SetupTarget(_speedLv,_speed.UpgradList[_speedLv].Cost, UpgradSpeed);
-			//_pickupUpgradArea.SetupTarget(_pickupLv,_pickup.UpgradList[_pickupLv].Cost, UpgradPickupCount);
+			_speedUpgradArea.SetupTarget(_speed.Name, _speedLv, _speed.UpgradList[_speedLv].Cost, UpgradSpeed);
+			_pickupUpgradArea.SetupTarget(_pickup.Name, _pickupLv, _pickup.UpgradList[_pickupLv].Cost, UpgradPickupCount);
 		}
 		#endregion
 
@@ -43,16 +41,32 @@ namespace EverythingStore.Upgrad
 		private void UpgradSpeed()
 		{
 			_speedLv++;
-			_player.SetSpeed(_speed.UpgradList[_speedLv].Value);
-			_speedUpgradArea.SetupTarget(_speedLv, _speed.UpgradList[_speedLv].Cost, UpgradSpeed);
+
+			if (_speedLv == _speed.UpgradList.Count)
+			{
+				_speedUpgradArea.Max();
+			}
+			else
+			{
+				_player.SetSpeed(_speed.UpgradList[_speedLv].Value);
+				_speedUpgradArea.SetupTarget(_speed.Name, _speedLv, _speed.UpgradList[_speedLv].Cost, UpgradSpeed);
+			}
 		}
 
-		//private void UpgradPickupCount()
-		//{
-		//	_pickupLv++;
-		//	_player.SetPickupCount((int)_pickup.UpgradList[_pickupLv].Value);
-		//	_speedUpgradArea.SetupTarget(_pickupLv, _pickup.UpgradList[_pickupLv].Cost, UpgradPickupCount);
-		//}
+		private void UpgradPickupCount()
+		{
+			_pickupLv++;
+
+			if (_pickupLv == _pickup.UpgradList.Count)
+			{
+				_pickupUpgradArea.Max();
+			}
+			else
+			{
+				_player.SetPickupCapcity((int)_pickup.UpgradList[_pickupLv].Value);
+				_pickupUpgradArea.SetupTarget(_pickup.Name, _pickupLv, _pickup.UpgradList[_pickupLv].Cost, UpgradPickupCount);
+			}
+		}
 		#endregion
 	}
 }
