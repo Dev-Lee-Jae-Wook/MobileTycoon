@@ -1,5 +1,7 @@
 using EverythingStore.Actor;
 using EverythingStore.Actor.Player;
+using EverythingStore.Gacha;
+using EverythingStore.Sell;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +11,6 @@ namespace EverythingStore.InteractionObject
 	public class Box : MonoBehaviour,IPlayerInteraction
 	{
 		#region Filed
-		[SerializeField] private GachaProbaility _gachaData;
 		private Stack<SellObject> _items;
 
 		//박스에 상태에 따른 비주얼 오브젝트들
@@ -61,7 +62,7 @@ namespace EverythingStore.InteractionObject
 		/// </summary>
 		private void Open()
 		{
-			SetUp();
+			SpawnSellObject();
 			ChangeState(State.Open);
 		}
 
@@ -78,11 +79,12 @@ namespace EverythingStore.InteractionObject
 		/// <summary>
 		/// 상자에 들어가는 아이템을 랜덤으로 설정합니다.
 		/// </summary>
-		private void SetUp()
+		private void SpawnSellObject()
 		{
-			var createItem = _gachaData.Gacha();
-			SellObject clone = Instantiate(createItem, _itemSpawnPoint);
-			_items.Push(clone);
+			var sellObjectPrefab = GachaManger.Instance.Gacha();
+			var sellObject = Instantiate(sellObjectPrefab);
+			sellObject.transform.position = _itemSpawnPoint.position;
+			_items.Push(sellObject);
 		}
 
 		/// <summary>

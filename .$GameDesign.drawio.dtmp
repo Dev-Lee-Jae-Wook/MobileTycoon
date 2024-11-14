@@ -71,7 +71,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="S6JVJ0GuF54kaxucYCdO" name="Part 1 기획">
-    <mxGraphModel dx="1185" dy="688" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="635" dy="452" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1428,34 +1428,34 @@
         <mxCell id="56QD2g7JSZLKVIeNdDYr-3" value="이슈 손님 재 생성 후 대기열 위치로 넘어가지 않음" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="3230" y="4840" width="270" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="JE_DrLvYqHJEA0CsGEtR-1" value="GachaManger" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="JE_DrLvYqHJEA0CsGEtR-1" value="GachaManger" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1720" y="10" width="400" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="JE_DrLvYqHJEA0CsGEtR-2" value="Responsibility (책임)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;" vertex="1" parent="1">
+        <mxCell id="JE_DrLvYqHJEA0CsGEtR-2" value="Responsibility (책임)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;" parent="1" vertex="1">
           <mxGeometry x="1720" y="50" width="400" height="156" as="geometry" />
         </mxCell>
-        <mxCell id="JE_DrLvYqHJEA0CsGEtR-7" value="소환가능한 SellObject의 정보를 알고 있다." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="JE_DrLvYqHJEA0CsGEtR-2">
+        <mxCell id="JE_DrLvYqHJEA0CsGEtR-7" value="소환가능한 SellObject의 정보를 알고 있다." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="JE_DrLvYqHJEA0CsGEtR-2" vertex="1">
           <mxGeometry y="26" width="400" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="JE_DrLvYqHJEA0CsGEtR-12" value="노멀 등급 SellObjects 알고 있다." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="JE_DrLvYqHJEA0CsGEtR-2">
+        <mxCell id="JE_DrLvYqHJEA0CsGEtR-12" value="노멀 등급 SellObjects 알고 있다." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="JE_DrLvYqHJEA0CsGEtR-2" vertex="1">
           <mxGeometry y="52" width="400" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="JE_DrLvYqHJEA0CsGEtR-13" value="희귀 등급 SellObjects 알고 있다." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="JE_DrLvYqHJEA0CsGEtR-2">
+        <mxCell id="JE_DrLvYqHJEA0CsGEtR-13" value="희귀 등급 SellObjects 알고 있다." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="JE_DrLvYqHJEA0CsGEtR-2" vertex="1">
           <mxGeometry y="78" width="400" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="JE_DrLvYqHJEA0CsGEtR-14" value="레어 등급 SellObjects 알고 있다." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="JE_DrLvYqHJEA0CsGEtR-2">
+        <mxCell id="JE_DrLvYqHJEA0CsGEtR-14" value="레어 등급 SellObjects 알고 있다." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="JE_DrLvYqHJEA0CsGEtR-2" vertex="1">
           <mxGeometry y="104" width="400" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="JE_DrLvYqHJEA0CsGEtR-15" value="가챠를 할 수 있다." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="JE_DrLvYqHJEA0CsGEtR-2">
+        <mxCell id="JE_DrLvYqHJEA0CsGEtR-15" value="가챠를 할 수 있다." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="JE_DrLvYqHJEA0CsGEtR-2" vertex="1">
           <mxGeometry y="130" width="400" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="JE_DrLvYqHJEA0CsGEtR-8" value="Collaboration (협업)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;swimlaneLine=1;" vertex="1" parent="1">
+        <mxCell id="JE_DrLvYqHJEA0CsGEtR-8" value="Collaboration (협업)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;swimlaneLine=1;" parent="1" vertex="1">
           <mxGeometry x="1720" y="206" width="400" height="52" as="geometry" />
         </mxCell>
-        <mxCell id="JE_DrLvYqHJEA0CsGEtR-11" value="Box" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="JE_DrLvYqHJEA0CsGEtR-8">
+        <mxCell id="JE_DrLvYqHJEA0CsGEtR-11" value="Box" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="JE_DrLvYqHJEA0CsGEtR-8" vertex="1">
           <mxGeometry y="26" width="400" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="JE_DrLvYqHJEA0CsGEtR-16" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;GachaManger Task&lt;/span&gt;&lt;/h1&gt;&lt;div&gt;&lt;ul&gt;&lt;li&gt;가챠 매니저 생성&lt;/li&gt;&lt;li&gt;SellObjectData에 등급 추가&lt;/li&gt;&lt;li&gt;가챠 매니저가 Data를 받아 등급 별로 분류하기 - Log 출력&lt;/li&gt;&lt;li&gt;Gacha() - 해당 오브젝트 생성하기 - 등급 출력&lt;/li&gt;&lt;li&gt;Box가 호출해서 소환하기&lt;/li&gt;&lt;/ul&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Upgrad&lt;/span&gt;&lt;br&gt;&lt;ul&gt;&lt;li&gt;확률 증가&lt;/li&gt;&lt;li&gt;획득하는 돈 증가&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+        <mxCell id="JE_DrLvYqHJEA0CsGEtR-16" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;GachaManger Task&lt;/span&gt;&lt;/h1&gt;&lt;div&gt;&lt;ul&gt;&lt;li&gt;&lt;strike&gt;가챠 매니저 생성&lt;/strike&gt;&lt;/li&gt;&lt;li&gt;SellObjectData에 등급 추가&lt;/li&gt;&lt;li&gt;가챠 매니저가 Data를 받아 등급 별로 분류하기 - Log 출력&lt;/li&gt;&lt;li&gt;Gacha() - 해당 오브젝트 생성하기 - 등급 출력&lt;/li&gt;&lt;li&gt;Box가 호출해서 소환하기&lt;/li&gt;&lt;/ul&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Upgrad&lt;/span&gt;&lt;br&gt;&lt;ul&gt;&lt;li&gt;확률 증가&lt;/li&gt;&lt;li&gt;획득하는 돈 증가&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="2181" y="20" width="359" height="230" as="geometry" />
         </mxCell>
       </root>

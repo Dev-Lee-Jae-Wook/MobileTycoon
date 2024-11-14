@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1d72080e5a51b649aa534a691ced44a, type: 3}
+  m_Name: GachaData
+  m_EditorClassIdentifier: 
+  <SellObjectList>k__BackingField:
+  - {fileID: 4628035424293824344, guid: cb8d37641e07363408598f9fc609b503, type: 3}
+  - {fileID: 4628035424293824344, guid: b73c3ef5462c94c44a9aafd34b1955f7, type: 3}
+  - {fileID: 4628035424293824344, guid: 18edfc597ae00214aaa360face057f6e, type: 3}
+  - {fileID: 4628035424293824344, guid: 714552bea30e0de4e9259343050b4b69, type: 3}
+  - {fileID: 4628035424293824344, guid: c45b1206914768b42a05e3084559141e, type: 3}
+  - {fileID: 4628035424293824344, guid: f7be4f978d92c8443ac810387805cbeb, type: 3}
+  - {fileID: 4628035424293824344, guid: e8180d867a96a6543a07da7023f22395, type: 3}
+  - {fileID: 4628035424293824344, guid: 08144e3bcb0628b4aba0ef40f007af41, type: 3}
+  - {fileID: 4628035424293824344, guid: cf22395ee4d6b9844aec64d3f72c5c2d, type: 3}
+  - {fileID: 4628035424293824344, guid: 6e05cdf48fb27094bbbe8dad5b190de9, type: 3}
+  - {fileID: 4628035424293824344, guid: bf8dd6ee4ea303745b569dc472129304, type: 3}
+  - {fileID: 4628035424293824344, guid: f5030003c0646d14e81a721548dad33a, type: 3}

@@ -3,6 +3,7 @@ using EverythingStore.Actor.Customer;
 using EverythingStore.AI;
 using EverythingStore.AI.CustomerState;
 using EverythingStore.InteractionObject;
+using EverythingStore.Sell;
 using EverythingStore.Util;
 using NUnit.Framework;
 using System.Collections;
