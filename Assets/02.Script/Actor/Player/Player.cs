@@ -10,6 +10,7 @@ namespace EverythingStore.Actor.Player
     public class Player : MonoBehaviour
 	{
 		#region Field
+		private PlayerCharacterMovement _movement;
 		private PickupAndDrop _pickupAndDrop;
 		[SerializeField] private Transform _getItemPoint;
 		[SerializeField] private int _money;
@@ -29,6 +30,7 @@ namespace EverythingStore.Actor.Player
 		private void Awake()
 		{
 			_pickupAndDrop = GetComponent<PickupAndDrop>();
+			_movement = GetComponent<PlayerCharacterMovement>();
 		}
 		#endregion
 
@@ -44,6 +46,16 @@ namespace EverythingStore.Actor.Player
 		{
 			_money -= money;
 			OnMoneyChange?.Invoke(_money);
+		}
+
+		internal void SetSpeed(float speed)
+		{
+			_movement.Speed = speed;
+		}
+
+		internal void SetPickupCount(int v)
+		{
+			throw new NotImplementedException();
 		}
 		#endregion
 

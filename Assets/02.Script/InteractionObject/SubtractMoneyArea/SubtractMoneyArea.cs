@@ -3,7 +3,6 @@ using EverythingStore.Timer;
 using Sirenix.OdinInspector;
 using System;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace EverythingStore.InteractionObject
 {
@@ -12,7 +11,6 @@ namespace EverythingStore.InteractionObject
 		#region Field
 		[Title("Target")]
 		[SerializeField] private int _targetMoney;
-		private int _money = 0;
 
 		[Title("CoolTime")]
 		[SerializeField] private float _time;
@@ -29,6 +27,7 @@ namespace EverythingStore.InteractionObject
 
 		private bool _isTargetCompelte = false;
 		private Action _onComplet;
+		private bool _isPlayerDown = false;
 		#endregion
 
 		#region Property
@@ -36,8 +35,25 @@ namespace EverythingStore.InteractionObject
 		#endregion
 
 		#region Event
-
+		/// <summary>
+		/// 인자 : 남는 돈
+		/// </summary>
 		public event Action<int> OnUpdateMoney;
+
+		/// <summary>
+		/// 인자 1 : 현재 레벨
+		/// 인자 2 : 목표 돈
+		/// </summary>
+		public event Action<int,int> OnSetupTargetMoney;
+
+		/// <summary>
+		/// 플레이어가 접촉했을 때 호출됩니다.
+		/// </summary>
+		public event Action OnPlayerDown;
+		/// <summary>
+		/// 플레이어가 접촉을 끝낼 때 호출 됩니다.
+		/// </summary>
+		public event Action OnPlayerUp;
 		#endregion
 
 		#region UnityCycle
@@ -59,22 +75,34 @@ namespace EverythingStore.InteractionObject
 			//플레이어 접촉 시
 			if (IsDetectPlayer() == true)
 			{
-				if(_coolTime.IsPlaying == false)
+				if (_isPlayerDown == false)
+				{
+					_isPlayerDown = true;
+					OnPlayerDown?.Invoke();
+				}
+
+				if (_coolTime.IsPlaying == false)
 				{
 					_coolTime.StartCoolTime(_time);
 				}
 			}
-        }
+			else if(_isPlayerDown == true)
+			{
+				_isPlayerDown = false;
+				OnPlayerUp?.Invoke();
+			}
+		}
 
 		#endregion
 
 		#region Public Method
-		public void SetupTarget(int targetMoney, Action onComplete)
+		public void SetupTarget(int lv, int targetMoney, Action onComplete)
 		{
-			_money = 0;
+			//lv은 UI에게 넘겨주어야된다.
 			_targetMoney = targetMoney;
 			_isTargetCompelte = false;
 			_onComplet = onComplete;
+			OnSetupTargetMoney?.Invoke(lv, targetMoney);
 		}
 		#endregion
 
@@ -91,21 +119,26 @@ namespace EverythingStore.InteractionObject
 
 		private void AddTargetMoney()
 		{
-			if(_isTargetCompelte == true)
+			if (_isTargetCompelte == true)
 			{
 				return;
 			}
 
-			if(_player.Money <= 0)
+			if (_player.Money <= 0)
 			{
 				return;
+			}
+
+			if (_targetMoney - _subtractMoney < 0)
+			{
+				_subtractMoney = _targetMoney;
 			}
 
 			_player.SubtractMoney(_subtractMoney);
-			_money += _subtractMoney;
-			OnUpdateMoney?.Invoke(_money);
-			
-			if(_money == _targetMoney)
+			_targetMoney -= _subtractMoney;
+			OnUpdateMoney?.Invoke(_targetMoney);
+
+			if (_targetMoney == 0)
 			{
 				_isTargetCompelte = true;
 				_onComplet?.Invoke();

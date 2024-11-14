@@ -1,4 +1,5 @@
 using EverythingStore.Animation;
+using Sirenix.OdinInspector;
 using System;
 using UnityEngine;
 
@@ -9,12 +10,12 @@ namespace EverythingStore.Actor.Player
     {
 		#region Field
 
-		[SerializeField]	private float _speed;
         [SerializeField]	private float _rotationSpeed;
         private CharacterController _characterController;
 
         private float _targetAngle;
 		private float _currentVelocity;
+
 		#endregion
 
 		#region Event
@@ -28,6 +29,9 @@ namespace EverythingStore.Actor.Player
 		}
 		#endregion
 
+		#region Property
+		[field: SerializeField] public float Speed { get; set; }
+		#endregion
 
 		#region Public Method
 		/// <summary>
@@ -58,7 +62,7 @@ namespace EverythingStore.Actor.Player
 		private void Move()
 		{
 			Vector3 forward = transform.forward;
-			_characterController.SimpleMove(forward * _speed);
+			_characterController.SimpleMove(forward * Speed);
 		}
 
 		/// <summary>

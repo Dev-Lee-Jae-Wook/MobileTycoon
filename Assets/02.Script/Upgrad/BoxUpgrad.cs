@@ -2,13 +2,13 @@ using EverythingStore.InteractionObject;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EverythingStore.Manager
+namespace EverythingStore.Upgrad
 {
-	public class BoxManger : MonoBehaviour
+	public class BoxUpgrad : MonoBehaviour
 	{
 		#region Field
 		[SerializeField] private SubtractMoneyArea _subtractMoneyArea;
-		[SerializeField] private SubtrackMoneyData _data;
+		[SerializeField] private UpgradData _data;
 		private int _lv = 0;
 		#endregion
 
@@ -21,7 +21,7 @@ namespace EverythingStore.Manager
 		#region UnityCycle
 		private void Awake()
 		{
-			_subtractMoneyArea.SetupTarget(_data.TargetMoneyList[_lv], Upgrad);
+			_subtractMoneyArea.SetupTarget(_lv, _data.UpgradList[_lv].Cost, Upgrad);
 		}
 		#endregion
 
@@ -34,12 +34,12 @@ namespace EverythingStore.Manager
 		{
 			_lv++;
 			Debug.Log($"Upgrad {_lv}");
-			if(_lv == _data.TargetMoneyList.Count )
+			if(_lv == _data.UpgradList.Count )
 			{
 				return;
 			}
 
-			_subtractMoneyArea.SetupTarget(_data.TargetMoneyList[_lv], Upgrad);
+			_subtractMoneyArea.SetupTarget(_lv, _data.UpgradList[_lv].Cost, Upgrad);
 		}
 		#endregion
 

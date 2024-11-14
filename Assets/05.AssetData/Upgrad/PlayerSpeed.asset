@@ -9,7 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11e9db7ba2f3f374cbf62c577ff218ac, type: 3}
-  m_Name: BoxUpgradData
+  m_Script: {fileID: 11500000, guid: 9a129409d94cd1a498d300fe2feb3c87, type: 3}
+  m_Name: PlayerSpeed
   m_EditorClassIdentifier: 
-  <TargetMoneyList>k__BackingField: 
+  UpgradList:
+  - Cost: 100
+    Value: 4
+  - Cost: 300
+    Value: 5
+  - Cost: 500
+    Value: 6
