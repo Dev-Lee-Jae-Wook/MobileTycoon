@@ -136,17 +136,14 @@ namespace EverythingStore.InteractionObject
 				return;
 			}
 
-			if (_player.Money <= 0)
+			int subtractMoney = _subtractMoney;
+
+			if(_player.Wallet.CanSubstactMoney(subtractMoney) == false)
 			{
-				return;
+				subtractMoney = _player.Wallet.Money;
 			}
 
-			if (_targetMoney - _subtractMoney < 0)
-			{
-				_subtractMoney = _targetMoney;
-			}
-
-			_player.SubtractMoney(_subtractMoney);
+			_player.Wallet.SubtractMoney(_subtractMoney);
 			_targetMoney -= _subtractMoney;
 			OnUpdateMoney?.Invoke(_targetMoney);
 

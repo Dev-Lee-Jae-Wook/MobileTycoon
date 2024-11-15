@@ -11,20 +11,20 @@ namespace EverythingStore.Actor.Player
     public class Player : MonoBehaviour
 	{
 		#region Field
+		[SerializeField] private int _initMoney; 
+		[SerializeField] private Transform _getItemPoint;
 		private PlayerCharacterMovement _movement;
 		private PickupAndDrop _pickupAndDrop;
-		[SerializeField] private Transform _getItemPoint;
-		[SerializeField] private int _money;
+		private Wallet _wallet;
 		#endregion
 
 		#region Property
 		public Transform GetItemPoint => _getItemPoint;
 		public PickupAndDrop PickupAndDrop => _pickupAndDrop;
-		public int Money => _money;
+		public Wallet Wallet => _wallet;
 		#endregion
 
 		#region Event
-		public event Action<int> OnMoneyChange;
 		#endregion
 
 		#region UnityCycle
@@ -32,22 +32,11 @@ namespace EverythingStore.Actor.Player
 		{
 			_pickupAndDrop = GetComponent<PickupAndDrop>();
 			_movement = GetComponent<PlayerCharacterMovement>();
+			_wallet = new (_initMoney);
 		}
 		#endregion
 
 		#region Public Method
-		public void AddMoney(int money)
-		{
-			_money += money;
-			OnMoneyChange?.Invoke(_money);
-		}
-
-		
-		public void SubtractMoney(int money)
-		{
-			_money -= money;
-			OnMoneyChange?.Invoke(_money);
-		}
 
 		public void SetSpeed(float speed)
 		{

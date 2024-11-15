@@ -20,10 +20,10 @@ namespace EverythingStore.UI
 		#endregion
 
 		#region UnityCycle
-		private void Awake()
+		private void Start()
 		{
-			UpdateMoney(_player.Money);
-			_player.OnMoneyChange += UpdateMoney;
+			UpdateMoney(_player.Wallet.Money);
+			_player.Wallet.OnUpdate += UpdateMoney;
 		}
 		#endregion
 

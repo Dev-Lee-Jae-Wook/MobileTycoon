@@ -60,7 +60,8 @@ namespace EverythingStore.InteractionObject
 
 		private void SendToMoney(Player player)
 		{
-			player.AddMoney(_toalMoney);
+
+			player.Wallet.AddMoney(_toalMoney);
 			StartCoroutine(C_SendToMoney(player.GetItemPoint));
 			_toalMoney = 0;
 		}
