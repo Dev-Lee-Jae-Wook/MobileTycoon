@@ -7,5 +7,10 @@ namespace EverythingStore.OrderBox
 	{
 		public BoxType Type;
 		public int Amount;
+		public BoxOrderData(BoxType type, int amount)
+		{
+			Type = type;
+			Amount = amount;
+		}
 	}
 }

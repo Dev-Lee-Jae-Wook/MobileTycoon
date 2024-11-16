@@ -1,6 +1,4 @@
 using EverythingStore.OrderBox;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +7,7 @@ namespace EverythingStore.Delivery
 	public class DeliveryManger : MonoBehaviour
 	{
 		#region Field
+		[SerializeField] private DeliveryTruck _truck;
 		private Queue<BoxOrderData[]> _order = new();
 		#endregion
 
@@ -19,27 +18,38 @@ namespace EverythingStore.Delivery
 		#endregion
 
 		#region UnityCycle
+		private void Start()
+		{
+			_truck.OnFinshDelivey += () => Debug.Log("배달 완료를 받음");
+		}
 		#endregion
 
 		#region Public Method
-		#endregion
-
-		#region Private Method
-		#endregion
-
-		#region Protected Method
-		#endregion
-		internal void AddOrderData(BoxOrderData[] orderData)
+		public void AddOrderData(BoxOrderData[] orderData)
 		{
-			if(orderData.Length == 0)
+			if (orderData.Length == 0)
 			{
 				return;
 			}
 
-			foreach (var item in orderData)
+			if (_truck.IsDelivery == true)
 			{
-				Debug.Log($"{item.Type} {item.Amount}");
+				_order.Enqueue(orderData);
 			}
+            else
+            {
+				StartDeilvery(orderData);
+            }
+        }
+		#endregion
+
+		#region Private Method
+		private void StartDeilvery(BoxOrderData[] orderData)
+		{
+			_truck.StartDeliveryProcess(orderData);
 		}
+		#endregion
+
+
 	}
 }

@@ -10,7 +10,7 @@ using UnityEngine;
 namespace EverythingStore.Actor.Customer
 {
 	[RequireComponent(	typeof(CustomerRayInteraction),
-											typeof(CustomerMove),
+											typeof(NavmeshMove),
 											typeof(PickupAndDrop))]
 	[RequireComponent (typeof(FSMMachine))]
 	public class Customer : MonoBehaviour
@@ -22,7 +22,7 @@ namespace EverythingStore.Actor.Customer
 
 		#region Property
 		public CustomerRayInteraction Sensor { get; private set; }
-		public CustomerMove Move { get; private set; }
+		public NavmeshMove Move { get; private set; }
 		public PickupAndDrop pickupAndDrop { get; private set; }
 		public FSMStateType CurrentState => _machine.CurrentStateType;
 		#endregion
@@ -84,7 +84,7 @@ namespace EverythingStore.Actor.Customer
 		{
 			//----내부 컴포넌트 가져오기----
 			Sensor = GetComponent<CustomerRayInteraction>();
-			Move = GetComponent<CustomerMove>();
+			Move = GetComponent<NavmeshMove>();
 			pickupAndDrop = GetComponent<PickupAndDrop>();
 			_machine = GetComponent<FSMMachine>();
 
@@ -95,27 +95,27 @@ namespace EverythingStore.Actor.Customer
 			_stateList.Add(new StopState(this));
 			//----판매대----
 			//판매대 입장 포인트로 이동
-			_stateList.Add(new MoveToPoint(this, salesStand.EnterPoint, FSMStateType.Customer_MoveTo_EnterPoint_SalesStand, FSMStateType.Customer_EnterSalesStand));
+			_stateList.Add(new MoveToPoint(Move, salesStand.EnterPoint, FSMStateType.Customer_MoveTo_EnterPoint_SalesStand, FSMStateType.Customer_EnterSalesStand));
 			//판매대에 접근
 			_stateList.Add(new EnterWaitingInteraction(this, FSMStateType.Customer_EnterSalesStand, salesStand));
 			//판매대로 이동
-			_stateList.Add(new MoveToPoint(this, salesStand.GetInteractionPoint(),FSMStateType.Customer_MoveTo_SalesStation, FSMStateType.Customer_Interaction_SaleStation));
+			_stateList.Add(new MoveToPoint(Move, salesStand.GetInteractionPoint(),FSMStateType.Customer_MoveTo_SalesStation, FSMStateType.Customer_Interaction_SaleStation));
 			//판매대와 상호작용
 			_stateList.Add(new SaleStationInteraction(this));
 
 			//----계산대----
 			//계산대 입장 포인트로 이동
-			_stateList.Add(new MoveToPoint(this, counter.EnterPoint, FSMStateType.Customer_MoveTo_EnterPoint_Counter, FSMStateType.Customer_EnterCounter));
+			_stateList.Add(new MoveToPoint(Move, counter.EnterPoint, FSMStateType.Customer_MoveTo_EnterPoint_Counter, FSMStateType.Customer_EnterCounter));
 			//계산대에 접근
 			_stateList.Add(new EnterWaitingInteraction(this, FSMStateType.Customer_EnterCounter, counter));
 			//계산대로 이동
-			_stateList.Add(new MoveToPoint(this, counter.InteractionPoint, FSMStateType.Customer_MoveTo_Counter, FSMStateType.Customer_Counter_DropSellObject));
+			_stateList.Add(new MoveToPoint(Move, counter.InteractionPoint, FSMStateType.Customer_MoveTo_Counter, FSMStateType.Customer_Counter_DropSellObject));
 			//계산대에 구매 상품 내려놓기
 			_stateList.Add(new CounterDropSellObject(this));
 			//포장된 상품을 받기 까지 대기
 			_stateList.Add(new CounterWaitSendPackage(this));
 			//가게에서 나오기
-			_stateList.Add(new MoveToPoint(this, exitPoint, FSMStateType.Customer_GoOutSide, FSMStateType.Customer_ExitStore));
+			_stateList.Add(new MoveToPoint(Move, exitPoint, FSMStateType.Customer_GoOutSide, FSMStateType.Customer_ExitStore));
 			//가게에서 퇴장 완료
 			_stateList.Add(new ExitStore(this));
 

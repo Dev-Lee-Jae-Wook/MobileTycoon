@@ -2,13 +2,14 @@ using EverythingStore.Animation;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace EverythingStore.Actor.Customer
+namespace EverythingStore.AI
 {
 	[RequireComponent(typeof(NavMeshAgent))]
-    public class CustomerMove : MonoBehaviour,IAnimationEventMovement
+    public class NavmeshMove : MonoBehaviour,IAnimationEventMovement
     {
 		#region Field
 		[SerializeField] private float _speed;
@@ -59,12 +60,14 @@ namespace EverythingStore.Actor.Customer
 		private IEnumerator C_MovePoint(Vector3 point,Action callback)
 		{
 			_agent.SetDestination(point);
+			_agent.isStopped = false;
 			yield return null;
 			//남은 거리가 멈추는 거리보다 짧은 경우 도착으로 판단
 			while(_agent.remainingDistance > _agent.stoppingDistance)
 			{
 				yield return null;
 			}
+			_agent.isStopped = true;
 			callback?.Invoke();
 
 			_cMovePoint = null;

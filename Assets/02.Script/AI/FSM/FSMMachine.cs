@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -85,7 +86,7 @@ namespace EverythingStore.AI
 		#endregion
 
 		#region Private Method
-		
+
 		#endregion
 	}
 }

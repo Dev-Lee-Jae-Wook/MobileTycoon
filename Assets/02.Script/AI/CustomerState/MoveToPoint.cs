@@ -1,12 +1,12 @@
 using EverythingStore.Actor.Customer;
 using UnityEngine;
 
-namespace EverythingStore.AI.CustomerState
+namespace EverythingStore.AI
 {
-	public  class MoveToPoint : CustomerStateBase, IFSMState
+	public class MoveToPoint : IFSMState
 	{
 		#region Field
-		private CustomerMove _move;
+		private NavmeshMove _move;
 		private bool _isArrive;
 		private FSMStateType _arriveState;
 		private FSMStateType _type;
@@ -18,10 +18,10 @@ namespace EverythingStore.AI.CustomerState
 		#endregion
 
 		#region Public Method
-		public MoveToPoint(Customer owner, Vector3 arrivePoint, FSMStateType type, FSMStateType arriveState) : base(owner)
+		public MoveToPoint(NavmeshMove move, Vector3 arrivePoint, FSMStateType type, FSMStateType arriveState) 
 		{
 			_type = type;
-			_move = owner.Move;
+			_move = move;
 			_arriveState = arriveState;
 			_arrivePoint = arrivePoint;
 		}

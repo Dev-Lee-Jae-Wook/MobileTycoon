@@ -22,6 +22,7 @@ namespace EverythingStore.Optimization
 		#region Public Method
 		public void Init()
 		{
+			gameObject.name = $"ObjectPool_{_prefab.Type}";
 			for (int i = 0; i < _initSpawn; i++)
 			{
 				_pool.Push(CreatePooledObject());

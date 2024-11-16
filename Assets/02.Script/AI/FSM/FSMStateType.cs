@@ -21,5 +21,13 @@ namespace EverythingStore.AI
 		Customer_MoveTo_EnterPoint_Counter,
 		Customer_EnterCounter,
 		Customer_ExitStore,
+		DeliveryTruck_SpawnBox,
+		DeliveryTruck_BoxSendToStoreage,
+		DeliveryTruck_MoveTo_ArrivePoint,
+		DeliveryTruck_MoveTo_InitArrivePointMidPoint,
+		DeliveryTruck_BoxSendToStoreSorage,
+		DeliveryTruck_MoveTo_Exit,
+		DeliveryTruck_MoveTo_ExitPoint,
+		DeliveryTruck_DeliveryEnd,
 	}
 }
