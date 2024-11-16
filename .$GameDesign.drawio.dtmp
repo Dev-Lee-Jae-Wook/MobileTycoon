@@ -2151,7 +2151,7 @@
         <mxCell id="GTqUYKU0bQj02hxbBkWf-36" value="MoveDir (R, U)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
           <mxGeometry x="3390" y="1050" width="100" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="GTqUYKU0bQj02hxbBkWf-37" value="MoveDir (L, D)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+        <mxCell id="GTqUYKU0bQj02hxbBkWf-37" value="MoveDir (R, D)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
           <mxGeometry x="3520" y="1050" width="100" height="30" as="geometry" />
         </mxCell>
         <mxCell id="GTqUYKU0bQj02hxbBkWf-38" value="MoveDir (R, U)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">

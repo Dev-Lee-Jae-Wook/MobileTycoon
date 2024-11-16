@@ -1,6 +1,7 @@
 using EverythingStore.AI;
 using EverythingStore.AI.CustomerState;
 using EverythingStore.AI.DeliveryTruckState;
+using EverythingStore.InteractionObject;
 using EverythingStore.Optimization;
 using EverythingStore.OrderBox;
 using Sirenix.OdinInspector;
@@ -19,10 +20,10 @@ public class DeliveryTruck : MonoBehaviour
 	[SerializeField] private Transform _arrivePoint;
 	[SerializeField] private Transform _exitPoint;
 	[Title("BoxStorage")]
-	[SerializeField] private Transform _boxPoint;
+	[SerializeField] private BoxStorage _boxStorage;
 
 	private FSMMachine _machine;
-	private Queue<GameObject> _boxQueue = new();
+	private Queue<Box> _boxQueue = new();
 	private NavmeshMove _move;
 	private BoxOrderData[] _testData = { new(BoxType.Normal, 10) };
 	#endregion
@@ -73,7 +74,7 @@ public class DeliveryTruck : MonoBehaviour
 	public void AddBox(PooledObject pooledObject)
 	{
 		pooledObject.gameObject.SetActive(false);
-		_boxQueue.Enqueue(pooledObject.gameObject);
+		_boxQueue.Enqueue(pooledObject.GetComponent<Box>());
 	}
 
 	/// <summary>
@@ -84,9 +85,8 @@ public class DeliveryTruck : MonoBehaviour
 		while(_boxQueue.Count > 0)
 		{
 			var box = _boxQueue.Dequeue();
-			box.transform.parent = _boxPoint;
-			box.transform.localPosition = Vector3.zero;
-			box.SetActive(true);
+			box.gameObject.SetActive(true);
+			_boxStorage.AddBox(box);
 		}
 	}
 
