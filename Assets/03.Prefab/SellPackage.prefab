@@ -74,6 +74,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4549121172235927776}
   - component: {fileID: -1715571549447835555}
+  - component: {fileID: -2258427665909823973}
   m_Layer: 0
   m_Name: SellPackage
   m_TagString: Untagged
@@ -110,9 +111,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a3becfbc40b2e14681ea3272b244abd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Height>k__BackingField: 0
   _packagePoint: {fileID: 7860709079379010595}
   _openPackage: {fileID: 4990601226287645244}
   _clasePackage: {fileID: 5741375937423891699}
+--- !u!114 &-2258427665909823973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5456417074290572294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c45b6be3f1db8b428d25adb7f728c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Type>k__BackingField: 17
 --- !u!1001 &4991288213062602730
 PrefabInstance:
   m_ObjectHideFlags: 0

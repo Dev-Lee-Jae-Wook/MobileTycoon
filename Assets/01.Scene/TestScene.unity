@@ -744,7 +744,7 @@ GameObject:
   - component: {fileID: 102752201}
   - component: {fileID: 102752202}
   m_Layer: 0
-  m_Name: ObjectPool (9)
+  m_Name: ObjectPool_SellObject_PolarBear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -791,7 +791,7 @@ GameObject:
   - component: {fileID: 116985779}
   - component: {fileID: 116985780}
   m_Layer: 0
-  m_Name: ObjectPool (1)
+  m_Name: ObjectPool_SellObject_Crap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1865,7 +1865,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &482779025
 Transform:
   m_ObjectHideFlags: 0
@@ -1893,12 +1893,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 069a1c2189eaaba4f97128d23fee2a0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 4116039512996670181, guid: 655d770a783f2a446b7d65c616a57638, type: 3}
+  _poolManger: {fileID: 519768079}
   _counter: {fileID: 989932797}
   _salesStand: {fileID: 2030806979972789859}
   _exitPoint: {fileID: 780028086}
   _coolTime: 1
-  _maxCustomer: 4
+  _maxCustomer: 1
   customerCount: 0
 --- !u!1001 &483185021
 PrefabInstance:
@@ -2100,6 +2100,8 @@ Transform:
   - {fileID: 102752201}
   - {fileID: 1015746675}
   - {fileID: 593373364}
+  - {fileID: 967632585}
+  - {fileID: 1175461674}
   m_Father: {fileID: 595091608}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &519768079
@@ -2247,7 +2249,7 @@ GameObject:
   - component: {fileID: 593373364}
   - component: {fileID: 593373365}
   m_Layer: 0
-  m_Name: ObjectPool (11)
+  m_Name: ObjectPool_Box_Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3077,7 +3079,7 @@ GameObject:
   - component: {fileID: 714674960}
   - component: {fileID: 714674961}
   m_Layer: 0
-  m_Name: ObjectPool (5)
+  m_Name: ObjectPool_SellObject_Heart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3911,7 +3913,7 @@ GameObject:
   - component: {fileID: 905146581}
   - component: {fileID: 905146582}
   m_Layer: 0
-  m_Name: ObjectPool (3)
+  m_Name: ObjectPool_SellObject_Pigeon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4042,7 +4044,7 @@ GameObject:
   - component: {fileID: 921495848}
   - component: {fileID: 921495849}
   m_Layer: 0
-  m_Name: ObjectPool (7)
+  m_Name: ObjectPool_SellObject_Scorpion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4661,6 +4663,52 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 668764330}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &967632584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 967632585}
+  - component: {fileID: 967632586}
+  m_Layer: 0
+  m_Name: ObjectPool_Customer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &967632585
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967632584}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 519768078}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &967632586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967632584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87478dc83c695794a87f46e03425c408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _initSpawn: 4
+  _prefab: {fileID: 2616249242200416331, guid: 655d770a783f2a446b7d65c616a57638, type: 3}
 --- !u!1001 &982733188
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4808,6 +4856,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Counter
       objectReference: {fileID: 0}
+    - target: {fileID: 8503842575001465256, guid: 33cbabb9d458a354088eaad8cb791c27,
+        type: 3}
+      propertyPath: _poolManger
+      value: 
+      objectReference: {fileID: 519768079}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4842,7 +4895,7 @@ GameObject:
   - component: {fileID: 1015746675}
   - component: {fileID: 1015746676}
   m_Layer: 0
-  m_Name: ObjectPool (10)
+  m_Name: ObjectPool_SellObject_TRax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5276,6 +5329,53 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 822009099}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1175461673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1175461674}
+  - component: {fileID: 1175461675}
+  m_Layer: 0
+  m_Name: ObjectPool_Package
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1175461674
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1175461673}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 519768078}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1175461675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1175461673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87478dc83c695794a87f46e03425c408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _initSpawn: 4
+  _prefab: {fileID: -2258427665909823973, guid: 92a64232c48463643ad05c167004adbe,
+    type: 3}
 --- !u!1001 &1176519748
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6138,7 +6238,7 @@ GameObject:
   - component: {fileID: 1384150793}
   - component: {fileID: 1384150794}
   m_Layer: 0
-  m_Name: ObjectPool (6)
+  m_Name: ObjectPool_SellObject_JapanCastle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6438,7 +6538,7 @@ GameObject:
   - component: {fileID: 1516717384}
   - component: {fileID: 1516717385}
   m_Layer: 0
-  m_Name: ObjectPool
+  m_Name: ObjectPool_SellObject_Bucket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6819,14 +6919,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1566641010}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 5.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 64531312727293359}
   - {fileID: 1356093959}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1834899174}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1566641013
 MonoBehaviour:
@@ -7395,7 +7495,7 @@ GameObject:
   - component: {fileID: 1679452502}
   - component: {fileID: 1679452503}
   m_Layer: 0
-  m_Name: ObjectPool (2)
+  m_Name: ObjectPool_SellObject_Penguin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7442,7 +7542,7 @@ GameObject:
   - component: {fileID: 1680166561}
   - component: {fileID: 1680166562}
   m_Layer: 0
-  m_Name: ObjectPool (8)
+  m_Name: ObjectPool_SellObject_PC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7489,7 +7589,7 @@ GameObject:
   - component: {fileID: 1686571187}
   - component: {fileID: 1686571188}
   m_Layer: 0
-  m_Name: ObjectPool (4)
+  m_Name: ObjectPool_SellObject_FlamingoTube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8398,6 +8498,7 @@ Transform:
   - {fileID: 1274592753}
   - {fileID: 15568523}
   - {fileID: 262404074}
+  - {fileID: 1566641012}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1868577152
@@ -11504,4 +11605,3 @@ SceneRoots:
   - {fileID: 1045730966}
   - {fileID: 595091608}
   - {fileID: 261434915}
-  - {fileID: 1566641012}

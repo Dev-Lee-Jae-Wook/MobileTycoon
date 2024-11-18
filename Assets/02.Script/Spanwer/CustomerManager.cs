@@ -1,15 +1,16 @@
 using EverythingStore.Actor.Customer;
 using EverythingStore.InteractionObject;
+using EverythingStore.Optimization;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace EverythingStore.Spanwer
+namespace EverythingStore.Manger
 {
-	public class CustomerSpawner : MonoBehaviour
+	public class CustomerManager : MonoBehaviour
 	{
 		#region Field
-		[Title("Prefab")]
-		[SerializeField] private Customer _prefab;
+		[Title("ObjectPoolManger")]
+		[SerializeField] private ObjectPoolManger _poolManger;
 
 		[Title("Customer Init Data")]
 		[SerializeField] private Counter _counter;
@@ -24,6 +25,8 @@ namespace EverythingStore.Spanwer
 		[Title("Store Data")]
 		[SerializeField] private int _maxCustomer;
 		[ReadOnly] public int customerCount;
+
+		
 		#endregion
 
 		#region Property
@@ -52,10 +55,19 @@ namespace EverythingStore.Spanwer
 		/// </summary>
 		private void SpawnCustomer()
 		{
-			var newCustomer = Instantiate(_prefab);
-			newCustomer.transform.position = transform.position;
-			newCustomer.Setup(_counter, _salesStand, _exitPoint.position);
-			newCustomer.OnExitStore += CustomerDelete;
+			var customer = _poolManger.GetPoolObject(PooledObjectType.Customer).GetComponent<Customer>();
+
+			if (customer.IsSetup == false) 
+			{
+				customer.Setup(_counter, _salesStand, _exitPoint.position);
+			}
+			else
+			{
+				customer.Init();
+			}
+
+			customer.transform.position = transform.position;
+			customer.OnExitStore += CustomerDelete;
 			customerCount++;
 
 			//최대 손님를 넘지 않았다면 쿨타임을 돌려라
@@ -95,7 +107,7 @@ namespace EverythingStore.Spanwer
 		{
 			bool isFull = IsFullCustomer();
 
-			Destroy(customer);
+			customer.GetComponent<PooledObject>().Release();
 			customerCount--;
 
 			if(isFull == true)

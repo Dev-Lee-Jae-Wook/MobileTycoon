@@ -1,9 +1,10 @@
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace EverythingStore.Optimization
 {
-	public class ObjectPoolManger:MonoBehaviour
+	public class ObjectPoolManger : MonoBehaviour
 	{
 		private Dictionary<PooledObjectType, ObjectPool> _poolTable = new();
 
@@ -25,5 +26,17 @@ namespace EverythingStore.Optimization
 				_poolTable.Add(pool.Type, pool);
 			}
 		}
+
+#if UNITY_EDITOR
+		[Button("SetupPoolName")]
+		private void SetupName()
+		{
+			var pools = transform.GetComponentsInChildren<ObjectPool>();
+			foreach (var pool in pools)
+			{
+				pool.gameObject.name = $"ObjectPool_{pool.Type}";
+			}
+		}
+#endif
 	}
 }

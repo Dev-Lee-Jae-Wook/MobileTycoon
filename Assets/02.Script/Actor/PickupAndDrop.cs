@@ -1,5 +1,6 @@
 ﻿using EverythingStore.Animation;
 using EverythingStore.InteractionObject;
+using EverythingStore.Optimization;
 using EverythingStore.ProjectileMotion;
 using Sirenix.OdinInspector;
 using System;
@@ -93,6 +94,16 @@ namespace EverythingStore.Actor
 			return pickUpObjectCount > 0;
 		}
 
+		public void Clear()
+		{
+			while (_pickObjectStack.Count > 0)
+			{
+				var popObject = _pickObjectStack.Pop();
+				popObject.GetComponent<PooledObject>().Release();
+			}
+			_pickupObjectsType = PickableObjectType.None;
+			OnAnimationDrop?.Invoke();
+		}
 
 
 		/// <summary>

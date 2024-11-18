@@ -17,14 +17,18 @@ namespace EverythingStore.Actor.Customer
 	{
 		#region Field
 		private FSMMachine _machine;
-		private ITrigger _goToCounter;
+		private NavmeshMove _move;
+		private PickupAndDrop _pickupAndDrop;
+		private CustomerRayInteraction _sensor;
+		private bool _isSetup = false;
 		#endregion
 
 		#region Property
-		public CustomerRayInteraction Sensor { get; private set; }
-		public NavmeshMove Move { get; private set; }
-		public PickupAndDrop pickupAndDrop { get; private set; }
+		public CustomerRayInteraction Sensor => _sensor;
+		public NavmeshMove Move => _move;
+		public PickupAndDrop pickupAndDrop => _pickupAndDrop;
 		public FSMStateType CurrentState => _machine.CurrentStateType;
+		public bool IsSetup => _isSetup;
 		#endregion
 
 		#region Event
@@ -32,6 +36,14 @@ namespace EverythingStore.Actor.Customer
 		#endregion
 
 		#region Public Method
+		/// <summary>
+		/// Customer를 초기화합니다.
+		/// </summary>
+		public void Init()
+		{
+			_machine.StartMachine(FSMStateType.Customer_MoveTo_EnterPoint_SalesStand);
+		}
+
 		/// <summary>
 		/// FSM 상태를 설정하고 StartType 부터 상태를 시작합니다.
 		/// </summary>
@@ -82,11 +94,11 @@ namespace EverythingStore.Actor.Customer
 		/// <param name="exitPoint"></param>
 		public void Setup(Counter counter, SalesStand salesStand, Vector3 exitPoint)
 		{
-			//----내부 컴포넌트 가져오기----
-			Sensor = GetComponent<CustomerRayInteraction>();
-			Move = GetComponent<NavmeshMove>();
-			pickupAndDrop = GetComponent<PickupAndDrop>();
+			_sensor = GetComponent<CustomerRayInteraction>();
+			_move = GetComponent<NavmeshMove>();
+			_pickupAndDrop = GetComponent<PickupAndDrop>();
 			_machine = GetComponent<FSMMachine>();
+			pickupAndDrop.maxPickup = 5;
 
 			//----FSM 설정----
 			List<IFSMState> _stateList = new();
@@ -121,6 +133,7 @@ namespace EverythingStore.Actor.Customer
 
 
 			Setup(_stateList, FSMStateType.Customer_MoveTo_EnterPoint_SalesStand);
+			_isSetup = true;
 		}
 
 		/// <summary>
@@ -128,6 +141,7 @@ namespace EverythingStore.Actor.Customer
 		/// </summary>
 		public void Exit()
 		{
+			_pickupAndDrop.Clear();
 			OnExitStore?.Invoke(gameObject);
 		}
 		#endregion

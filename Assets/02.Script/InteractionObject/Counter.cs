@@ -2,6 +2,7 @@ using EverythingStore.Actor;
 using EverythingStore.Actor.Customer;
 using EverythingStore.Actor.Player;
 using EverythingStore.AI;
+using EverythingStore.Optimization;
 using EverythingStore.Sell;
 using System;
 using UnityEngine;
@@ -12,6 +13,8 @@ namespace EverythingStore.InteractionObject
 	public class Counter : MonoBehaviour, IPlayerInteraction, ICustomerInteraction, IWaitingInteraction, IEnterPoint, IInteractionPoint
 	{
 		#region Field
+		[SerializeField] private ObjectPoolManger _poolManger;
+
 		[SerializeField] private SellPackage _prefab;
 		[SerializeField] private WaitingLine _watingLine;
 		[SerializeField] private Transform _spawnPoint;
@@ -165,7 +168,9 @@ namespace EverythingStore.InteractionObject
 		/// </summary>
 		private void SpawnPackage()
 		{
-			_sellpackage = Instantiate(_prefab, _spawnPoint);
+			_sellpackage = _poolManger.GetPoolObject(PooledObjectType.Package).GetComponent<SellPackage>();
+			_sellpackage.transform.parent = _spawnPoint;
+			_sellpackage.transform.localPosition = Vector3.zero;
 		}
 
 

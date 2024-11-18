@@ -27,5 +27,8 @@ namespace EverythingStore.Optimization
 		SellObject_PolarBear,
 		SellObject_TRax,
 		SellObject_UnicornTube,
+		Customer,
+		Package,
+		Money,
 	}
 }
