@@ -35,6 +35,7 @@ namespace EverythingStore.Optimization
 		public void ReturnToPool(PooledObject pooledObject)
 		{
 			pooledObject.gameObject.SetActive(false);
+			pooledObject.transform.parent = transform;
 			_pool.Push(pooledObject);
 		}
 

@@ -1,6 +1,5 @@
-using EverythingStore.Optimization;
+using EverythingStore.BoxBox;
 using Sirenix.OdinInspector;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -25,8 +24,11 @@ namespace EverythingStore.InteractionObject
 
 		[Title("Box Move")]
 		[SerializeField] private float _boxMoveTime;
-
 		private IEnumerator _cBoxMove;
+
+		[Title("Box Output")]
+		[SerializeField] private OutputBox _outputBox;
+		[SerializeField] private Transform _boxOutputPoint;
 		#endregion
 
 		#region Property
@@ -41,13 +43,7 @@ namespace EverythingStore.InteractionObject
 		#region UnityCycle
 		private void Start()
 		{
-			ObjectPoolManger _poolManger = GameObject.FindObjectOfType<ObjectPoolManger>();
-
-			for (int i = 0; i < _capacity; i++)
-			{
-				Box box = _poolManger.GetPoolObject(PooledObjectType.Box_Normal).GetComponent<Box>();
-				AddBox(box);
-			}
+			_outputBox.OnEmptyBox += SendToBoxOutput;
 		}
 		private void OnDrawGizmos()
 		{
@@ -81,21 +77,33 @@ namespace EverythingStore.InteractionObject
 			var point = GetPivotPoint(_boxQueue.Count);
 			box.transform.parent = transform;
 			box.transform.localPosition = point;
-			_boxQueue.Enqueue(box);
+			box.SetInteraction(false);
+
+			if (_outputBox.HasBox() == false)
+			{
+				_outputBox.SetBox(box);
+			}
+			else
+			{
+				_boxQueue.Enqueue(box);
+			}
 		}
 
-		[Button("Test")]
-		public Box RemoveBox()
+		private void SendToBoxOutput()
 		{
+			if (_outputBox.HasBox() == true || _boxQueue.Count == 0)
+			{
+				return;
+			}
+
 			var box = _boxQueue.Dequeue();
-			box.gameObject.SetActive(false);
-			BoxPointReset();
-			return box;
+			_outputBox.SetBox(box);
+
+			OutputBox();
+			return;
 		}
 
-
-
-		internal void SavePointData(List<Vector3> points)
+		public void SavePointData(List<Vector3> points)
 		{
 			_pivotData.SavePointData(Capacity, points);
 		}
@@ -107,9 +115,9 @@ namespace EverythingStore.InteractionObject
 			return _pivotData.Points[index];
 		}
 
-		private void BoxPointReset()
+		private void OutputBox()
 		{
-			if(_cBoxMove != null)
+			if (_cBoxMove != null)
 			{
 				StopCoroutine(_cBoxMove);
 			}
@@ -124,7 +132,6 @@ namespace EverythingStore.InteractionObject
 			while (time < _boxMoveTime)
 			{
 				float progress = time / _boxMoveTime;
-
 				int index = 0;
 				foreach (var item in _boxQueue)
 				{
@@ -132,9 +139,10 @@ namespace EverythingStore.InteractionObject
 					item.transform.localPosition = localPos;
 					index++;
 				}
-				time += Time.deltaTime;
 				yield return null;
+				time += Time.deltaTime;
 			}
+			_cBoxMove = null;
 		}
 		#endregion
 	}

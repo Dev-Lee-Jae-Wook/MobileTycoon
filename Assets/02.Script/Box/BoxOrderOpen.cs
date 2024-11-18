@@ -1,7 +1,7 @@
 using EverythingStore.InteractionObject;
 using UnityEngine;
 
-namespace EverythingStore.OrderBox
+namespace EverythingStore.BoxBox
 {
 	public class BoxOrderOpen : MonoBehaviour, ISwitch
 	{

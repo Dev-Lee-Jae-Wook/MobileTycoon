@@ -1,4 +1,4 @@
-namespace EverythingStore.OrderBox
+namespace EverythingStore.BoxBox
 {
 	public enum BoxType
 	{

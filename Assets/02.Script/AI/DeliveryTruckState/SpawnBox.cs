@@ -1,5 +1,5 @@
 using EverythingStore.Optimization;
-using EverythingStore.OrderBox;
+using EverythingStore.BoxBox;
 
 namespace EverythingStore.AI.DeliveryTruckState
 {

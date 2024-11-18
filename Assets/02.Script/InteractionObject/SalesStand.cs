@@ -58,7 +58,7 @@ namespace EverythingStore.InteractionObject
 		{
 			var pickupAndDrop = player.PickupAndDrop;
 
-			if (pickupAndDrop.HasPickupObject() == false || pickupAndDrop.CanPopup() == false)
+			if (pickupAndDrop.HasPickupObject() == false || pickupAndDrop.CanDrop() == false)
 			{
 				return;
 			}
@@ -69,10 +69,10 @@ namespace EverythingStore.InteractionObject
 			}
 
 
-			if (pickupAndDrop.PeekObject().type == PickableObject.PickableObjectType.SellObject)
+			if (pickupAndDrop.PeekObject().type == PickableObjectType.SellObject)
 			{
 				var sellObject = pickupAndDrop.PeekObject().GetComponent<SellObject>();
-				pickupAndDrop.ParabolaDrop(Pivot, GetCurrentSloatPosition(), () =>
+				pickupAndDrop.Drop(Pivot, GetCurrentSloatPosition(), () =>
 				{
 					sellObject.transform.localRotation = Quaternion.Euler(0.0f, 180f, 0.0f);
 					PushSellObject(sellObject);
@@ -90,7 +90,7 @@ namespace EverythingStore.InteractionObject
 				return;
 			}
 
-			if (hand.CanPickup() == false)
+			if (hand.CanPickup(PickableObjectType.SellObject) == false)
 			{
 				return;
 			}
@@ -100,7 +100,7 @@ namespace EverythingStore.InteractionObject
 				return;
 			}
 
-			hand.ProductionPickup(PopSellObject());
+			hand.Pickup(PopSellObject());
 			ExitCustomer();
 		}
 		

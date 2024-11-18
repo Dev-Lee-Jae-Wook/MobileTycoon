@@ -57,12 +57,12 @@ namespace EverythingStore.InteractionObject
 		//손님 카운터 앞에 선 상황
 		public void InteractionCustomer(PickupAndDrop hand)
 		{
-			if (hand.CanPopup() == false)
+			if (hand.CanDrop() == false)
 			{
 				return;
 			}
 			
-			var sellObject = hand.ParabolaDrop(_sellpackage.PackagePoint, Vector3.zero).GetComponent<SellObject>();
+			var sellObject = hand.Drop(_sellpackage.PackagePoint, Vector3.zero).GetComponent<SellObject>();
 			_money += sellObject.Money;
 		}
 
@@ -108,7 +108,7 @@ namespace EverythingStore.InteractionObject
 		/// </summary>
 		public void SendPackageToCustomer()
 		{
-			_useCustomer.pickupAndDrop.ProductionPickup(_sellpackage);
+			_useCustomer.pickupAndDrop.Pickup(_sellpackage);
 		}
 
 		public bool IsEmpty()

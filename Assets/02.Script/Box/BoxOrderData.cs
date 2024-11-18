@@ -1,6 +1,6 @@
 using System;
 
-namespace EverythingStore.OrderBox
+namespace EverythingStore.BoxBox
 {
 	[Serializable]
 	public struct BoxOrderData

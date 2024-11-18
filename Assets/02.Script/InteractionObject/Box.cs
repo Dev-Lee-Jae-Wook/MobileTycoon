@@ -1,6 +1,7 @@
 using EverythingStore.Actor;
 using EverythingStore.Actor.Player;
 using EverythingStore.Gacha;
+using EverythingStore.Optimization;
 using EverythingStore.Sell;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,10 @@ using UnityEngine;
 
 namespace EverythingStore.InteractionObject
 {
-	public class Box : MonoBehaviour,IPlayerInteraction
+	public class Box : PickableObject,IPlayerInteraction
 	{
 		#region Filed
+		public override PickableObjectType type => PickableObjectType.Box;
 		private Stack<SellObject> _items;
 
 		//박스에 상태에 따른 비주얼 오브젝트들
@@ -32,6 +34,9 @@ namespace EverythingStore.InteractionObject
 		}
 
 		private State _state;
+
+		private BoxCollider _collider;
+
 		#endregion
 
 		#region Events
@@ -52,10 +57,44 @@ namespace EverythingStore.InteractionObject
 		{
 			_items = new Stack<SellObject>();
 			_itemSpawnPoint = transform.Find("SpawnPoint");
+			_collider = GetComponent<BoxCollider>();
+			var pooledObjecet = GetComponent<PooledObject>();
+			pooledObjecet.OnRelease += Init;
 		}
 		#endregion
 
+		#region Public Method
+		public void InteractionPlayer(Player player)
+		{
+			PickupAndDrop pickup = player.PickupAndDrop;
+
+			switch (_state)
+			{
+				case State.BeforeOpen:
+					Open();
+					break;
+				case State.Open:
+					if (pickup.CanPickup(_items.Peek().type) == true)
+					{
+						var popObject = PopSellObject(pickup);
+						pickup.Pickup(popObject);
+						if (_items.Count == 0)
+						{
+							EmptyBox();
+						}
+					}
+					break;
+			}
+		}
+
+		#endregion
+
 		#region Private Method
+		private void Init()
+		{
+			ChangeState(State.BeforeOpen);
+			_collider.enabled = true;
+		}
 
 		/// <summary>
 		/// 상자를 오픈합니다.
@@ -92,6 +131,8 @@ namespace EverythingStore.InteractionObject
 		/// </summary>
 		private void EmptyBox()
 		{
+			//상호작용에 반응하지 못하게한다.
+			_collider.enabled = false;
 			ChangeState(State.Emtpy);
 		}
 
@@ -111,37 +152,17 @@ namespace EverythingStore.InteractionObject
 					break;
 				case State.Emtpy:
 					OnEmtpyBox?.Invoke();
-					//Destroy(gameObject);
 					break;
 			}
 			_boxVisuals[(int)_state].SetActive(true);
 		}
 
-		void IPlayerInteraction.InteractionPlayer(Player player)
+		internal void SetInteraction(bool isEnabled)
 		{
-			PickupAndDrop hand = player.PickupAndDrop;
-
-			switch (_state)
-			{
-				case State.BeforeOpen:
-					Open();
-					break;
-				case State.Open:
-					if(hand.CanPickup() == true)
-					{
-						var popObject = PopSellObject(hand);
-						hand.ProductionPickup(popObject);
-						if(_items.Count == 0)
-						{
-							EmptyBox();
-						}
-					}
-					break;
-				case State.Emtpy:
-					break;
-			}
+			_collider.enabled = isEnabled;
 		}
 
 		#endregion
+
 	}
 }

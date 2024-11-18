@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace EverythingStore.OrderBox
+namespace EverythingStore.BoxBox
 {
 	public class BoxOrder : MonoBehaviour
 	{

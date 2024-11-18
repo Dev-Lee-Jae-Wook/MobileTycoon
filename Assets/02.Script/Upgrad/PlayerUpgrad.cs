@@ -30,7 +30,7 @@ namespace EverythingStore.Upgrad
 		private void Start()
 		{
 			_player.SetSpeed(3.0f);
-			_player.SetPickupCapcity(1);
+			_player.SetPickupCapcity(3);
 
 			_speedUpgradArea.SetupTarget(_speed.Name, _speedLv, _speed.UpgradList[_speedLv].Cost, UpgradSpeed);
 			_pickupUpgradArea.SetupTarget(_pickup.Name, _pickupLv, _pickup.UpgradList[_pickupLv].Cost, UpgradPickupCount);

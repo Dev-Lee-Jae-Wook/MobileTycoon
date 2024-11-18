@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using static EverythingStore.InteractionObject.PickableObject;
 
 namespace EverythingStore.Actor
 {
@@ -25,6 +26,8 @@ namespace EverythingStore.Actor
 
 		private Stack<PickableObject> _pickObjectStack;
 		private float _nextHeight;
+
+		private PickableObjectType _pickupObjectsType = PickableObjectType.None;
 		#endregion
 
 		#region Property
@@ -32,7 +35,7 @@ namespace EverythingStore.Actor
 		/// 현재 픽업한 아이템의 갯수
 		/// </summary>
 		public int pickUpObjectCount => _pickObjectStack.Count;
-		[field:SerializeField] public int Capacity { get; set; }
+		[ReadOnly] public int maxPickup;
 		#endregion
 
 		#region Event
@@ -62,19 +65,25 @@ namespace EverythingStore.Actor
 
 		#region Public Method
 		/// <summary>
-		/// 현재 픽업이 가능한지
+		/// 가능한 조건 1. 픽업한 오브젝트가 동일해야된다 2.쿨타임이 아니여야된다 3.현재 픽업 수가 최대 개수보다 작아야된다.
 		/// </summary>
-		public bool CanPickup()
+		public bool CanPickup(PickableObjectType type)
 		{
-			if(IsCoolTime() == true)
+			//현재 픽업한 오브젝트의 타입과 다른 타입이라면 픽업할 수 없습니다.
+			if (_pickupObjectsType != PickableObjectType.None && _pickupObjectsType != type)
 			{
 				return false;
 			}
 
-			return pickUpObjectCount < Capacity;
+			if (IsCoolTime() == true)
+			{
+				return false;
+			}
+
+			return pickUpObjectCount < maxPickup;
 		}
 
-		public bool CanPopup()
+		public bool CanDrop()
 		{
 			if (IsCoolTime() == true)
 			{
@@ -84,46 +93,45 @@ namespace EverythingStore.Actor
 			return pickUpObjectCount > 0;
 		}
 
-		/// <summary>
-		/// 연출 없이 아이템을 픽업합니다.
-		/// </summary>
-		public void Pickup(PickableObject pickableObject)
-		{
-			_pickObjectStack.Push(pickableObject);
-			_nextHeight += pickableObject.Height;
-		}
+
 
 		/// <summary>
 		/// 연출 없이 아이템을 드랍합니다.
 		/// </summary>
 		/// <returns></returns>
-		public PickableObject Drop()
+		private PickableObject Pop()
 		{
 			PickableObject popObject = _pickObjectStack.Pop();
 			_nextHeight = Mathf.Clamp(_nextHeight - popObject.Height, 0.0f, float.MaxValue);
+
+			if(_pickObjectStack.Count == 0)
+			{
+				_pickupObjectsType = PickableObjectType.None;
+			}
+
 			return popObject;
 		}
 
 		/// <summary>
 		/// 픽업 연출 이후 최종적으로 픽업이 진행됩니다.
 		/// </summary>
-		public void ProductionPickup(PickableObject pickableObject)
+		public void Pickup(PickableObject pickableObject)
 		{
 			_bezierCurve.Movement(pickableObject.transform, _pickupPoint, _pickupPoint.position.y + 1.0f, GetPickupLocalPosition(),
 				() =>
 				{
 					OnAnimationPickup?.Invoke();
 				});
-			Pickup(pickableObject);
+			Push(pickableObject);
 			StartCoolTime();
 		}
 
 		/// <summary>
 		/// 가장 위에 있는 아이템을 포물선 움직임 연출을 하면서 드랍합니다.
 		/// </summary>
-		public PickableObject ParabolaDrop(Transform endTarget, Vector3 localPos,Action callback = null)
+		public PickableObject Drop(Transform endTarget, Vector3 localPos,Action callback = null)
 		{
-			PickableObject popObject = Drop();
+			PickableObject popObject = Pop();
 
 			if (pickUpObjectCount == 0)
 			{
@@ -154,6 +162,16 @@ namespace EverythingStore.Actor
 		#endregion
 
 		#region Private Method
+		/// <summary>
+		/// 픽업 스택에 추가하고 다음 높이를 계산합니다.
+		/// </summary>
+		private void Push(PickableObject pickableObject)
+		{
+			_pickObjectStack.Push(pickableObject);
+			_nextHeight += pickableObject.Height;
+			_pickupObjectsType = pickableObject.type;
+		}
+
 		private void SetRigWeight(float weight)
 		{
 			_rig.weight = weight;

@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace EverythingStore.OrderBox
+namespace EverythingStore.BoxBox
 {
 	public class BoxOrderItem : MonoBehaviour
 	{
