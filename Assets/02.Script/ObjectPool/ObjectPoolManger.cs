@@ -14,6 +14,11 @@ namespace EverythingStore.Optimization
 		/// </summary>
 		public PooledObject GetPoolObject(PooledObjectType type)
 		{
+			if(_poolTable.ContainsKey(type) == false)
+			{
+				Debug.LogError($"[ObjectPool] {type} pool is null");
+			}
+
 			return _poolTable[type].GetPooledObject();
 		}
 

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace EverythingStore.InteractionObject
 {
-	public class SubtractMoneyArea : MonoBehaviour
+	public class LockArea : MonoBehaviour
 	{
 		#region Field
 		[Title("Target")]
@@ -23,16 +23,14 @@ namespace EverythingStore.InteractionObject
 		private CoolTime _coolTime;
 		private Player _player;
 
-		private int _subtractMoney = 50;
+		private int _subtractMoney = 1;
 
 		private bool _isTargetCompelte = false;
-		private Action _onComplet;
 		private bool _isPlayerDown = false;
-		private bool _isMax = false;
 		#endregion
 
 		#region Property
-
+		public int MaxMoney { get; private set; }
 		#endregion
 
 		#region Event
@@ -51,14 +49,13 @@ namespace EverythingStore.InteractionObject
 		/// 플레이어가 접촉했을 때 호출됩니다.
 		/// </summary>
 		public event Action OnPlayerDown;
+
 		/// <summary>
 		/// 플레이어가 접촉을 끝낼 때 호출 됩니다.
 		/// </summary>
 		public event Action OnPlayerUp;
-		/// <summary>
-		/// 최대치인 경우
-		/// </summary>
-		public event Action OnMax;
+
+		public event Action OnCompelte;
 		#endregion
 
 		#region UnityCycle
@@ -68,6 +65,7 @@ namespace EverythingStore.InteractionObject
 			_detectLayerMask = LayerMask.GetMask("Player");
 			_coolTime = gameObject.AddComponent<CoolTime>();
 			_coolTime.OnComplete += AddTargetMoney;
+			MaxMoney = _targetMoney;
 		}
 		private void OnDrawGizmos()
 		{
@@ -86,7 +84,7 @@ namespace EverythingStore.InteractionObject
 					OnPlayerDown?.Invoke();
 				}
 
-				if (_coolTime.IsPlaying == false && _isMax == false)
+				if (_coolTime.IsPlaying == false)
 				{
 					_coolTime.StartCoolTime(_time);
 				}
@@ -106,14 +104,7 @@ namespace EverythingStore.InteractionObject
 			//lv은 UI에게 넘겨주어야된다.
 			_targetMoney = targetMoney;
 			_isTargetCompelte = false;
-			_onComplet = onComplete;
 			OnSetupTargetMoney?.Invoke(name, lv, targetMoney);
-		}
-
-		public void Max()
-		{
-			_isMax = true;
-			OnMax?.Invoke();
 		}
 
 		#endregion
@@ -129,6 +120,9 @@ namespace EverythingStore.InteractionObject
 			return false;
 		}
 
+		/// <summary>
+		/// 돈을 추가합니다.
+		/// </summary>
 		private void AddTargetMoney()
 		{
 			if (_isTargetCompelte == true)
@@ -150,7 +144,8 @@ namespace EverythingStore.InteractionObject
 			if (_targetMoney == 0)
 			{
 				_isTargetCompelte = true;
-				_onComplet?.Invoke();
+				OnCompelte?.Invoke();
+				gameObject.SetActive(false);
 			}
 		}
 

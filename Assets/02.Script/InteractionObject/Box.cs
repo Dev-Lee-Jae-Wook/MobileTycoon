@@ -74,7 +74,7 @@ namespace EverythingStore.InteractionObject
 					Open();
 					break;
 				case State.Open:
-					if (pickup.CanPickup(_items.Peek().type) == true)
+					if (pickup.CanPickup(PickableObjectType.SellObject) == true)
 					{
 						var popObject = PopSellObject(pickup);
 						pickup.Pickup(popObject);

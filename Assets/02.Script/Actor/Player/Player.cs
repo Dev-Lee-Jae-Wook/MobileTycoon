@@ -45,7 +45,7 @@ namespace EverythingStore.Actor.Player
 
 		public void SetPickupCapcity(int capacity)
 		{
-			_pickupAndDrop.maxPickup = capacity;
+			_pickupAndDrop.SetMaxPickup(capacity);
 		}
 		#endregion
 

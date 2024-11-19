@@ -7,7 +7,7 @@ namespace EverythingStore.Upgrad
 	public class BoxUpgrad : MonoBehaviour
 	{
 		#region Field
-		[SerializeField] private SubtractMoneyArea _subtractMoneyArea;
+		[SerializeField] private UpgradArea _subtractMoneyArea;
 		[SerializeField] private UpgradData _data;
 		private int _lv = 0;
 		#endregion

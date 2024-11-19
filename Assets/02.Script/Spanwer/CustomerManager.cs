@@ -2,6 +2,8 @@ using EverythingStore.Actor.Customer;
 using EverythingStore.InteractionObject;
 using EverythingStore.Optimization;
 using Sirenix.OdinInspector;
+using System;
+using System.Collections;
 using UnityEngine;
 
 namespace EverythingStore.Manger
@@ -17,6 +19,9 @@ namespace EverythingStore.Manger
 		[SerializeField] private SalesStand _salesStand;
 		[SerializeField] private Transform _exitPoint;
 
+		[Title("CustomerAuction Init Data")]
+		[SerializeField] private Auction _auction;
+
 		[Title("CoolTime")]
 		[SerializeField] private float _coolTime;
 		private bool _isCoolTime;
@@ -26,7 +31,7 @@ namespace EverythingStore.Manger
 		[SerializeField] private int _maxCustomer;
 		[ReadOnly] public int customerCount;
 
-		
+		private WaitForSeconds _auctionCustomerSpawnDelay = new(0.5f);
 		#endregion
 
 		#region Property
@@ -38,8 +43,11 @@ namespace EverythingStore.Manger
 		#region UnityCycle
 		private void Start()
 		{
+			_auction.OnSetAuctionItem += SpawnAuctionCustomer;
 			StartWaitSpawn();
 		}
+
+
 		#endregion
 
 		#region Public Method
@@ -120,6 +128,35 @@ namespace EverythingStore.Manger
 		{
 			return customerCount >= _maxCustomer;
 		}
+
+		private void SpawnAuctionCustomer()
+		{
+			StartCoroutine(C_SpawnAuctionCustomer());
+		}
+
+		private IEnumerator C_SpawnAuctionCustomer()
+		{
+			int customerCount = 8;
+			while (customerCount > 0)
+			{
+				var customer = _poolManger.GetPoolObject(PooledObjectType.AuctionCustomer).GetComponent<CustomerAuction>();
+				if (customer.IsSetup == false)
+				{
+					customer.Setup(_auction, _exitPoint.position);
+				}
+				else
+				{
+					customer.Init();
+				}
+
+				customer.transform.position = transform.position;
+				customer.OnExitStore += CustomerDelete;
+				customerCount--;
+				yield return _auctionCustomerSpawnDelay;
+			}
+		}
+
+
 		#endregion
 
 	}

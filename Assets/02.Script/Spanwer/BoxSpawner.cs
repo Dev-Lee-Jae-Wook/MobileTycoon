@@ -1,6 +1,5 @@
 using EverythingStore.InteractionObject;
-using System.Collections;
-using System.Collections.Generic;
+using EverythingStore.Optimization;
 using UnityEngine;
 
 namespace EverythingStore.Spanwer
@@ -8,7 +7,7 @@ namespace EverythingStore.Spanwer
     public class BoxSpawner : MonoBehaviour
     {
 		#region Field
-		[SerializeField] private Box _prefab;
+		[SerializeField] private ObjectPoolManger _poolManger;
 		[SerializeField] private Transform _spawnPoint;
 		[SerializeField]private float _coolTime;
 
@@ -58,14 +57,16 @@ namespace EverythingStore.Spanwer
 
 		private void SpawnBox()
 		{
-			_box = Instantiate(_prefab, _spawnPoint);
+			_box = _poolManger.GetPoolObject(PooledObjectType.Box_Normal).GetComponent<Box>();
+			_box.transform.parent = _spawnPoint;
 			_box.transform.localPosition = Vector3.zero;
 			_box.OnEmtpyBox += DestoryBox;
+			_box.SetInteraction(true);
 		}
 
 		private void DestoryBox()
 		{
-			Destroy(_box.gameObject);
+			_box.GetComponent<PooledObject>().Release();
 			SetCollTime();
 		}
 

@@ -12,11 +12,11 @@ namespace EverythingStore.Upgrad
 		[SerializeField] private Player _player;
 
 		[Title("Speed")]
-		[SerializeField] private SubtractMoneyArea _speedUpgradArea;
+		[SerializeField] private UpgradArea _speedUpgradArea;
 		[SerializeField] private UpgradData _speed;
 
 		[Title("Pickup")]
-		[SerializeField] private SubtractMoneyArea _pickupUpgradArea;
+		[SerializeField] private UpgradArea _pickupUpgradArea;
 		[SerializeField] private UpgradData _pickup;
 
 		private int _speedLv;
@@ -29,9 +29,6 @@ namespace EverythingStore.Upgrad
 		#region UnityCycle
 		private void Start()
 		{
-			_player.SetSpeed(3.0f);
-			_player.SetPickupCapcity(3);
-
 			_speedUpgradArea.SetupTarget(_speed.Name, _speedLv, _speed.UpgradList[_speedLv].Cost, UpgradSpeed);
 			_pickupUpgradArea.SetupTarget(_pickup.Name, _pickupLv, _pickup.UpgradList[_pickupLv].Cost, UpgradPickupCount);
 		}

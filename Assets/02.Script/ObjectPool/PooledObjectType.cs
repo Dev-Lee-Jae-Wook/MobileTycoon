@@ -30,5 +30,7 @@ namespace EverythingStore.Optimization
 		Customer,
 		Package,
 		Money,
+		AuctionItem,
+		AuctionCustomer,
 	}
 }

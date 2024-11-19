@@ -6,18 +6,23 @@ namespace EverythingStore.Animation
 	{
 		[SerializeField] private Animator _animator;
 
-		private IAnimationEventMovement _movementEvent;
-		private IAnimationEventPickupAndDrop _pickupAndDrop;
-
 		private void Awake()
 		{
-			_animator = GetComponentInChildren<Animator>();
-			_movementEvent = GetComponent<IAnimationEventMovement>();
-			_pickupAndDrop = GetComponent<IAnimationEventPickupAndDrop>();
+			IAnimationEventMovement movementEvent;
+			IAnimationEventPickupAndDrop pickupAndDrop;
 
-			_movementEvent.OnAnimationMovement += Movement;
-			_pickupAndDrop.OnAnimationPickup += Pickup;
-			_pickupAndDrop.OnAnimationDrop += Drop;
+			_animator = GetComponentInChildren<Animator>();
+			movementEvent = GetComponent<IAnimationEventMovement>();
+			pickupAndDrop = GetComponent<IAnimationEventPickupAndDrop>();
+
+			movementEvent.OnAnimationMovement += Movement;
+			pickupAndDrop.OnAnimationPickup += Pickup;
+			pickupAndDrop.OnAnimationDrop += Drop;
+
+			if (TryGetComponent<IAnimationEventAction>(out var action))
+			{
+				action.OnAnimationSitdown += SitDown;
+			}
 		}
 
 		private void Movement(float move)
@@ -33,6 +38,11 @@ namespace EverythingStore.Animation
 		private void Drop()
 		{
 			_animator.SetTrigger("Drop");
+		}
+
+		private void SitDown()
+		{
+			_animator.SetTrigger("Sitdown");
 		}
 	}
 }

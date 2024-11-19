@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace EverythingStore.Upgrad
 {
-    public class SubtractMoneyAreaUI : MonoBehaviour
+    public class UpgradAreaUI : MonoBehaviour
     {
 		#region Field
 		[SerializeField] private Canvas _popup;
@@ -24,7 +24,7 @@ namespace EverythingStore.Upgrad
 		#region UnityCycle
 		private void Awake()
 		{
-			SubtractMoneyArea moneyArea = GetComponent<SubtractMoneyArea>();
+			UpgradArea moneyArea = GetComponent<UpgradArea>();
 			moneyArea.OnUpdateMoney += UpdataProgress;
 			moneyArea.OnSetupTargetMoney += SetUpProgress;
 			moneyArea.OnPlayerDown += () => PopupToggle(true);

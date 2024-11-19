@@ -29,5 +29,10 @@ namespace EverythingStore.AI
 		DeliveryTruck_MoveTo_Exit,
 		DeliveryTruck_MoveTo_ExitPoint,
 		DeliveryTruck_DeliveryEnd,
+		CustomerAuction_Sitdown,
+		CustomerAuction_AuctionWait,
+		CustomerAuction_EnterStore,
+		CustomerAuction_EnterAuction,
+		CustomerAuction_MoveToSitDown,
 	}
 }

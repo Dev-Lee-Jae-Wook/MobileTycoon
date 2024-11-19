@@ -21,6 +21,7 @@ namespace EverythingStore.Actor
 		[SerializeField] private Transform _pickupPoint;
 		[SerializeField] private float _coolTime;
 		[ReadOnly][SerializeField] private float _currentCoolTime;
+		[SerializeField] private int _maxPickup;
 
 		private Rig _rig;
 		private BezierCurve _bezierCurve;
@@ -36,7 +37,10 @@ namespace EverythingStore.Actor
 		/// 현재 픽업한 아이템의 갯수
 		/// </summary>
 		public int pickUpObjectCount => _pickObjectStack.Count;
-		[ReadOnly] public int maxPickup;
+
+		public PickableObjectType pickupObjectsType => _pickupObjectsType;
+
+		public int MaxPickup => _maxPickup;
 		#endregion
 
 		#region Event
@@ -81,7 +85,7 @@ namespace EverythingStore.Actor
 				return false;
 			}
 
-			return pickUpObjectCount < maxPickup;
+			return pickUpObjectCount < MaxPickup;
 		}
 
 		public bool CanDrop()
@@ -170,6 +174,10 @@ namespace EverythingStore.Actor
 		{
 			return _pickObjectStack.Peek();
 		}
+		public void SetMaxPickup(int capacity)
+		{
+			_maxPickup = capacity;
+		}
 		#endregion
 
 		#region Private Method
@@ -216,6 +224,8 @@ namespace EverythingStore.Actor
 		{
 			_currentCoolTime = _coolTime;
 		}
+
+
 		#endregion
 
 	}

@@ -1,5 +1,6 @@
 using EverythingStore.AI;
 using EverythingStore.AI.CustomerState;
+using EverythingStore.Animation;
 using EverythingStore.InteractionObject;
 using EverythingStore.RayInteraction;
 using Sirenix.OdinInspector;
@@ -98,7 +99,6 @@ namespace EverythingStore.Actor.Customer
 			_move = GetComponent<NavmeshMove>();
 			_pickupAndDrop = GetComponent<PickupAndDrop>();
 			_machine = GetComponent<FSMMachine>();
-			pickupAndDrop.maxPickup = 5;
 
 			//----FSM 설정----
 			List<IFSMState> _stateList = new();
@@ -130,7 +130,6 @@ namespace EverythingStore.Actor.Customer
 			_stateList.Add(new MoveToPoint(Move, exitPoint, FSMStateType.Customer_GoOutSide, FSMStateType.Customer_ExitStore));
 			//가게에서 퇴장 완료
 			_stateList.Add(new ExitStore(this));
-
 
 			Setup(_stateList, FSMStateType.Customer_MoveTo_EnterPoint_SalesStand);
 			_isSetup = true;
