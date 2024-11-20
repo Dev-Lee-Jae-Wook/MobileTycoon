@@ -6,5 +6,6 @@
 		SellObject,
 		Package,
 		Box,
+		AuctionItem
 	}
 }

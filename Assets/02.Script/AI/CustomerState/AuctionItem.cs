@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace EverythingStore.InteractionObject
 {
-	public class AuctionItem : MonoBehaviour, ICustomerInteraction
+	public class AuctionItem : PickableObject
 	{
 		#region Field
 		[SerializeField] private Transform _itemPoint;
@@ -15,6 +15,9 @@ namespace EverythingStore.InteractionObject
 
 		#region Property
 		public Transform ItemPoint => _itemPoint;
+		public int OrigneMoney => _sellObject.Money;
+
+		public override PickableObjectType type => PickableObjectType.AuctionItem;
 		#endregion
 
 		#region Event
@@ -24,9 +27,6 @@ namespace EverythingStore.InteractionObject
 		#endregion
 
 		#region Public Method
-		public void InteractionCustomer(PickupAndDrop hand)
-		{
-		}
 
 		/// <summary>
 		/// 경매 상품에 상품이 있는지?

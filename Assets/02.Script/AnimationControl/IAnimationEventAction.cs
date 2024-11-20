@@ -11,5 +11,11 @@ namespace EverythingStore.Animation
         /// 캐릭터가 앉기 이벤트
         /// </summary>
         event Action OnAnimationSitdown;
+
+
+        /// <summary>
+        /// 캐릭터 일어나기
+        /// </summary>
+        event Action OnAnimationSitup;
     }
 }

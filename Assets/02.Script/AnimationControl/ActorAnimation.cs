@@ -22,6 +22,7 @@ namespace EverythingStore.Animation
 			if (TryGetComponent<IAnimationEventAction>(out var action))
 			{
 				action.OnAnimationSitdown += SitDown;
+				action.OnAnimationSitup += SitUp;
 			}
 		}
 
@@ -43,6 +44,10 @@ namespace EverythingStore.Animation
 		private void SitDown()
 		{
 			_animator.SetTrigger("Sitdown");
+		}		
+		private void SitUp()
+		{
+			_animator.SetTrigger("Situp");
 		}
 	}
 }

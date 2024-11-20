@@ -1,3 +1,4 @@
+using EverythingStore.Actor.Customer;
 using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -7,6 +8,7 @@ namespace EverythingStore.AuctionSystem
 	public class AuctionParticipant
 	{
 		#region Field
+		private CustomerAuction _owner;
 		private AuctionSubmit _submit;
 		private int _money;
 		private float _priority;
@@ -20,16 +22,16 @@ namespace EverythingStore.AuctionSystem
 		#endregion
 
 		#region Public Method
-		public AuctionParticipant(AuctionSubmit submit, int money, float priority = 1.0f)
+		public AuctionParticipant(CustomerAuction owner,AuctionSubmit submit)
 		{
+			_owner = owner;
 			_submit = submit;
-			_money = money;
-			_priority = priority;
 		}
 
-		public bool CanSubmit()
+		public void SetUp(int money, float priority)
 		{
-			return _submit.GetMinimumBidMoney() <= _money;
+			_money = money;
+			_priority = priority;
 		}
 
 		/// <summary>
@@ -37,8 +39,14 @@ namespace EverythingStore.AuctionSystem
 		/// </summary>
 		public bool TrySubmit()
 		{
+			if(_submit.IsLastOrder(this) == true)
+			{
+				return false;
+			}
+
 			int minimun = _submit.GetMinimumBidMoney();
 			
+
 			if(_money <  minimun)
 			{
 				return false;

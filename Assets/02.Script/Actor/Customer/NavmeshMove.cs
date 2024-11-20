@@ -62,6 +62,12 @@ namespace EverythingStore.AI
 			_agent.SetDestination(point);
 			_agent.isStopped = false;
 			yield return null;
+
+			while(_agent.remainingDistance == Mathf.Infinity ||_agent.remainingDistance <= 0.0f)
+			{
+				yield return null;
+			}
+
 			//남은 거리가 멈추는 거리보다 짧은 경우 도착으로 판단
 			while(_agent.remainingDistance > _agent.stoppingDistance)
 			{

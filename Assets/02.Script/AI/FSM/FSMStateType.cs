@@ -34,5 +34,12 @@ namespace EverythingStore.AI
 		CustomerAuction_EnterStore,
 		CustomerAuction_EnterAuction,
 		CustomerAuction_MoveToSitDown,
+		CustomerAuction_ResultCheck,
+		CustomerAuction_DoAcution,
+		CustomerAuction_SuccesBid,
+		CustomerAuction_MoveToExit,
+		CustomerAuction_FailBid,
+		ExitStore,
+		CustomerAuction_MoveTo_SuccesBid,
 	}
 }

@@ -114,8 +114,13 @@ namespace EverythingStore.Actor
 		/// 연출 없이 아이템을 드랍합니다.
 		/// </summary>
 		/// <returns></returns>
-		private PickableObject Pop()
+		public PickableObject Pop()
 		{
+			if( _pickObjectStack.Count == 0 )
+			{
+				return null;
+			}
+
 			PickableObject popObject = _pickObjectStack.Pop();
 			_nextHeight = Mathf.Clamp(_nextHeight - popObject.Height, 0.0f, float.MaxValue);
 
@@ -129,13 +134,15 @@ namespace EverythingStore.Actor
 
 		/// <summary>
 		/// 픽업 연출 이후 최종적으로 픽업이 진행됩니다.
+		/// Callback 연출로 픽업이 완료 되었을 때 호출 된다.
 		/// </summary>
-		public void Pickup(PickableObject pickableObject)
+		public void Pickup(PickableObject pickableObject, Action callback = null)
 		{
 			_bezierCurve.Movement(pickableObject.transform, _pickupPoint, _pickupPoint.position.y + 1.0f, GetPickupLocalPosition(),
 				() =>
 				{
 					OnAnimationPickup?.Invoke();
+					callback?.Invoke();
 				});
 			Push(pickableObject);
 			StartCoolTime();

@@ -1,4 +1,5 @@
 using EverythingStore.Actor.Customer;
+using System;
 
 namespace EverythingStore.AuctionSystem
 {
@@ -40,6 +41,11 @@ namespace EverythingStore.AuctionSystem
 		public void AddSubmitMinimumMoney(int money)
 		{
 			_SubmitMinimumMoney += money;	
+		}
+
+		public bool IsLastOrder(AuctionParticipant auctionParticipant)
+		{
+			return _manager.LastBid == auctionParticipant;
 		}
 		#endregion
 

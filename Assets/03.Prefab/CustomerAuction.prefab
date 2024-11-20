@@ -1764,7 +1764,7 @@ MonoBehaviour:
   _pickupPoint: {fileID: 7052962050488469772}
   _coolTime: 0.1
   _currentCoolTime: 0
-  _maxPickup: 0
+  _maxPickup: 1
 --- !u!195 &3941265300071160078
 NavMeshAgent:
   m_ObjectHideFlags: 0

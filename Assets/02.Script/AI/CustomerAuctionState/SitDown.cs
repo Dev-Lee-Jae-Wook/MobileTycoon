@@ -22,8 +22,8 @@ namespace EverythingStore.AI.CustomerStateAuction
 		public void Enter()
 		{
 			_isArrive = false;
-			_customerIndex = _auction.RegisterCustomer(owner);
-			_move.MovePoint(_auction.GetChairEnterPoint(_customerIndex), Arrive);
+			_auction.RegisterCustomer(owner);
+			_move.MovePoint(owner.Chair.GetEnterPoint(), Arrive);
 		}
 
 		
@@ -34,7 +34,7 @@ namespace EverythingStore.AI.CustomerStateAuction
 
 			if(_isArrive == true)
 			{
-				_auction.Sitdown(owner,_customerIndex);
+				owner.Sitdown();
 				type = FSMStateType.CustomerAuction_AuctionWait;
 			}
 

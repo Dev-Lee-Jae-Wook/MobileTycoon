@@ -17,6 +17,7 @@ namespace EverythingStore.AI.CustomerStateAuction
 
 		public void Enter()
 		{
+			_auction.CustomerReady();
 		}
 
 		public FSMStateType Excute()

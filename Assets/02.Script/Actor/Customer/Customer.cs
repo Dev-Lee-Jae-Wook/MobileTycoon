@@ -7,6 +7,7 @@ using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using ExitStore = EverythingStore.AI.CustomerState.ExitStore;
 
 namespace EverythingStore.Actor.Customer
 {
