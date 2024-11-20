@@ -28,12 +28,12 @@ public class CustomerTest
 	[SetUp]
 	public void Setup()
 	{
-		TestUtil.Instantiate<GameObject>("TestNavMesh");
-		_customer = TestUtil.Instantiate<Customer>("TestCustomer");
-		_salesStand = TestUtil.Instantiate<SalesStand>("TestSalesStand");
-		_sellObject1 = TestUtil.Instantiate<SellObject>("TestSellObjectPenguin");
-		_sellObject2 = TestUtil.Instantiate<SellObject>("TestSellObjectPenguin");
-		_counter = TestUtil.Instantiate<Counter>("TestCounter");
+		TestUtil.InstantiateResource<GameObject>("TestNavMesh");
+		_customer = TestUtil.InstantiateResource<Customer>("TestCustomer");
+		_salesStand = TestUtil.InstantiateResource<SalesStand>("TestSalesStand");
+		_sellObject1 = TestUtil.InstantiateResource<SellObject>("TestSellObjectPenguin");
+		_sellObject2 = TestUtil.InstantiateResource<SellObject>("TestSellObjectPenguin");
+		_counter = TestUtil.InstantiateResource<Counter>("TestCounter");
 
 		states.Add(new CounterWaitSendPackage(_customer));
 		states.Add(new CounterDropSellObject(_customer));
