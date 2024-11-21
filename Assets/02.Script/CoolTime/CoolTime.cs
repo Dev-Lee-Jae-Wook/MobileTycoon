@@ -14,6 +14,8 @@ namespace EverythingStore.Timer
 		#endregion
 
 		#region Event
+		public event Action<float> OnStartTime;
+		public event Action<float> OnUpdateTime;
 		public event Action OnComplete;
 		#endregion
 
@@ -23,7 +25,8 @@ namespace EverythingStore.Timer
 			if(IsPlaying == true)
 			{
 				_currentTime -= Time.deltaTime;
-				if(_currentTime <= 0.0f)
+				OnUpdateTime?.Invoke(_currentTime);
+				if (_currentTime <= 0.0f)
 				{
 					IsPlaying = false;
 					OnComplete?.Invoke();
@@ -40,6 +43,7 @@ namespace EverythingStore.Timer
 		{
 			_currentTime = coolTime;
 			IsPlaying = true;
+			OnStartTime?.Invoke(_currentTime);
 		}
 
 		/// <summary>

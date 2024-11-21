@@ -894,6 +894,37 @@ MonoBehaviour:
   _speed: {fileID: 11400000, guid: 5cb28d054d673c149b5683098cff01f9, type: 2}
   _pickupUpgradArea: {fileID: 0}
   _pickup: {fileID: 11400000, guid: f472c7608c710474ebb611ae11a1a0fb, type: 2}
+--- !u!1 &156989758
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 156989759}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &156989759
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156989758}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.4, y: 0, z: -0.375}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1272175981}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &202551861 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4487273876881970045, guid: 841099d5e72caf948a17fc2c870ef230,
@@ -2086,7 +2117,7 @@ MonoBehaviour:
   _salesStand: {fileID: 2030806979972789859}
   _exitPoint: {fileID: 780028086}
   _enterPoint: {fileID: 650418310}
-  _auction: {fileID: 1672599510}
+  _auctionManger: {fileID: 1672599514}
   _coolTime: 1
   _maxCustomer: 1
   customerCount: 0
@@ -6248,6 +6279,96 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1252916859}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1272175979
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1272175981}
+  - component: {fileID: 1272175980}
+  - component: {fileID: 1272175983}
+  - component: {fileID: 1272175982}
+  m_Layer: 6
+  m_Name: MoneySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1272175980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272175979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ba6df0b30402d54f9462388e28c332b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 4374720103699997208, guid: 82f90fa8eb0ae9a48b9ae5f8847b0085, type: 3}
+  _toalMoney: 0
+  <SpawnSize>k__BackingField: {x: 5, y: 5, z: 4}
+  <SpawnPoint>k__BackingField: {fileID: 156989759}
+  <SpawnPointData>k__BackingField: {fileID: 11400000, guid: df0ed82ea61cb984c835c204262f6fff,
+    type: 2}
+--- !u!4 &1272175981
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272175979}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.9919996, y: 0, z: 0.99000025}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 156989759}
+  m_Father: {fileID: 1672599511}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1272175982
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272175979}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &1272175983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272175979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a9ca1a3b5425a45af4b23951ac428e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moneySpanwer: {fileID: 1272175980}
+  _interval: {x: 0.2, y: 0.1, z: 0.25}
+  _debugCubeSize: 0.05
+  _debugColor: {r: 0.39040214, g: 0.6784314, b: 0.0078431275, a: 0.5019608}
 --- !u!1 &1274592752
 GameObject:
   m_ObjectHideFlags: 0
@@ -8505,6 +8626,7 @@ GameObject:
   - component: {fileID: 1672599512}
   - component: {fileID: 1672599513}
   - component: {fileID: 1672599514}
+  - component: {fileID: 1672599515}
   m_Layer: 6
   m_Name: Auction
   m_TagString: Untagged
@@ -8527,6 +8649,7 @@ MonoBehaviour:
   _poolManger: {fileID: 519768079}
   _lockArea: {fileID: 1331815493952339886}
   _spawnPoint: {fileID: 914565174}
+  _moneySpawner: {fileID: 1272175980}
   _enterPoint: {fileID: 1395129868}
   _interactionPoint: {fileID: 1428889257}
   _chairParent: {fileID: 532406944}
@@ -8551,6 +8674,7 @@ Transform:
   - {fileID: 914565174}
   - {fileID: 1428889257}
   - {fileID: 2093794491}
+  - {fileID: 1272175981}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1672599512
@@ -8599,6 +8723,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _customerManager: {fileID: 482779026}
+  _closeTime: 180
+  _state: 0
+--- !u!114 &1672599515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1672599509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e228c0686d6afb948bc7dc7d66e08bc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1679452501
 GameObject:
   m_ObjectHideFlags: 0

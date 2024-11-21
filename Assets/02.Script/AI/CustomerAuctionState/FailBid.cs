@@ -22,7 +22,7 @@ namespace EverythingStore.AI.CustomerStateAuction
 		public void Enter()
 		{
 			isFinsh = false;
-			_auction.OnSuccessBidExit += Finsh;
+			_auction.OnPickUpAuctionItem += Finsh;
 		}
 
 		public FSMStateType Excute()
@@ -40,7 +40,7 @@ namespace EverythingStore.AI.CustomerStateAuction
 		public void Exit()
 		{
 			owner.Situp(false);
-			_auction.OnSuccessBidExit -= Finsh;
+			_auction.OnPickUpAuctionItem -= Finsh;
 		}
 
 		private void Finsh()

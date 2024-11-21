@@ -24,6 +24,7 @@ namespace EverythingStore.InteractionObject
 		[SerializeField] private ObjectPoolManger _poolManger;
 		[SerializeField] private LockArea _lockArea;
 		[SerializeField] private Transform _spawnPoint;
+		[SerializeField] private MoneySpawner _moneySpawner;
 
 
 		[Title("Point")]
@@ -41,18 +42,18 @@ namespace EverythingStore.InteractionObject
 		private bool _isAuctionItemReady;
 		
 		private List<CustomerAuction> _customerList = new();
+		private Action _setAuctionItem;
 		#endregion
 
 		#region Property
 		public Vector3 EnterPoint => _enterPoint.position;
 		public Vector3 PickupPoint => _interactionPoint.position;
-		public AuctionManger Manger => _manager;
-		public AuctionItem AuctionItem => _auctionItem;
 		#endregion
 
 		#region Event
+		public event Action<CustomerAuction> OnReadyCustomer;
 		public event Action OnFinshAuction;
-		public event Action OnSuccessBidExit;
+		public event Action OnPickUpAuctionItem;
 		#endregion
 
 		#region UnityCycle
@@ -62,15 +63,12 @@ namespace EverythingStore.InteractionObject
 			_chairs = _chairParent.GetComponentsInChildren<Chair>();
 			_manager = GetComponent<AuctionManger>();
 		}
-
-		private void Start()
-		{
-			SpawnAcutionItemCase();
-		}
 		#endregion
 
 		#region Public Method
-		//Player가 경매 상품을 진열하면 경매장 열기
+		/// <summary>
+		/// 경매장이 경매 상품을 기달리고 있을 때 상호작용이 가능합니다.
+		/// </summary>
 		public void InteractionPlayer(Player player)
 		{
 			if(_manager.State != AuctionState.WaitAuctionItem || _auctionItem.HasItem() == true)
@@ -84,8 +82,9 @@ namespace EverythingStore.InteractionObject
 				return;
 			}
 
-			var item = drop.Drop(_auctionItem.ItemPoint, Vector3.zero, OpenAuction).GetComponent<SellObject>();
+			var item = drop.Drop(_auctionItem.ItemPoint, Vector3.zero).GetComponent<SellObject>();
 			_auctionItem.Setup(item);
+			_manager.SetUpAuction(item.Money);
 		}
 
 		/// <summary>
@@ -100,58 +99,39 @@ namespace EverythingStore.InteractionObject
 			_customerList.Add(owner);
 		}
 
-
-
-		public bool IsBidder(AuctionParticipant bidder)
-		{
-			return _manager.LastBid == bidder;
-		}
-		#endregion
-
-		#region Private Method
-		private void SpawnAcutionItemCase()
+		/// <summary>
+		/// 옥션 아이템 케이스를 생성합니다.
+		/// </summary>
+		public void SpawnAcutionItemCase()
 		{
 			_auctionItem = _poolManger.GetPoolObject(PooledObjectType.AuctionItem).GetComponent<AuctionItem>();
 			_auctionItem.transform.parent = _spawnPoint;
 			_auctionItem.transform.localPosition = Vector3.zero;
-			_manager.WaitAuctionItem();
 		}
 
-		private void OpenAuction()
+		/// <summary>
+		/// 최종 입찰자가 경매품을 가져갑니다.
+		/// 경매장을 닫습니다.
+		/// </summary>
+		public void PickupAuctionItem(PickupAndDrop _pickup)
 		{
-			_manager.OpenAuction();
-		}
-
-		private void StartAuction()
-		{
-			_manager.StartAuction(_auctionItem.OrigneMoney, FinshAuction);
-			foreach (var customer in _customerList)
-			{
-				customer.StartAuction();
-			}
-		}
-
-
-		private void FinshAuction(AuctionParticipant participant)
-		{
-			OnFinshAuction?.Invoke();
+			_pickup.Pickup(_auctionItem, () => OnPickUpAuctionItem?.Invoke());
+			_moneySpawner.AddMoney(_manager.BidMoney);
+			_auctionItem = null;
+			_manager.CloseAuction(_customerList);
 			_customerList.Clear();
 		}
 
-		public void CustomerReady()
+		/// <summary>
+		/// 손님이 준비를 완료
+		/// </summary>
+		public void CustomerReady(CustomerAuction owner)
 		{
-			_customerReady++;
-			if(_customerReady == _customerList.Count)
-			{
-				StartAuction();
-			}
+			OnReadyCustomer?.Invoke(owner);
 		}
+		#endregion
 
-		public void SucessBidExit()
-		{
-			OnSuccessBidExit?.Invoke();
-		}
-
+		#region Private Method
 		#endregion
 
 	}

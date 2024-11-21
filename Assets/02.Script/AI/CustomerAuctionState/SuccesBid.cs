@@ -10,7 +10,6 @@ namespace EverythingStore.AI.CustomerStateAuction
 		private Auction _auction;
 		private PickupAndDrop _pickup;
 		private bool _isFinsh;
-		private PickableObject _auctionItem;
 
 		public SuccesBid(CustomerAuction owner, Auction auction,NavmeshMove move) : base(owner)
 		{
@@ -25,8 +24,8 @@ namespace EverythingStore.AI.CustomerStateAuction
 		{
 			_isFinsh = false;
 			owner.Situp(true);
-			_auctionItem = _auction.AuctionItem;
 			_move.MovePoint(_auction.PickupPoint, PickupAuctionItem);
+			_auction.OnPickUpAuctionItem += Finsh;
 		}
 
 		public FSMStateType Excute()
@@ -41,13 +40,12 @@ namespace EverythingStore.AI.CustomerStateAuction
 
 		public void Exit()
 		{
-			
+			_auction.OnPickUpAuctionItem -= Finsh;
 		}
 
 		public void PickupAuctionItem()
 		{
-			_pickup.Pickup(_auctionItem, Finsh);
-			_auction.SucessBidExit();
+			_auction.PickupAuctionItem(_pickup);
 		}
 
 		private void Finsh()

@@ -6,11 +6,9 @@ namespace EverythingStore.AI.CustomerStateAuction
 {
 	public class AuctionResultCheck : CustomerAuctionStateBase, IFSMState
 	{
-		private Auction _auction;
 
-		public AuctionResultCheck(CustomerAuction owner, Auction auction) : base(owner)
+		public AuctionResultCheck(CustomerAuction owner) : base(owner)
 		{
-			_auction = auction;
 		}
 
 		public FSMStateType Type => FSMStateType.CustomerAuction_ResultCheck;
@@ -21,7 +19,7 @@ namespace EverythingStore.AI.CustomerStateAuction
 
 		public FSMStateType Excute()
 		{
-			if(_auction.IsBidder(owner.Participant) == true)
+			if(owner.IsAuctionSucess == true)
 			{
 				return FSMStateType.CustomerAuction_SuccesBid;
 			}

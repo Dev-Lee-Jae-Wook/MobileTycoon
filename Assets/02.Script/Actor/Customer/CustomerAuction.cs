@@ -32,6 +32,8 @@ namespace EverythingStore.Actor.Customer
 		private PooledObject _pooledObject;
 		private Chair _chair;
 		private bool _isLeft;
+		private bool _isAuctionSucess;
+		private bool _isAuctionResult;
 		#endregion
 
 		#region Property
@@ -43,6 +45,8 @@ namespace EverythingStore.Actor.Customer
 		public AuctionParticipant Participant => _participant;
 		public Chair Chair => _chair;
 		public bool IsShitDownPointLeft => _isLeft;
+		public bool IsAuctionSucess => _isAuctionSucess;
+		public bool IsAuctionResult => _isAuctionResult;
 		#endregion
 
 		#region Event
@@ -72,9 +76,9 @@ namespace EverythingStore.Actor.Customer
 		/// <summary>
 		/// 손님에게 필요한 설정을 진행하고 FSM을 실행합니다.
 		/// </summary>
-		public void Setup(Auction auction, Vector3 exitPoint)
+		public void Setup(Auction auction, AuctionSubmit submit,Vector3 exitPoint)
 		{
-			_participant = new(this, auction.Manger.Submit);
+			_participant = new(this, submit);
 			_sensor = GetComponent<CustomerRayInteraction>();
 			_move = GetComponent<NavmeshMove>();
 			_pickupAndDrop = GetComponent<PickupAndDrop>();
@@ -87,7 +91,7 @@ namespace EverythingStore.Actor.Customer
 			_stateList.Add(new SitDown(this, auction, _move));
 			_stateList.Add(new AuctionWait(this, auction));
 			_stateList.Add(new DoAuction(this, auction));
-			_stateList.Add(new AuctionResultCheck(this, auction));
+			_stateList.Add(new AuctionResultCheck(this));
 			_stateList.Add(new SuccesBid(this, auction, _move));
 			_stateList.Add(new FailBid(this, auction));
 			_stateList.Add(new MoveToPoint(_move, exitPoint, FSMStateType.CustomerAuction_MoveToExit, FSMStateType.ExitStore));
@@ -125,6 +129,7 @@ namespace EverythingStore.Actor.Customer
 
 		public void StartAuction()
 		{
+			_isAuctionResult = false;
 			_machine.ChangeState(FSMStateType.CustomerAuction_DoAcution);
 		}
 
@@ -148,9 +153,16 @@ namespace EverythingStore.Actor.Customer
 			_chair =chair;
 		}
 
-		public void SetMoveActive(bool isEnable)
+		public void FinshAuction(CustomerAuction sucessCustomer)
 		{
-			_move.enabled = isEnable;
+			_isAuctionSucess = false;
+
+			if (this == sucessCustomer)
+			{
+				_isAuctionSucess = true;
+			}
+
+			_isAuctionResult = true;
 		}
 		#endregion
 	}

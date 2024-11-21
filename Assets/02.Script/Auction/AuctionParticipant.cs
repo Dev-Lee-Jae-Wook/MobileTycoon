@@ -16,6 +16,7 @@ namespace EverythingStore.AuctionSystem
 
 		#region Property
 		public int Money => _money;
+		public CustomerAuction Owner => _owner;
 		#endregion
 
 		#region Event

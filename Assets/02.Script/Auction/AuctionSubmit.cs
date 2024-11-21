@@ -25,7 +25,7 @@ namespace EverythingStore.AuctionSystem
 
 		public void Submit(int money, AuctionParticipant participant)
 		{
-			_manager.Bid(money, participant);
+			_manager.UpdateBid(money, participant);
 		}
 
 		public int GetMinimumBidMoney()

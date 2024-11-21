@@ -26,7 +26,6 @@ namespace EverythingStore.Prob
 		public void Sitdown(CustomerAuction target)
 		{
 			_customerAuction = target;
-			_customerAuction.SetMoveActive(false);
 
 			_target = _customerAuction.transform;
 			_target.parent = _sitdownPoint;
@@ -36,8 +35,6 @@ namespace EverythingStore.Prob
 
 		public void Situp(bool isSucess)
 		{
-			_customerAuction.SetMoveActive(true);
-
 			Vector3 point = _enterPoint.position;
 			if (isSucess == true)
 			{

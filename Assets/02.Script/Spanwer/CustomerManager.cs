@@ -1,4 +1,5 @@
 using EverythingStore.Actor.Customer;
+using EverythingStore.AuctionSystem;
 using EverythingStore.InteractionObject;
 using EverythingStore.Optimization;
 using Sirenix.OdinInspector;
@@ -21,7 +22,7 @@ namespace EverythingStore.Manger
 		[SerializeField] private Transform _enterPoint;
 
 		[Title("CustomerAuction Init Data")]
-		[SerializeField] private Auction _auction;
+		[SerializeField] private AuctionManger _auctionManger;
 
 		[Title("CoolTime")]
 		[SerializeField] private float _coolTime;
@@ -143,7 +144,7 @@ namespace EverythingStore.Manger
 				if (customer.IsSetup == false)
 				{
 					Debug.Log(_exitPoint.position);
-					customer.Setup(_auction, _exitPoint.position);
+					customer.Setup(_auctionManger.Auction, _auctionManger.Submit ,_exitPoint.position);
 				}
 				customer.Init(_enterPoint.position);
 

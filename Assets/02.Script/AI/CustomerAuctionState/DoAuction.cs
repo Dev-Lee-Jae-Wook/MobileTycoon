@@ -29,9 +29,8 @@ namespace EverythingStore.AI.CustomerStateAuction
 
 		public FSMStateType Excute()
 		{
-			if(_isRunAuction == false)
+			if(owner.IsAuctionResult == true)
 			{
-				Debug.Log("ResultCheck");
 				return FSMStateType.CustomerAuction_ResultCheck;
 			}
 
