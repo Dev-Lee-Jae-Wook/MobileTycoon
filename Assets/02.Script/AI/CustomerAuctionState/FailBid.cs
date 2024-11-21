@@ -11,6 +11,7 @@ namespace EverythingStore.AI.CustomerStateAuction
 		private bool _isPickup;
 		private PickupAndDrop _pickupAndDrop;
 		private bool isFinsh = false;
+		private float _resentfu = 0.4f;
 
 		public FailBid(CustomerAuction owner, Auction auction) : base(owner)
 		{
@@ -22,6 +23,7 @@ namespace EverythingStore.AI.CustomerStateAuction
 		public void Enter()
 		{
 			isFinsh = false;
+			owner.SittingCrap();
 			_auction.OnPickUpAuctionItem += Finsh;
 		}
 
@@ -33,7 +35,14 @@ namespace EverythingStore.AI.CustomerStateAuction
 			}
 			else  
 			{
-				return FSMStateType.CustomerAuction_MoveToExit;
+				if (Random.Range(0.0f, 1.0f) <= _resentfu)
+				{
+					return FSMStateType.CustomerAuction_Resentful;
+				}
+				else
+				{
+					return FSMStateType.CustomerAuction_MoveToExit;
+				}
 			}
 		}
 

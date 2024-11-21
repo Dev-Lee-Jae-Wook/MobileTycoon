@@ -6,6 +6,7 @@ using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace EverythingStore.Manger
 {
@@ -56,9 +57,9 @@ namespace EverythingStore.Manger
 		#endregion
 
 		#region Public Method
-		public void SpawnAuctionCustomer()
+		public void SpawnAuctionCustomer(int auctionItemValue)
 		{
-			StartCoroutine(C_SpawnAuctionCustomer());
+			StartCoroutine(C_SpawnAuctionCustomer(auctionItemValue));
 		}
 
 		#endregion
@@ -135,7 +136,7 @@ namespace EverythingStore.Manger
 			return customerCount >= _maxCustomer;
 		}
 
-		private IEnumerator C_SpawnAuctionCustomer()
+		private IEnumerator C_SpawnAuctionCustomer(int auctionItemValue)
 		{
 			int customerCount = 8;
 			while (customerCount > 0)
@@ -143,10 +144,12 @@ namespace EverythingStore.Manger
 				var customer = _poolManger.GetPoolObject(PooledObjectType.AuctionCustomer).GetComponent<CustomerAuction>();
 				if (customer.IsSetup == false)
 				{
-					Debug.Log(_exitPoint.position);
 					customer.Setup(_auctionManger.Auction, _auctionManger.Submit ,_exitPoint.position);
 				}
-				customer.Init(_enterPoint.position);
+
+				int money = Random.Range(auctionItemValue, auctionItemValue * 10);
+				float priority = Random.Range(0.2f, 1.0f);
+				customer.Init(_enterPoint.position, money, priority);
 
 				customer.transform.position = transform.position;
 				customer.OnExitStore += CustomerDelete;

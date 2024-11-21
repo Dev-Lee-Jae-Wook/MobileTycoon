@@ -20,7 +20,7 @@ namespace EverythingStore.Actor.Customer
 											typeof(NavmeshMove),
 											typeof(PickupAndDrop))]
 	[RequireComponent (typeof(FSMMachine))]
-	public class CustomerAuction : MonoBehaviour, IAnimationEventAction
+	public class CustomerAuction : MonoBehaviour, IAuctionCustomerAnimationEventAction
 	{
 		#region Field
 		private FSMMachine _machine;
@@ -53,20 +53,22 @@ namespace EverythingStore.Actor.Customer
 		public event Action<GameObject> OnExitStore;
 		public event Action OnAnimationSitdown;
 		public event Action OnAnimationSitup;
+		public event Action OnAnimationSittingClap;
+		public event Action OnAnimationResentful;
+		public event Action OnAnimationRaising;
+		public event Action OnReactionEnd;
 		#endregion
 
 		#region Public Method
 		/// <summary>
 		/// Customer를 초기화합니다.
 		/// </summary>
-		public void Init(Vector3 enterPoint)
+		public void Init(Vector3 enterPoint, int money, float priority)
 		{
 			//위치 설정
 			transform.position = enterPoint;
 
-			//경매 설정
-			int money = Random.Range(100, 120);
-			float  priority = Random.Range(0.2f, 1.0f);
+			//경매 참여도 셋팅
 			_participant.SetUp(money, priority);
 
 			//상태 머신 설정
@@ -94,6 +96,7 @@ namespace EverythingStore.Actor.Customer
 			_stateList.Add(new AuctionResultCheck(this));
 			_stateList.Add(new SuccesBid(this, auction, _move));
 			_stateList.Add(new FailBid(this, auction));
+			_stateList.Add(new Resentful(this));
 			_stateList.Add(new MoveToPoint(_move, exitPoint, FSMStateType.CustomerAuction_MoveToExit, FSMStateType.ExitStore));
 			_stateList.Add(new ExitStore(ExitStore));
 
@@ -118,6 +121,12 @@ namespace EverythingStore.Actor.Customer
 			return _machine;
 		}
 
+		public void StartAuction()
+		{
+			_isAuctionResult = false;
+			_machine.ChangeState(FSMStateType.CustomerAuction_DoAcution);
+		}
+
 		/// <summary>
 		///앉기 애니메이션 호출 
 		/// </summary>
@@ -125,12 +134,6 @@ namespace EverythingStore.Actor.Customer
 		{
 			_chair.Sitdown(this);
 			OnAnimationSitdown?.Invoke();
-		}
-
-		public void StartAuction()
-		{
-			_isAuctionResult = false;
-			_machine.ChangeState(FSMStateType.CustomerAuction_DoAcution);
 		}
 
 		/// <summary>
@@ -163,6 +166,26 @@ namespace EverythingStore.Actor.Customer
 			}
 
 			_isAuctionResult = true;
+		}
+
+		public void SittingCrap()
+		{
+			OnAnimationSittingClap?.Invoke();
+		}
+
+		public void Resentful()
+		{
+			OnAnimationResentful?.Invoke();
+		}
+
+		public void Raising()
+		{
+			OnAnimationRaising?.Invoke();
+		}
+
+		public void ReactionEnd()
+		{
+			OnReactionEnd?.Invoke();
 		}
 		#endregion
 	}

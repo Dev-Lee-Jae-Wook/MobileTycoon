@@ -41,5 +41,6 @@ namespace EverythingStore.AI
 		CustomerAuction_FailBid,
 		ExitStore,
 		CustomerAuction_MoveTo_SuccesBid,
+		CustomerAuction_Resentful,
 	}
 }

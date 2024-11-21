@@ -19,10 +19,14 @@ namespace EverythingStore.Animation
 			pickupAndDrop.OnAnimationPickup += Pickup;
 			pickupAndDrop.OnAnimationDrop += Drop;
 
-			if (TryGetComponent<IAnimationEventAction>(out var action))
+			if (TryGetComponent<IAuctionCustomerAnimationEventAction>(out var action))
 			{
 				action.OnAnimationSitdown += SitDown;
 				action.OnAnimationSitup += SitUp;
+				action.OnAnimationSittingClap += SittingClap;
+				action.OnAnimationRaising += Raising;
+				action.OnAnimationResentful += Resentful;
+				action.OnReactionEnd += ReactionEnd;
 			}
 		}
 
@@ -44,10 +48,32 @@ namespace EverythingStore.Animation
 		private void SitDown()
 		{
 			_animator.SetTrigger("Sitdown");
+			_animator.SetLayerWeight(1, 1.0f);
 		}		
 		private void SitUp()
 		{
 			_animator.SetTrigger("Situp");
+			_animator.SetLayerWeight(1, 0.0f);
+		}
+
+		private void SittingClap()
+		{
+			_animator.SetTrigger("SittingClap");
+		}
+
+		private void Resentful()
+		{
+			_animator.SetTrigger("Resentful");
+		}
+
+		private void Raising()
+		{
+			_animator.SetTrigger("Raising");
+		}
+
+		private void ReactionEnd()
+		{
+			_animator.SetTrigger("ReactionEnd");
 		}
 	}
 }

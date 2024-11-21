@@ -16,6 +16,7 @@ namespace EverythingStore.AuctionSystem
 		WaitAuctionItem,
 		Open,
 		WaitCustomer,
+		ReadyAuction,
 		Start,
 		Finsh,
 	}
@@ -25,17 +26,17 @@ namespace EverythingStore.AuctionSystem
 		#region Field
 		[SerializeField] private CustomerManager _customerManager;
 		[SerializeField] private float _closeTime;
+		[SerializeField] private float _waitTime = 10.0f;
 		private AuctionParticipant _lastBid;
 		private int _bidMoney;
 		private Auction _auction;
 		private AuctionSubmit _submit;
 		private AuctionParticipant[] _participants;
-		private float _waitTime;
+		private float _currentWaitTime;
 		[ReadOnly][SerializeField] private AuctionState _state;
 		private CoolTime _closeTimer;
 		private int _customerReady;
 		private int _customerAllReady = 8;
-
 		#endregion
 
 		#region Property
@@ -47,10 +48,21 @@ namespace EverythingStore.AuctionSystem
 		#endregion
 
 		#region Event
-		private Action OnStartAuction;
 		private Action<CustomerAuction> OnFinshAuction;
 
 		public event Action<int> OnUpdateBidMoney;
+		public event Action<float> OnSetupBidTimer;
+		public event Action<float> OnUpdateBidTimer;
+		public event Action<int> OnEndAuction;
+
+		public event Action<float> OnUpdateCloseTime;
+		public event Action<int,int> OnUpdateReadyCustomer;
+		public event Action<int> OnUpdateReadyWait;
+
+		public event Action<int> OnSetAuctionTime;
+
+		public event  Action OnStartAuction;
+		public event Action OnWaitAuctionItem;
 		#endregion
 
 		#region UnityCycle
@@ -59,6 +71,7 @@ namespace EverythingStore.AuctionSystem
 			_submit = new(this);
 			_auction = GetComponent<Auction>();
 			_closeTimer = GetComponent<CoolTime>();
+			_closeTimer.OnUpdateTime += UpdateCloseTime;
 			_closeTimer.OnComplete += () => ChangeAuctionState(AuctionState.WaitAuctionItem);
 			_auction.OnReadyCustomer += ReadyCustomer;
 		}
@@ -78,7 +91,8 @@ namespace EverythingStore.AuctionSystem
 		{
 			_bidMoney = autionItemValue;
 			_submit.SetSubmitMinimumMoney(10);
-			_waitTime = 5.0f;
+			_currentWaitTime = 5.0f;
+			OnSetAuctionTime?.Invoke(_bidMoney);
 			ChangeAuctionState(AuctionState.Open);
 		}
 
@@ -89,7 +103,7 @@ namespace EverythingStore.AuctionSystem
 		{
 			_bidMoney = money;
 			_lastBid = participant;
-			_waitTime = 1.0f;
+			_currentWaitTime = _waitTime;
 			OnUpdateBidMoney?.Invoke(_bidMoney);
 		}
 
@@ -124,13 +138,27 @@ namespace EverythingStore.AuctionSystem
 		/// </summary>
 		private IEnumerator C_Auction()
 		{
-			_waitTime = 1.0f;
-			while (_waitTime > 0.0f)
+			_currentWaitTime = _waitTime;
+			OnSetupBidTimer?.Invoke(_currentWaitTime);
+			while (_currentWaitTime > 0.0f)
 			{
 				yield return null;
-				_waitTime -= Time.deltaTime;
+				_currentWaitTime -= Time.deltaTime;
+				OnUpdateBidTimer?.Invoke(_currentWaitTime);
 			}
 			ChangeAuctionState(AuctionState.Finsh);
+		}
+
+		private IEnumerator C_ReadyAuction(float waitTime)
+		{
+			while(waitTime > 0.0f)
+			{
+				yield return null;
+				waitTime -= Time.deltaTime;
+				OnUpdateReadyWait?.Invoke((int)waitTime);
+			}
+
+			ChangeAuctionState(AuctionState.Start);
 		}
 
 		/// <summary>
@@ -148,15 +176,20 @@ namespace EverythingStore.AuctionSystem
 				//경매 상품 케이스를 생성합니다.
 				case AuctionState.WaitAuctionItem:
 					_auction.SpawnAcutionItemCase();
+					OnWaitAuctionItem?.Invoke();
 					break;
 				//손님들을 받습니다.
 				case AuctionState.Open:
-					_customerManager.SpawnAuctionCustomer();
+					_customerManager.SpawnAuctionCustomer(_bidMoney);
 					ChangeAuctionState(AuctionState.WaitCustomer);
+					OnUpdateReadyCustomer?.Invoke(0, 8);
 					break;
 				//손님들을 기달립니다.
 				case AuctionState.WaitCustomer:
 					_customerReady = 0;
+					break;
+				case AuctionState.ReadyAuction:
+					StartCoroutine(C_ReadyAuction(3.0f));
 					break;
 				//경매를 시작합니다.
 				case AuctionState.Start:
@@ -165,6 +198,7 @@ namespace EverythingStore.AuctionSystem
 				//경매의 최종 입찰자가 결정됩니다.
 				case AuctionState.Finsh:
 					OnFinshAuction?.Invoke(_lastBid.Owner);
+					OnEndAuction?.Invoke(_bidMoney);
 					break;
 			}
 		}
@@ -177,9 +211,10 @@ namespace EverythingStore.AuctionSystem
 			_customerReady++;
 			OnStartAuction += customer.StartAuction;
 			OnFinshAuction += customer.FinshAuction;
+			OnUpdateReadyCustomer?.Invoke(_customerReady, 8);
 			if (_customerReady == _customerAllReady)
 			{
-				ChangeAuctionState(AuctionState.Start);
+				ChangeAuctionState(AuctionState.ReadyAuction);
 			}
 		}
 
@@ -190,6 +225,11 @@ namespace EverythingStore.AuctionSystem
 		{
 			StartCoroutine(C_Auction());
 			OnStartAuction?.Invoke();
+		}
+
+		private void UpdateCloseTime(float time)
+		{
+			OnUpdateCloseTime?.Invoke(time);
 		}
 
 		#endregion

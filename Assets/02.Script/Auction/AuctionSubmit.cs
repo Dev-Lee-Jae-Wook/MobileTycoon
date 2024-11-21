@@ -48,12 +48,5 @@ namespace EverythingStore.AuctionSystem
 			return _manager.LastBid == auctionParticipant;
 		}
 		#endregion
-
-		#region Private Method
-		#endregion
-
-		#region Protected Method
-		#endregion
-
 	}
 }

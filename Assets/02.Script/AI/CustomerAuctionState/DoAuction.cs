@@ -36,7 +36,11 @@ namespace EverythingStore.AI.CustomerStateAuction
 
 			if(_randomCoolTime <= 0.0f)
 			{
-				_participant.TrySubmit();
+				if(_participant.TrySubmit() == true)
+				{
+					owner.Raising();
+				}
+
 				SetRandomCoolTime();
 			}
 			else

@@ -10,6 +10,7 @@ namespace EverythingStore.AI.CustomerStateAuction
 		private Auction _auction;
 		private PickupAndDrop _pickup;
 		private bool _isFinsh;
+		private float _waitTime;
 
 		public SuccesBid(CustomerAuction owner, Auction auction,NavmeshMove move) : base(owner)
 		{
