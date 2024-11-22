@@ -36,11 +36,14 @@ namespace EverythingStore.AI
 		CustomerAuction_MoveToSitDown,
 		CustomerAuction_ResultCheck,
 		CustomerAuction_DoAcution,
-		CustomerAuction_SuccesBid,
+		CustomerAuction_TakeAuctionItem,
 		CustomerAuction_MoveToExit,
-		CustomerAuction_FailBid,
+		CustomerAuction_Reaction_Fail,
 		ExitStore,
 		CustomerAuction_MoveTo_SuccesBid,
-		CustomerAuction_Resentful,
+		CustomerAuction_Reaction_Resentful,
+		CustomerAuction_Reaction_SucessAuctionItem,
+		CustomerAuction_MoveTo_MidPoint,
+		CustomerAuction_MoveTo_Table,
 	}
 }

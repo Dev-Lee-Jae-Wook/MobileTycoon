@@ -29,7 +29,7 @@ namespace EverythingStore.Animation
         /// <summary>
         /// 분하다
         /// </summary>
-        event Action OnAnimationResentful;
+        event Action OnAnimationReactionFail;
 
         /// <summary>
         /// 손들기
@@ -39,6 +39,11 @@ namespace EverythingStore.Animation
         /// <summary>
         /// 리 액션 종료
         /// </summary>
-        event Action OnReactionEnd;
+        event Action OnAnimationReactionEnd;
+
+        /// <summary>
+        /// 입찰 성공
+        /// </summary>
+        event Action OnAnimationReactionSucess;
 	}
 }

@@ -1690,6 +1690,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7991679110165837079}
+  - component: {fileID: 3187095637898412699}
   - component: {fileID: 4642669842501559585}
   - component: {fileID: 2076415360050501316}
   - component: {fileID: 8483540413986333940}
@@ -1697,7 +1698,6 @@ GameObject:
   - component: {fileID: 4872444316836107903}
   - component: {fileID: 4237490698886839018}
   - component: {fileID: 8817996790114405166}
-  - component: {fileID: 3187095637898412699}
   - component: {fileID: 2616249242200416331}
   m_Layer: 9
   m_Name: CustomerAuction
@@ -1723,6 +1723,19 @@ Transform:
   - {fileID: 1339271921236506737}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3187095637898412699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8985960301282656889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e2174c88840b934b9d9b96b0fd79b12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: 8872091753255990851}
 --- !u!114 &4642669842501559585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1831,18 +1844,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentStateType: 0
---- !u!114 &3187095637898412699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8985960301282656889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e2174c88840b934b9d9b96b0fd79b12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2616249242200416331
 MonoBehaviour:
   m_ObjectHideFlags: 0

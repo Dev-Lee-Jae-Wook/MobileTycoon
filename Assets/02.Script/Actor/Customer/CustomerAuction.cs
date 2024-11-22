@@ -23,6 +23,8 @@ namespace EverythingStore.Actor.Customer
 	public class CustomerAuction : MonoBehaviour, IAuctionCustomerAnimationEventAction
 	{
 		#region Field
+		[SerializeField] private SkinnedMeshRenderer _renderer;
+
 		private FSMMachine _machine;
 		private NavmeshMove _move;
 		private PickupAndDrop _pickupAndDrop;
@@ -54,17 +56,20 @@ namespace EverythingStore.Actor.Customer
 		public event Action OnAnimationSitdown;
 		public event Action OnAnimationSitup;
 		public event Action OnAnimationSittingClap;
-		public event Action OnAnimationResentful;
+		public event Action OnAnimationReactionFail;
 		public event Action OnAnimationRaising;
-		public event Action OnReactionEnd;
+		public event Action OnAnimationReactionEnd;
+		public event Action OnAnimationReactionSucess;
 		#endregion
 
 		#region Public Method
 		/// <summary>
 		/// Customer를 초기화합니다.
 		/// </summary>
-		public void Init(Vector3 enterPoint, int money, float priority)
+		public void Init(Vector3 enterPoint, int money, float priority, Mesh mesh)
 		{
+			_renderer.sharedMesh = mesh;
+
 			//위치 설정
 			transform.position = enterPoint;
 
@@ -78,7 +83,7 @@ namespace EverythingStore.Actor.Customer
 		/// <summary>
 		/// 손님에게 필요한 설정을 진행하고 FSM을 실행합니다.
 		/// </summary>
-		public void Setup(Auction auction, AuctionSubmit submit,Vector3 exitPoint)
+		public void Setup(Auction auction, AuctionSubmit submit,Vector3 exitPoint, Vector3 midPoint)
 		{
 			_participant = new(this, submit);
 			_sensor = GetComponent<CustomerRayInteraction>();
@@ -94,9 +99,12 @@ namespace EverythingStore.Actor.Customer
 			_stateList.Add(new AuctionWait(this, auction));
 			_stateList.Add(new DoAuction(this, auction));
 			_stateList.Add(new AuctionResultCheck(this));
-			_stateList.Add(new SuccesBid(this, auction, _move));
-			_stateList.Add(new FailBid(this, auction));
-			_stateList.Add(new Resentful(this));
+			_stateList.Add(new MoveToTable(this, _move, auction.PickupPoint));
+			_stateList.Add(new ReactionSucessAuctionItem(this));
+			_stateList.Add(new TakeAuctionItem(this, auction));
+			_stateList.Add(new ReactionFail(this, auction));
+			_stateList.Add(new ReactionResentful(this));
+			_stateList.Add(new MoveToPoint(_move, midPoint, FSMStateType.CustomerAuction_MoveTo_MidPoint, FSMStateType.CustomerAuction_MoveToExit));
 			_stateList.Add(new MoveToPoint(_move, exitPoint, FSMStateType.CustomerAuction_MoveToExit, FSMStateType.ExitStore));
 			_stateList.Add(new ExitStore(ExitStore));
 
@@ -175,7 +183,7 @@ namespace EverythingStore.Actor.Customer
 
 		public void Resentful()
 		{
-			OnAnimationResentful?.Invoke();
+			OnAnimationReactionFail?.Invoke();
 		}
 
 		public void Raising()
@@ -185,7 +193,12 @@ namespace EverythingStore.Actor.Customer
 
 		public void ReactionEnd()
 		{
-			OnReactionEnd?.Invoke();
+			OnAnimationReactionEnd?.Invoke();
+		}
+
+		public void ReactionSucessAuctionItem()
+		{
+			OnAnimationReactionSucess?.Invoke();
 		}
 		#endregion
 	}

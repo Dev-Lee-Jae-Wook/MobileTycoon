@@ -1,10 +1,12 @@
 using EverythingStore.Actor.Customer;
+using EverythingStore.AssetData;
 using EverythingStore.AuctionSystem;
 using EverythingStore.InteractionObject;
 using EverythingStore.Optimization;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -21,6 +23,10 @@ namespace EverythingStore.Manger
 		[SerializeField] private SalesStand _salesStand;
 		[SerializeField] private Transform _exitPoint;
 		[SerializeField] private Transform _enterPoint;
+		[SerializeField] private Transform _midPoint;
+
+		[Title("AuctionCustomer Mesh")]
+		[SerializeField] private CustomerMeshData _meshData;
 
 		[Title("CustomerAuction Init Data")]
 		[SerializeField] private AuctionManger _auctionManger;
@@ -144,12 +150,15 @@ namespace EverythingStore.Manger
 				var customer = _poolManger.GetPoolObject(PooledObjectType.AuctionCustomer).GetComponent<CustomerAuction>();
 				if (customer.IsSetup == false)
 				{
-					customer.Setup(_auctionManger.Auction, _auctionManger.Submit ,_exitPoint.position);
+					customer.Setup(_auctionManger.Auction, _auctionManger.Submit ,_exitPoint.position, _midPoint.position);
 				}
 
 				int money = Random.Range(auctionItemValue, auctionItemValue * 10);
 				float priority = Random.Range(0.2f, 1.0f);
-				customer.Init(_enterPoint.position, money, priority);
+				int randomIndex = Random.Range(0, _meshData.MeshList.Count);
+				var mesh = _meshData.MeshList[randomIndex];
+
+				customer.Init(_enterPoint.position, money, priority, mesh);
 
 				customer.transform.position = transform.position;
 				customer.OnExitStore += CustomerDelete;

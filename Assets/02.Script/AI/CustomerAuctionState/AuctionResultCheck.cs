@@ -21,12 +21,12 @@ namespace EverythingStore.AI.CustomerStateAuction
 		{
 			if(owner.IsAuctionSucess == true)
 			{
-				return FSMStateType.CustomerAuction_SuccesBid;
+				return FSMStateType.CustomerAuction_MoveTo_Table;
 			}
 			else
 			{
 				Debug.Log("Fail");
-				return FSMStateType.CustomerAuction_FailBid;
+				return FSMStateType.CustomerAuction_Reaction_Fail;
 			}
 		}
 

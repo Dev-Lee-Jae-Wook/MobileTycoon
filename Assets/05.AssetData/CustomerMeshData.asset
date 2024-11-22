@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8c8329d2bc0b2e4a818811f63165197, type: 3}
+  m_Name: CustomerMeshData
+  m_EditorClassIdentifier: 
+  <MeshList>k__BackingField:
+  - {fileID: 4300000, guid: c37c613df0196cd4ca37aa4f08489ab2, type: 3}
+  - {fileID: 4300000, guid: 0807df89a60e55e43a5aea788b30802c, type: 3}
+  - {fileID: 4300000, guid: c097d8800c762234e8ba5cdd8dd2bd3d, type: 3}
+  - {fileID: 4300000, guid: fad2fb421c57924409a5095b115f9d42, type: 3}
+  - {fileID: 4300000, guid: b8fa19d1f98b64848815b76f670752e3, type: 3}
+  - {fileID: 4300000, guid: 9176ad6995583644e88ea93d5a5123ed, type: 3}
+  - {fileID: 4300000, guid: 0104b18e996b6c448b6c3241f23e31a7, type: 3}
+  - {fileID: 2222932827317825437, guid: e701add647179fb4985bc878fae2b207, type: 3}
+  - {fileID: 4300000, guid: e7ddc4e5bf773f941ad986b0aaf9b9c9, type: 3}
+  - {fileID: 4300000, guid: 54a3cceabef9d3b40af0072257f9571e, type: 3}
+  - {fileID: 4402151590241079507, guid: 8b48254294026e444b4d9319b39b27f9, type: 3}
+  - {fileID: 4300000, guid: 3c47549930d68ae45b5cfb24b4928e16, type: 3}
+  - {fileID: 4300000, guid: 223e487c7cbdf8142a6411ae322395e9, type: 3}

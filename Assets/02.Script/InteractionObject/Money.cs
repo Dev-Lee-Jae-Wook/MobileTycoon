@@ -1,3 +1,4 @@
+using EverythingStore.Optimization;
 using EverythingStore.ProjectileMotion;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace EverythingStore.InteractionObject
     {
 		#region Field
 		private BezierCurve _curve;
+		private PooledObject _pooledObject;
 		#endregion
 
 		#region Property
@@ -22,6 +24,7 @@ namespace EverythingStore.InteractionObject
 		private void Awake()
 		{
 			_curve = GetComponent<BezierCurve>();
+			_pooledObject = GetComponent<PooledObject>();
 		}
 		#endregion
 
@@ -35,8 +38,7 @@ namespace EverythingStore.InteractionObject
 		#region Private Method
 		private void OnProductEnd()
 		{
-			transform.parent = null;
-			gameObject.SetActive(false);
+			_pooledObject.Release();
 		}
 		#endregion
 

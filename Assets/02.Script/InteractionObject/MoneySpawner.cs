@@ -1,5 +1,7 @@
 using EverythingStore.Actor;
 using EverythingStore.Actor.Player;
+using EverythingStore.AssetData;
+using EverythingStore.Optimization;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +12,7 @@ namespace EverythingStore.InteractionObject
 	public class MoneySpawner : MonoBehaviour, IPlayerInteraction
 	{
 		#region Field
-		[SerializeField] private Money _prefab;
+		[SerializeField] private ObjectPoolManger _poolManger;
 		public int _toalMoney;
 		private List<Money> _moneys = new();
 		#endregion
@@ -91,7 +93,7 @@ namespace EverythingStore.InteractionObject
 
 		private void InstanlateMoney()
 		{
-			var newMoney = Instantiate(_prefab);
+			var newMoney = _poolManger.GetPoolObject(PooledObjectType.Money).GetComponent<Money>();
 			newMoney.transform.parent = SpawnPoint;
 			newMoney.transform.localPosition = SpawnPointData.SpawnPoints[_moneys.Count];
 			_moneys.Add(newMoney);

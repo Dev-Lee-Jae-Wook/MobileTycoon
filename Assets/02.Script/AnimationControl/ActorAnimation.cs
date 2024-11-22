@@ -25,8 +25,9 @@ namespace EverythingStore.Animation
 				action.OnAnimationSitup += SitUp;
 				action.OnAnimationSittingClap += SittingClap;
 				action.OnAnimationRaising += Raising;
-				action.OnAnimationResentful += Resentful;
-				action.OnReactionEnd += ReactionEnd;
+				action.OnAnimationReactionEnd += ReactionEnd;
+				action.OnAnimationReactionFail += FailReaction;
+				action.OnAnimationReactionSucess += SucessReaction;
 			}
 		}
 
@@ -61,9 +62,9 @@ namespace EverythingStore.Animation
 			_animator.SetTrigger("SittingClap");
 		}
 
-		private void Resentful()
+		private void FailReaction()
 		{
-			_animator.SetTrigger("Resentful");
+			_animator.SetTrigger("FailReaction");
 		}
 
 		private void Raising()
@@ -74,6 +75,11 @@ namespace EverythingStore.Animation
 		private void ReactionEnd()
 		{
 			_animator.SetTrigger("ReactionEnd");
+		}
+
+		private void SucessReaction()
+		{
+			_animator.SetTrigger("SucessReaction");
 		}
 	}
 }
