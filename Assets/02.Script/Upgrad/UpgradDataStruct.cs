@@ -8,6 +8,6 @@ namespace EverythingStore.Upgrad
 	public struct UpgradDataStruct
 	{
 		public int Cost;
-		public float Value;
+		public int Value;
 	}
 }

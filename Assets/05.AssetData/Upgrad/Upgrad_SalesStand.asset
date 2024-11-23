@@ -10,15 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a129409d94cd1a498d300fe2feb3c87, type: 3}
-  m_Name: PlayerPickup
+  m_Name: Upgrad_SalesStand
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: PICKUP
+  <Name>k__BackingField: Capacity
   UpgradList:
-  - Cost: 300
-    Value: 2
+  - Cost: 100
+    Value: 9
   - Cost: 500
-    Value: 3
-  - Cost: 800
-    Value: 4
+    Value: 12
   - Cost: 1000
-    Value: 5
+    Value: 18

@@ -9,6 +9,8 @@ namespace EverythingStore.InteractionObject
 	public class LockArea : MonoBehaviour
 	{
 		#region Field
+		[SerializeField] private GameObject _targetGameObject;
+
 		[Title("Target")]
 		[SerializeField] private int _targetMoney;
 
@@ -99,13 +101,6 @@ namespace EverythingStore.InteractionObject
 		#endregion
 
 		#region Public Method
-		public void SetupTarget(string name, int lv, int targetMoney, Action onComplete)
-		{
-			//lv은 UI에게 넘겨주어야된다.
-			_targetMoney = targetMoney;
-			_isTargetCompelte = false;
-			OnSetupTargetMoney?.Invoke(name, lv, targetMoney);
-		}
 
 		#endregion
 
@@ -146,6 +141,7 @@ namespace EverythingStore.InteractionObject
 				_isTargetCompelte = true;
 				OnCompelte?.Invoke();
 				gameObject.SetActive(false);
+				_targetGameObject.SetActive(true);
 			}
 		}
 

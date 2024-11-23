@@ -45,5 +45,7 @@ namespace EverythingStore.AI
 		CustomerAuction_Reaction_SucessAuctionItem,
 		CustomerAuction_MoveTo_MidPoint,
 		CustomerAuction_MoveTo_Table,
+		Customer_ChoiceSalesStand,
+		Customer_MoveTo_EnterSalesStand,
 	}
 }

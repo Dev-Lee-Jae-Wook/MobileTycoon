@@ -4,7 +4,7 @@ using Sirenix.OdinInspector;
 using System;
 using UnityEngine;
 
-namespace EverythingStore.InteractionObject
+namespace EverythingStore.Upgrad
 {
 	public class UpgradArea : MonoBehaviour
 	{
@@ -23,12 +23,11 @@ namespace EverythingStore.InteractionObject
 		private CoolTime _coolTime;
 		private Player _player;
 
-		private int _subtractMoney = 50;
+		private int _subtractMoney = 1;
 
 		private bool _isTargetCompelte = false;
 		private Action _onComplet;
 		private bool _isPlayerDown = false;
-		private bool _isMax = false;
 		#endregion
 
 		#region Property
@@ -42,10 +41,10 @@ namespace EverythingStore.InteractionObject
 		public event Action<int> OnUpdateMoney;
 
 		/// <summary>
-		/// 인자 1 : 현재 레벨
+		/// 인자 1 : 업그레이드 이름
 		/// 인자 2 : 목표 돈
 		/// </summary>
-		public event Action<String,int,int> OnSetupTargetMoney;
+		public event Action<String,int> OnSetupTargetMoney;
 
 		/// <summary>
 		/// 플레이어가 접촉했을 때 호출됩니다.
@@ -86,7 +85,7 @@ namespace EverythingStore.InteractionObject
 					OnPlayerDown?.Invoke();
 				}
 
-				if (_coolTime.IsPlaying == false && _isMax == false)
+				if (_coolTime.IsPlaying == false)
 				{
 					_coolTime.StartCoolTime(_time);
 				}
@@ -101,19 +100,19 @@ namespace EverythingStore.InteractionObject
 		#endregion
 
 		#region Public Method
-		public void SetupTarget(string name, int lv, int targetMoney, Action onComplete)
+		public void SetupTarget(string name,  int targetMoney, Action onComplete)
 		{
 			//lv은 UI에게 넘겨주어야된다.
 			_targetMoney = targetMoney;
 			_isTargetCompelte = false;
 			_onComplet = onComplete;
-			OnSetupTargetMoney?.Invoke(name, lv, targetMoney);
+			OnSetupTargetMoney?.Invoke(name, targetMoney);
 		}
 
 		public void Max()
 		{
-			_isMax = true;
 			OnMax?.Invoke();
+			gameObject.SetActive(false);
 		}
 
 		#endregion

@@ -2154,11 +2154,14 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="IU-TcjnhIYqft9BBZBMB" name="경매장">
-    <mxGraphModel dx="2074" dy="1204" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+  <diagram id="IU-TcjnhIYqft9BBZBMB" name="중간 확인">
+    <mxGraphModel dx="683" dy="402" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="BSQ5xlhcKTVJFszgDr2K-2" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Prop List&lt;/h1&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;박스&lt;/li&gt;&lt;li&gt;박스 저장고&lt;/li&gt;&lt;li&gt;판매 상품&lt;/li&gt;&lt;li&gt;판매대&lt;/li&gt;&lt;li&gt;계산대&lt;/li&gt;&lt;li&gt;쓰레기 통&lt;/li&gt;&lt;li&gt;박스 주문&lt;/li&gt;&lt;li&gt;트럭&lt;/li&gt;&lt;li&gt;경매장&lt;/li&gt;&lt;li&gt;잠금 구역&lt;/li&gt;&lt;li&gt;업그레이드 판&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="210" height="220" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>

@@ -1,3 +1,4 @@
+using EverythingStore.InteractionObject;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +18,10 @@ namespace EverythingStore.Actor.Customer
 
 		#region Property
 		public int CustomerCount => _customerQueue.Count;
+		public bool IsFull => _customerQueue.Count == _max;
+		public int Max => _max;
+
+
 		#endregion
 
 		#region Event

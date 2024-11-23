@@ -20,7 +20,7 @@ namespace EverythingStore.Manger
 
 		[Title("Customer Init Data")]
 		[SerializeField] private Counter _counter;
-		[SerializeField] private SalesStand _salesStand;
+		[SerializeField] private SalesStandManager _salesStandManager;
 		[SerializeField] private Transform _exitPoint;
 		[SerializeField] private Transform _enterPoint;
 		[SerializeField] private Transform _midPoint;
@@ -33,14 +33,14 @@ namespace EverythingStore.Manger
 
 		[Title("CoolTime")]
 		[SerializeField] private float _coolTime;
-		private bool _isCoolTime;
 		private float _currentCoolTime;
 
 		[Title("Store Data")]
-		[SerializeField] private int _maxCustomer;
 		[ReadOnly] public int customerCount;
 
 		private WaitForSeconds _auctionCustomerSpawnDelay = new(0.5f);
+
+		private List<IEnterableCustomer> _interactionObjectFullList = new();
 		#endregion
 
 		#region Property
@@ -52,6 +52,10 @@ namespace EverythingStore.Manger
 		#region UnityCycle
 		private void Start()
 		{
+			foreach(var item in _salesStandManager.SalesStands)
+			{
+				_interactionObjectFullList.Add(item);
+			}
 			StartWaitSpawn();
 		}
 
@@ -74,44 +78,38 @@ namespace EverythingStore.Manger
 		/// <summary>
 		/// 손님을 스폰합니다.
 		/// </summary>
-		private void SpawnCustomer()
+		private bool TrySpawnCustomer()
 		{
+			var enterableSalesStand = _salesStandManager.EnterSalesStand();
+			if(enterableSalesStand == null)
+			{
+				return false;
+			}
+
 			var customer = _poolManger.GetPoolObject(PooledObjectType.Customer).GetComponent<Customer>();
 
 			if (customer.IsSetup == false) 
 			{
-				customer.Setup(_counter, _salesStand, _exitPoint.position);
-			}
-			else
-			{
-				customer.Init();
+				customer.Setup(_counter, _exitPoint.position);
 			}
 
 			customer.transform.position = transform.position;
 			customer.OnExitStore += CustomerDelete;
+			customer.Init(enterableSalesStand);
 			customerCount++;
-
-			//최대 손님를 넘지 않았다면 쿨타임을 돌려라
-			if (IsFullCustomer() == false)
-			{
-				StartWaitSpawn();
-			}
+			return true;
 		}
 
 		private void CoolTimeUpdate()
 		{
-			//쿨타임이 아니면 반환
-			if (_isCoolTime == false)
-			{
-				return;
-			}
-
 			_currentCoolTime -= Time.deltaTime;
 			//쿨타임이 지난 경우
 			if (_currentCoolTime <= 0.0f)
 			{
-				_isCoolTime = false;
-				SpawnCustomer();
+				if (TrySpawnCustomer() == true)
+				{
+					StartWaitSpawn();
+				}
 			}
 		}
 
@@ -120,26 +118,13 @@ namespace EverythingStore.Manger
 		/// </summary>
 		private void StartWaitSpawn()
 		{
-			_isCoolTime = true;
 			_currentCoolTime = _coolTime;
 		}
 
 		private void CustomerDelete(GameObject customer)
 		{
-			bool isFull = IsFullCustomer();
-
 			customer.GetComponent<PooledObject>().Release();
 			customerCount--;
-
-			if(isFull == true)
-			{
-				StartWaitSpawn();
-			}
-		}
-
-		private bool IsFullCustomer()
-		{
-			return customerCount >= _maxCustomer;
 		}
 
 		private IEnumerator C_SpawnAuctionCustomer(int auctionItemValue)

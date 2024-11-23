@@ -50,10 +50,10 @@ namespace EverythingStore.Upgrad
 			_money.text = money.ToString();
 		}
 
-		private void SetUpProgress(string name, int lv, int maxValue)
+		private void SetUpProgress(string name, int maxValue)
 		{
 			_platformLabel.text = name;
-			_info.text = $"{name}\nLV : {lv}";
+			_info.text = $"{name}";
 			_progress.value = 0;
 			_progress.maxValue = maxValue;
 			_money.text = maxValue.ToString();

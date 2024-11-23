@@ -9,7 +9,7 @@ namespace EverythingStore.Util
 	{
 		[SerializeField] private SalesStand _salesStand;
 		[SerializeField] private float _nextX;
-		[SerializeField] private float _nextZ;
+		[SerializeField] private float _nextY;
 		[SerializeField] private int _lineNum;
 
 		private List<Vector3> points = new();
@@ -54,10 +54,10 @@ namespace EverythingStore.Util
 					point.x += _nextX;
 				}
 				point.x = 0.0f;
-				point.z += _nextZ;
+				point.y += _nextY;
 			}
 
-			_salesStand.PivotData.SetPivotData(points);
+			_salesStand.PivotData.SetPivotData(_salesStand.Pivot.localPosition, points);
 		}
 #endif
 	}

@@ -2,6 +2,7 @@ using EverythingStore.AI;
 using EverythingStore.AI.CustomerState;
 using EverythingStore.Animation;
 using EverythingStore.InteractionObject;
+using EverythingStore.Manger;
 using EverythingStore.RayInteraction;
 using Sirenix.OdinInspector;
 using System;
@@ -23,6 +24,7 @@ namespace EverythingStore.Actor.Customer
 		private PickupAndDrop _pickupAndDrop;
 		private CustomerRayInteraction _sensor;
 		private bool _isSetup = false;
+		private SalesStand _enterSalesStand;
 		#endregion
 
 		#region Property
@@ -31,6 +33,7 @@ namespace EverythingStore.Actor.Customer
 		public PickupAndDrop pickupAndDrop => _pickupAndDrop;
 		public FSMStateType CurrentState => _machine.CurrentStateType;
 		public bool IsSetup => _isSetup;
+		public SalesStand EnterSalesStand => _enterSalesStand;
 		#endregion
 
 		#region Event
@@ -39,20 +42,13 @@ namespace EverythingStore.Actor.Customer
 
 		#region Public Method
 		/// <summary>
-		/// Customer를 초기화합니다.
+		/// Customer를 Customer_ChoiceSalesStand 상태 부터 시작합니다.
 		/// </summary>
-		public void Init()
+		public void Init(SalesStand enterSalesStand)
 		{
-			_machine.StartMachine(FSMStateType.Customer_MoveTo_EnterPoint_SalesStand);
-		}
-
-		/// <summary>
-		/// FSM 상태를 설정하고 StartType 부터 상태를 시작합니다.
-		/// </summary>
-		public void Setup(List<IFSMState> states, FSMStateType startType)
-		{
-			_machine.SetUpState(states);
-			_machine.StartMachine(startType);
+			_enterSalesStand = enterSalesStand;
+			_machine.StartMachine(FSMStateType.Customer_MoveTo_EnterSalesStand);
+			_enterSalesStand.AddEnterMoveCustomer();
 		}
 
 		/// <summary>
@@ -94,7 +90,7 @@ namespace EverythingStore.Actor.Customer
 		/// <param name="counter"></param>
 		/// <param name="salesStand"></param>
 		/// <param name="exitPoint"></param>
-		public void Setup(Counter counter, SalesStand salesStand, Vector3 exitPoint)
+		public void Setup(Counter counter, Vector3 exitPoint)
 		{
 			_sensor = GetComponent<CustomerRayInteraction>();
 			_move = GetComponent<NavmeshMove>();
@@ -107,14 +103,13 @@ namespace EverythingStore.Actor.Customer
 			//----머신 멈추기 상태----
 			_stateList.Add(new StopState(this));
 			//----판매대----
-			//판매대 입장 포인트로 이동
-			_stateList.Add(new MoveToPoint(Move, salesStand.EnterPoint, FSMStateType.Customer_MoveTo_EnterPoint_SalesStand, FSMStateType.Customer_EnterSalesStand));
-			//판매대에 접근
-			_stateList.Add(new EnterWaitingInteraction(this, FSMStateType.Customer_EnterSalesStand, salesStand));
-			//판매대로 이동
-			_stateList.Add(new MoveToPoint(Move, salesStand.GetInteractionPoint(),FSMStateType.Customer_MoveTo_SalesStation, FSMStateType.Customer_Interaction_SaleStation));
+			//판매대 입구로 이동
+			_stateList.Add(new MoveToEnterSalesStand(this, _move));
+			//판매대 상호작용 포인트로 이동
+			_stateList.Add(new MoveToSalesStand(this, _move));
+
 			//판매대와 상호작용
-			_stateList.Add(new SaleStationInteraction(this));
+			_stateList.Add(new InteractionSaleStation(this, counter));
 
 			//----계산대----
 			//계산대 입장 포인트로 이동
@@ -132,7 +127,7 @@ namespace EverythingStore.Actor.Customer
 			//가게에서 퇴장 완료
 			_stateList.Add(new ExitStore(this));
 
-			Setup(_stateList, FSMStateType.Customer_MoveTo_EnterPoint_SalesStand);
+			_machine.SetUpState(_stateList);
 			_isSetup = true;
 		}
 

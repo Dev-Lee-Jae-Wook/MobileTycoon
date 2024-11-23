@@ -1,14 +1,16 @@
 using EverythingStore.Actor;
 using EverythingStore.Actor.Customer;
+using EverythingStore.InteractionObject;
 using EverythingStore.RayInteraction;
 
 namespace EverythingStore.AI.CustomerState
 {
-	public  class SaleStationInteraction : CustomerStateBase, IFSMState
+	public  class InteractionSaleStation : CustomerStateBase, IFSMState
 	{
 		#region Field
 		private PickupAndDrop _pickupAndDrop;
 		private CustomerRayInteraction _interactionSensor;
+		private Counter _counter;
 		#endregion
 
 		#region Property
@@ -16,10 +18,11 @@ namespace EverythingStore.AI.CustomerState
 		#endregion
 
 		#region Public Method
-		public SaleStationInteraction(Customer owner) : base(owner)
+		public InteractionSaleStation(Customer owner, Counter counter) : base(owner)
 		{
 			_pickupAndDrop = owner.pickupAndDrop;
 			_interactionSensor = owner.Sensor;
+			_counter = counter;
 		}
 
 		public void Enter()
@@ -29,12 +32,16 @@ namespace EverythingStore.AI.CustomerState
 		public FSMStateType Excute()
 		{
 			FSMStateType next = Type;
-			_interactionSensor.RayCastAndInteraction();
-			if(_pickupAndDrop.HasPickupObject() == true)
+			if (_counter.IsEnterable() == true)
 			{
-				next = FSMStateType.Customer_MoveTo_EnterPoint_Counter;
+				_interactionSensor.RayCastAndInteraction();
+				if (_pickupAndDrop.HasPickupObject() == true)
+				{
+					_counter.AddEnterMoveCustomer();
+					next = FSMStateType.Customer_MoveTo_EnterPoint_Counter;
+				}
 			}
-			return next;
+				return next;
 		}
 
 		public void Exit()

@@ -13,6 +13,10 @@ namespace EverythingStore.ProjectileMotion
 		private Queue<BezierCurveData> _dataQueue = new Queue<BezierCurveData>();
 		#endregion
 
+		#region Property
+		public int MovementCount =>_dataQueue.Count;
+		#endregion
+
 		#region UnityCycle
 		private void Update()
 		{
@@ -57,7 +61,6 @@ namespace EverythingStore.ProjectileMotion
 			{
 				if(BezierCurveMovement(data) == true)
 				{
-					data.callback?.Invoke();
 					removeCount++;
 				}
 			}
@@ -65,7 +68,8 @@ namespace EverythingStore.ProjectileMotion
 			//remove
 			while(removeCount > 0)
 			{
-				_dataQueue.Dequeue();
+				var data = _dataQueue.Dequeue();
+				data.callback?.Invoke();
 				removeCount--;
 			}
 		}

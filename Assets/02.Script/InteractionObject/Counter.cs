@@ -10,7 +10,7 @@ using static EverythingStore.InteractionObject.PickableObject;
 
 namespace EverythingStore.InteractionObject
 {
-	public class Counter : MonoBehaviour, IPlayerInteraction, ICustomerInteraction, IWaitingInteraction, IEnterPoint, IInteractionPoint
+	public class Counter : MonoBehaviour, IPlayerInteraction, ICustomerInteraction, IWaitingInteraction, IEnterPoint, IInteractionPoint, IEnterableCustomer
 	{
 		#region Field
 		[SerializeField] private ObjectPoolManger _poolManger;
@@ -21,10 +21,13 @@ namespace EverythingStore.InteractionObject
 		[SerializeField] private Transform _enterPoint;
 		[SerializeField] private Transform _interactionPoint;
 		[SerializeField] private MoneySpawner _moneySpawner;
+		[SerializeField] private int _maxCustomer;
 
 		private SellPackage _sellpackage;
 		private Customer _useCustomer;
 		private int _money;
+		private bool _isUsedCustomer;
+		private int _enterCustomerCount = 0;
 		#endregion
 
 		#region Property
@@ -48,6 +51,10 @@ namespace EverythingStore.InteractionObject
 		#endregion
 
 		#region UnityCycle
+		private void Awake()
+		{
+			_maxCustomer = _watingLine.Max + 1;
+		}
 		private void Start()
 		{
 			SpawnPackage();
@@ -127,12 +134,15 @@ namespace EverythingStore.InteractionObject
 		public FSMStateType EnterInteraction(Customer customer)
 		{
 			_useCustomer = customer;
+			_isUsedCustomer = true;
+			RemoveEnterMoveCustomer();
 			return FSMStateType.Customer_MoveTo_Counter;
 		}
 
 		public FSMStateType EnterWaitingLine(Customer customer)
 		{
 			_watingLine.EnqueueCustomer(customer);
+			RemoveEnterMoveCustomer();
 			return FSMStateType.Stop;
 		}
 		#endregion
@@ -155,10 +165,12 @@ namespace EverythingStore.InteractionObject
 			Debug.Log("손님 나가라고 요청");
 			_useCustomer = null;
 			SpawnPackage();
+			_isUsedCustomer = false;
 
-			if(_watingLine.CustomerCount > 0)
+			if (_watingLine.CustomerCount > 0)
 			{
 			_useCustomer = _watingLine.DequeueCustomer();
+				_isUsedCustomer = true;
 				_useCustomer.MoveToCounter();
 			}
 		}
@@ -173,7 +185,28 @@ namespace EverythingStore.InteractionObject
 			_sellpackage.transform.localPosition = Vector3.zero;
 		}
 
+		public bool IsEnterable()
+		{
+			int totalCustomer = _enterCustomerCount + _watingLine.CustomerCount;
+			if(_isUsedCustomer == true)
+			{
+				totalCustomer++;
+			}
+			return _maxCustomer > totalCustomer;
+		}
+
+		public void AddEnterMoveCustomer()
+		{
+			_enterCustomerCount++;
+		}
+
+		public void RemoveEnterMoveCustomer()
+		{
+			_enterCustomerCount--;
+		}
+
 
 		#endregion
 	}
 }
+

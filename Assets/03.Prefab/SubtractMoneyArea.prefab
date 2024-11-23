@@ -45,7 +45,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1331815494118898368}
-  - component: {fileID: 1115698824966513505}
+  - component: {fileID: 4922720274132743650}
   - component: {fileID: 4917842363848215215}
   m_Layer: 6
   m_Name: SubtractMoneyArea
@@ -71,7 +71,7 @@ Transform:
   - {fileID: 6552058855644006879}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1115698824966513505
+--- !u!114 &4922720274132743650
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -80,12 +80,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1082873208960925016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e5edd050eddf504891f7067219b6286, type: 3}
+  m_Script: {fileID: 11500000, guid: b729bb94cf515de4baa9c1724477de2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetMoney: 10
-  _time: 0.1
-  _debugColor: {r: 0.51476586, g: 1, b: 0, a: 1}
+  _targetMoney: 0
+  _time: 0
+  _debugColor: {r: 0.4410622, g: 1, b: 0, a: 1}
   _size: {x: 1, y: 1, z: 1}
 --- !u!114 &4917842363848215215
 MonoBehaviour:
@@ -104,7 +104,6 @@ MonoBehaviour:
   _platformLabel: {fileID: 2318270780514181218}
   _money: {fileID: 3679139434223667883}
   _info: {fileID: 7041510386600181056}
-  _infoLabel: SPEED
 --- !u!1 &1423817941779216887
 GameObject:
   m_ObjectHideFlags: 0

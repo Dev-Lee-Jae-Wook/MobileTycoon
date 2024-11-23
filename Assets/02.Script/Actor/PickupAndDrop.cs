@@ -232,6 +232,11 @@ namespace EverythingStore.Actor
 			_currentCoolTime = _coolTime;
 		}
 
+		public bool IsRunningDrop()
+		{
+			return _bezierCurve.MovementCount > 0;
+		}
+
 
 		#endregion
 
