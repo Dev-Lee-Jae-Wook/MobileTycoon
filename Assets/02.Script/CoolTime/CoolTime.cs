@@ -10,7 +10,7 @@ namespace EverythingStore.Timer
 		#endregion
 
 		#region Property
-		public bool IsPlaying { get; private set; } = false;
+		public bool IsRunning { get; private set; } = false;
 		#endregion
 
 		#region Event
@@ -22,13 +22,13 @@ namespace EverythingStore.Timer
 		#region UnityCycle
 		private void Update()
 		{
-			if(IsPlaying == true)
+			if(IsRunning == true)
 			{
 				_currentTime -= Time.deltaTime;
 				OnUpdateTime?.Invoke(_currentTime);
 				if (_currentTime <= 0.0f)
 				{
-					IsPlaying = false;
+					IsRunning = false;
 					OnComplete?.Invoke();
 				}
 			}
@@ -42,7 +42,7 @@ namespace EverythingStore.Timer
 		public void StartCoolTime(float coolTime)
 		{
 			_currentTime = coolTime;
-			IsPlaying = true;
+			IsRunning = true;
 			OnStartTime?.Invoke(_currentTime);
 		}
 
@@ -51,7 +51,7 @@ namespace EverythingStore.Timer
 		/// </summary>
 		public void StopCoolTime()
 		{
-			IsPlaying = false;
+			IsRunning = false;
 		}
 		#endregion
 

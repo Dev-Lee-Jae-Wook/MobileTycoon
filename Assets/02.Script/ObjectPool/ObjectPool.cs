@@ -35,6 +35,8 @@ namespace EverythingStore.Optimization
 		{
 			pooledObject.gameObject.SetActive(false);
 			pooledObject.transform.parent = transform;
+			pooledObject.transform.localRotation = Quaternion.identity;
+			pooledObject.transform.localScale = Vector3.one;
 			_pool.Push(pooledObject);
 		}
 
@@ -68,6 +70,7 @@ namespace EverythingStore.Optimization
 		{
 			var newPooledObject = Instantiate(_prefab);
 			newPooledObject.Init(this);
+			newPooledObject.name = Type.ToString();
 			return newPooledObject;
 		}
 		#endregion

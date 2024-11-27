@@ -36,7 +36,8 @@ namespace EverythingStore.InteractionObject
 		private State _state;
 
 		private BoxCollider _collider;
-
+		private ObjectPoolManger _poolMagner;
+		
 		#endregion
 
 		#region Events
@@ -64,6 +65,11 @@ namespace EverythingStore.InteractionObject
 		#endregion
 
 		#region Public Method
+		public void Init(ObjectPoolManger manger)
+		{
+			_poolMagner = manger;
+		}
+
 		public void InteractionPlayer(Player player)
 		{
 			PickupAndDrop pickup = player.PickupAndDrop;
@@ -120,10 +126,10 @@ namespace EverythingStore.InteractionObject
 		/// </summary>
 		private void SpawnSellObject()
 		{
-			var sellObjectPrefab = GachaManger.Instance.Gacha();
-			var sellObject = Instantiate(sellObjectPrefab);
+			var sellObjectType = GachaManger.Instance.Gacha().GetComponent<PooledObject>().Type;
+			var sellObject = _poolMagner.GetPoolObject(sellObjectType);
 			sellObject.transform.position = _itemSpawnPoint.position;
-			_items.Push(sellObject);
+			_items.Push(sellObject.GetComponent<SellObject>());
 		}
 
 		/// <summary>

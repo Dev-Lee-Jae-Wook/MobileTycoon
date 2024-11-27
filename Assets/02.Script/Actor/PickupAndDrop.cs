@@ -2,6 +2,7 @@
 using EverythingStore.InteractionObject;
 using EverythingStore.Optimization;
 using EverythingStore.ProjectileMotion;
+using EverythingStore.Timer;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
@@ -22,11 +23,11 @@ namespace EverythingStore.Actor
 		[SerializeField] private float _coolTime;
 		[ReadOnly][SerializeField] private float _currentCoolTime;
 		[SerializeField] private int _maxPickup;
+		[SerializeField] private CoolTime _actionCoolTime;
 
 		private Rig _rig;
 		private BezierCurve _bezierCurve;
-
-		private Stack<PickableObject> _pickObjectStack;
+		private Stack<PickableObject> _pickObjectStack = new();
 		private float _nextHeight;
 
 		private PickableObjectType _pickupObjectsType = PickableObjectType.None;
@@ -51,21 +52,14 @@ namespace EverythingStore.Actor
 		#region UnityCycle
 		private void Awake()
 		{
+			_actionCoolTime = gameObject.AddComponent<CoolTime>();
 			_bezierCurve = GetComponent<BezierCurve>();
 			_rig = transform.GetComponentInChildren<Rig>();
-			_pickObjectStack = new Stack<PickableObject>();
 			SetRigWeight(0.0f);
 			OnAnimationPickup += () => SetRigWeight(1.0f);
 			OnAnimationDrop += () => SetRigWeight(0.0f);
 			_nextHeight = 0.0f;
-			_currentCoolTime = 0.0f;
 		}
-
-		private void Update()
-		{
-			UpdateCoolTime();
-		}
-
 		#endregion
 
 		#region Public Method
@@ -80,7 +74,7 @@ namespace EverythingStore.Actor
 				return false;
 			}
 
-			if (IsCoolTime() == true)
+			if (IsRunningCoolTime() == true)
 			{
 				return false;
 			}
@@ -90,12 +84,17 @@ namespace EverythingStore.Actor
 
 		public bool CanDrop()
 		{
-			if (IsCoolTime() == true)
+			if (IsRunningCoolTime() == true)
 			{
 				return false;
 			}
 
 			return pickUpObjectCount > 0;
+		}
+
+		private bool IsRunningCoolTime()
+		{
+			return _actionCoolTime.IsRunning == true;
 		}
 
 		public void Clear()
@@ -145,13 +144,13 @@ namespace EverythingStore.Actor
 					callback?.Invoke();
 				});
 			Push(pickableObject);
-			StartCoolTime();
+			_actionCoolTime.StartCoolTime(_coolTime);
 		}
 
 		/// <summary>
 		/// 가장 위에 있는 아이템을 포물선 움직임 연출을 하면서 드랍합니다.
 		/// </summary>
-		public PickableObject Drop(Transform endTarget, Vector3 localPos,Action callback = null)
+		public PickableObject Drop(Transform endTarget, Vector3 localPos,Action<PickableObject> callback = null)
 		{
 			PickableObject popObject = Pop();
 
@@ -160,8 +159,8 @@ namespace EverythingStore.Actor
 				OnAnimationDrop?.Invoke();
 			}
 			_bezierCurve.Movement(popObject.transform, endTarget, endTarget.position.y + 1.0f, localPos,
-				callback);
-			StartCoolTime();
+				()=>callback(popObject));
+			_actionCoolTime.StartCoolTime(_coolTime);
 
 			return popObject;
 		}
@@ -211,26 +210,6 @@ namespace EverythingStore.Actor
 		{
 			return Vector3.up * _nextHeight;
 		}
-		private void UpdateCoolTime()
-		{
-			_currentCoolTime -= Time.deltaTime;
-		}
-
-		/// <summary>
-		/// 쿨타임이 0이상이면 쿨타임이라고 판정
-		/// </summary>
-		private bool IsCoolTime()
-		{
-			return _currentCoolTime > 0.0f;
-		}
-
-		/// <summary>
-		/// 쿨타임 시작
-		/// </summary>
-		private void StartCoolTime()
-		{
-			_currentCoolTime = _coolTime;
-		}
 
 		public bool IsRunningDrop()
 		{
@@ -240,5 +219,11 @@ namespace EverythingStore.Actor
 
 		#endregion
 
+		#region Test Method
+		public void Test_AddObject(PickableObject pickupObject)
+		{
+			Push(pickupObject);
+		}
+		#endregion
 	}
 }

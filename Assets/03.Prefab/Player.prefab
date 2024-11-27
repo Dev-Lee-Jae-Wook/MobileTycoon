@@ -1152,6 +1152,7 @@ MonoBehaviour:
   _coolTime: 0.2
   _currentCoolTime: 0
   _maxPickup: 3
+  _actionCoolTime: {fileID: 0}
 --- !u!114 &6981705128739069877
 MonoBehaviour:
   m_ObjectHideFlags: 0

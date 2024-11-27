@@ -37,14 +37,12 @@ namespace EverythingStore.InteractionObject
 				return;
 			}
 
-			var box = dropObject.GetComponent<PooledObject>();
-
 			drop.Drop(
 				_dropPoint,
 				Vector3.zero,
-				() =>
+				(box) =>
 				{
-					box.Release();
+					box.GetComponent<PooledObject>().Release();
 				});
 		}
 		#endregion

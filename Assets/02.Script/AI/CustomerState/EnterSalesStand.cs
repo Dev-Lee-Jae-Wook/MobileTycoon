@@ -3,17 +3,17 @@ using EverythingStore.InteractionObject;
 
 namespace EverythingStore.AI.CustomerState
 {
-	public class MoveToEnterSalesStand : CustomerStateBase, IFSMState
+	public class EnterSalesStand : CustomerStateBase, IFSMState
 	{
 		private NavmeshMove _move;
-		private IWaitingInteraction _waitInteraction;
+		private IWaitingLine _waitInteraction;
 		private bool _isArrive;
-		public MoveToEnterSalesStand(Customer owner, NavmeshMove move) : base(owner)
+		public EnterSalesStand(Customer owner, NavmeshMove move) : base(owner)
 		{
 			_move = move;
 		}
 
-		public FSMStateType Type => FSMStateType.Customer_MoveTo_EnterSalesStand;
+		public FSMStateType Type => FSMStateType.Customer_Enter_SalesStand;
 
 		public void Enter()
 		{

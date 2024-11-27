@@ -3,7 +3,7 @@ using EverythingStore.AI;
 
 namespace EverythingStore.InteractionObject
 {
-	public interface IWaitingInteraction
+	public interface IWaitingLine
 	{
 		/// <summary>
 		/// 대기열이 비었는지를 반환

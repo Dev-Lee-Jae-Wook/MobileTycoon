@@ -4,30 +4,39 @@ using EverythingStore.Actor.Player;
 using EverythingStore.AI;
 using EverythingStore.Optimization;
 using EverythingStore.Sell;
+using EverythingStore.Timer;
+using Sirenix.OdinInspector;
 using System;
 using UnityEngine;
-using static EverythingStore.InteractionObject.PickableObject;
+using ReadOnlyAttribute = Sirenix.OdinInspector.ReadOnlyAttribute;
 
 namespace EverythingStore.InteractionObject
 {
-	public class Counter : MonoBehaviour, IPlayerInteraction, ICustomerInteraction, IWaitingInteraction, IEnterPoint, IInteractionPoint, IEnterableCustomer
+	public class Counter : MonoBehaviour, IPlayerInteraction, ICustomerInteraction, IWaitingLine, IEnterPoint, IInteractionPoint, IEnterableCustomer
 	{
 		#region Field
 		[SerializeField] private ObjectPoolManger _poolManger;
+		[SerializeField] private float _spawnCoolTime = 1.0f;
 
-		[SerializeField] private SellPackage _prefab;
-		[SerializeField] private WaitingLine _watingLine;
+		[Title("Point")]
 		[SerializeField] private Transform _spawnPoint;
 		[SerializeField] private Transform _enterPoint;
 		[SerializeField] private Transform _interactionPoint;
-		[SerializeField] private MoneySpawner _moneySpawner;
-		[SerializeField] private int _maxCustomer;
+
+		private MoneySpawner _moneySpawner;
+		private WaitingLine _watingLine;
+		[ReadOnly][SerializeField] private int _maxCustomer;
 
 		private SellPackage _sellpackage;
 		private Customer _useCustomer;
 		private int _money;
 		private bool _isUsedCustomer;
 		private int _enterCustomerCount = 0;
+		private CoolTime _spawnPackageCoolTime;
+		private LockArea _addStaff;
+
+		private bool _isFirstInteraction = false;
+		private bool _isStaff = false;
 		#endregion
 
 		#region Property
@@ -41,6 +50,8 @@ namespace EverythingStore.InteractionObject
 		public Vector3 EnterPoint => _enterPoint.position;
 
 		public Vector3 InteractionPoint => _interactionPoint.position;
+
+		public SellPackage SellPackage => _sellpackage;
 		#endregion
 
 		#region Event
@@ -53,13 +64,25 @@ namespace EverythingStore.InteractionObject
 		#region UnityCycle
 		private void Awake()
 		{
+			SetUpComponent();
 			_maxCustomer = _watingLine.Max + 1;
+			_spawnPackageCoolTime.OnComplete += SpawnPackage;
+			_addStaff.gameObject.SetActive(false);
+			_addStaff.OnCompelte += StaffOn;
 		}
-		private void Start()
+
+		void Start()
 		{
 			SpawnPackage();
 		}
 
+		private void Update()
+		{
+			if(_isStaff == true)
+			{
+				Work();
+			}
+		}
 
 		#endregion
 
@@ -71,54 +94,19 @@ namespace EverythingStore.InteractionObject
 			{
 				return;
 			}
+
+			if(IsSpawnPackage() == false)
+			{
+				return;
+			}
 			
-			var sellObject = hand.Drop(_sellpackage.PackagePoint, Vector3.zero).GetComponent<SellObject>();
+			var sellObject = hand.Drop(_sellpackage.PackagePoint, Vector3.zero, PushSellObject).GetComponent<SellObject>();
 			_money += sellObject.Money;
 		}
 
 		public void InteractionPlayer(Player player)
 		{
-			if (_sellpackage == null || _useCustomer == null)
-			{
-				return;
-			}
-
-			//손님이 픽업한 오브젝트가 있는 경우
-			if(_useCustomer.pickupAndDrop.HasPickupObject() == true)
-			{
-				return;
-			}
-
-			//포장이 되어있지 않았다면 포장을 한다.
-			if (_sellpackage.IsPackage == false)
-			{
-				_sellpackage.Package();
-			}
-			//손님 손에 아무것도 없는 경우
-			else
-			{
-				SendPackageToCustomer();
-				CreateMoney(_money);
-				_money = 0;
-				ExitToCustomer();
-			}
-
-		}
-
-		/// <summary>
-		/// Test용 코드
-		/// </summary>
-		public void Package()
-		{
-			_sellpackage.Package();
-		}
-
-		/// <summary>
-		/// 손님에게 포장지를 건네줍니다.
-		/// </summary>
-		public void SendPackageToCustomer()
-		{
-			_useCustomer.pickupAndDrop.Pickup(_sellpackage);
+			Work();
 		}
 
 		public bool IsEmpty()
@@ -145,6 +133,31 @@ namespace EverythingStore.InteractionObject
 			RemoveEnterMoveCustomer();
 			return FSMStateType.Stop;
 		}
+
+		public bool IsEnterable()
+		{
+			int totalCustomer = _enterCustomerCount + _watingLine.CustomerCount;
+			if (_isUsedCustomer == true)
+			{
+				totalCustomer++;
+			}
+			return _maxCustomer > totalCustomer;
+		}
+
+		public void AddEnterMoveCustomer()
+		{
+			_enterCustomerCount++;
+		}
+
+		public void RemoveEnterMoveCustomer()
+		{
+			_enterCustomerCount--;
+		}
+
+		public void PushSellObject(PickableObject sellObject)
+		{
+			_sellpackage.Push(sellObject.GetComponent<PooledObject>());
+		}
 		#endregion
 
 		#region Private Method
@@ -164,8 +177,9 @@ namespace EverythingStore.InteractionObject
 		{
 			Debug.Log("손님 나가라고 요청");
 			_useCustomer = null;
-			SpawnPackage();
 			_isUsedCustomer = false;
+			_sellpackage = null;
+			_spawnPackageCoolTime.StartCoolTime(_spawnCoolTime);
 
 			if (_watingLine.CustomerCount > 0)
 			{
@@ -183,29 +197,64 @@ namespace EverythingStore.InteractionObject
 			_sellpackage = _poolManger.GetPoolObject(PooledObjectType.Package).GetComponent<SellPackage>();
 			_sellpackage.transform.parent = _spawnPoint;
 			_sellpackage.transform.localPosition = Vector3.zero;
+
 		}
 
-		public bool IsEnterable()
+		private void SetUpComponent()
 		{
-			int totalCustomer = _enterCustomerCount + _watingLine.CustomerCount;
-			if(_isUsedCustomer == true)
+			_moneySpawner = transform.GetComponentInChildren<MoneySpawner>();
+			_watingLine = transform.GetComponentInChildren<WaitingLine>();
+			_addStaff = transform.GetComponentInChildren<LockArea>();
+			_spawnPackageCoolTime = gameObject.AddComponent<CoolTime>();
+		}
+
+		private void StaffOn()
+		{
+			_isStaff = true;
+		}
+
+		private void Work()
+		{
+			if (_sellpackage == null || _useCustomer == null)
 			{
-				totalCustomer++;
+				return;
 			}
-			return _maxCustomer > totalCustomer;
+
+			//손님이 픽업한 오브젝트가 있는 경우
+			if (_useCustomer.pickupAndDrop.HasPickupObject() == true)
+			{
+				return;
+			}
+
+			//포장이 되어있지 않았다면 포장을 한다.
+			if (_sellpackage.IsPackage == false)
+			{
+				_sellpackage.Package(SendToCustomer);
+				if(_isFirstInteraction == false)
+				{
+					_isFirstInteraction = true;
+					OpenUpgrad();
+				}
+			}
 		}
 
-		public void AddEnterMoveCustomer()
+		private void OpenUpgrad()
 		{
-			_enterCustomerCount++;
+			_addStaff.gameObject.SetActive(true);
 		}
 
-		public void RemoveEnterMoveCustomer()
+		private void SendToCustomer()
 		{
-			_enterCustomerCount--;
+			_useCustomer.pickupAndDrop.Pickup(_sellpackage);
+			CreateMoney(_money);
+			_money = 0;
+			ExitToCustomer();
 		}
 
-
+		private bool IsSpawnPackage()
+		{
+			return _sellpackage != null;
+		}
 		#endregion
 	}
 }

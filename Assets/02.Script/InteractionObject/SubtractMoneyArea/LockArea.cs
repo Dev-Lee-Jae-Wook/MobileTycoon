@@ -86,7 +86,7 @@ namespace EverythingStore.InteractionObject
 					OnPlayerDown?.Invoke();
 				}
 
-				if (_coolTime.IsPlaying == false)
+				if (_coolTime.IsRunning == false)
 				{
 					_coolTime.StartCoolTime(_time);
 				}

@@ -12,7 +12,7 @@ using UnityEngine;
 //가챠 확률 데이터는 좀 더 개량이 필요합니다.
 namespace EverythingStore.InteractionObject
 {
-	public class SalesStand : MonoBehaviour, IPlayerInteraction, ICustomerInteraction, IInteractionPoint, IWaitingInteraction, IEnterPoint, IEnterableCustomer
+	public class SalesStand : MonoBehaviour, IPlayerInteraction, ICustomerInteraction, IInteractionPoint, IWaitingLine, IEnterPoint, IEnterableCustomer
 	{
 		#region Field
 		private Stack<SellObject> _salesObjectStack = new Stack<SellObject>();
@@ -88,9 +88,9 @@ namespace EverythingStore.InteractionObject
 			{
 				_isCustomerInteraction = false;
 				var sellObject = pickupAndDrop.PeekObject().GetComponent<SellObject>();
-				pickupAndDrop.Drop(Pivot, GetCurrentSloatPosition(), () =>
+				pickupAndDrop.Drop(Pivot, GetCurrentSloatPosition(), (pickupObject) =>
 				{
-					sellObject.transform.localRotation = Quaternion.Euler(0.0f, 180f, 0.0f);
+					pickupObject.transform.localRotation = Quaternion.Euler(0.0f, 180f, 0.0f);
 					PushSellObject(sellObject);
 
 					if (pickupAndDrop.IsRunningDrop() == false)
@@ -127,7 +127,6 @@ namespace EverythingStore.InteractionObject
 			}
 
 			hand.Pickup(PopSellObject());
-			ExitCustomer();
 		}
 		
 		/// <summary>
@@ -196,7 +195,7 @@ namespace EverythingStore.InteractionObject
 			return _interactionPoint.position;
 		}
 
-		private void ExitCustomer()
+		public void ExitCustomer()
 		{
 			_useCustomer = null;
 			_isUsedCustomer = false;

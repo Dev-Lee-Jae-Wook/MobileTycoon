@@ -18,7 +18,7 @@ namespace EverythingStore.AI
 		Customer_EnterSalesStand,
 		Stop,
 		Customer_MoveTo_EnterPoint_SalesStand,
-		Customer_MoveTo_EnterPoint_Counter,
+		Customer_Enter_Counter,
 		Customer_EnterCounter,
 		Customer_ExitStore,
 		DeliveryTruck_SpawnBox,
@@ -46,6 +46,6 @@ namespace EverythingStore.AI
 		CustomerAuction_MoveTo_MidPoint,
 		CustomerAuction_MoveTo_Table,
 		Customer_ChoiceSalesStand,
-		Customer_MoveTo_EnterSalesStand,
+		Customer_Enter_SalesStand,
 	}
 }

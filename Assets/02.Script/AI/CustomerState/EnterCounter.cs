@@ -4,11 +4,11 @@ using EverythingStore.InteractionObject;
 
 namespace EverythingStore.AI.CustomerState
 {
-	public  class EnterWaitingInteraction : CustomerStateBase, IFSMState
+	public  class EnterCounter : CustomerStateBase, IFSMState
 	{
 		#region Field
 		private FSMStateType _type;
-		private IWaitingInteraction _waitInteraction;
+		private IWaitingLine _waitInteraction;
 		private FSMStateType _next;
 		#endregion
 
@@ -17,7 +17,7 @@ namespace EverythingStore.AI.CustomerState
 		#endregion
 
 		#region Public Method
-		public EnterWaitingInteraction(Customer owner, FSMStateType type, IWaitingInteraction waitInteraction) : base(owner)
+		public EnterCounter(Customer owner, FSMStateType type, IWaitingLine waitInteraction) : base(owner)
 		{
 			_type = type;
 			_waitInteraction = waitInteraction;

@@ -1695,7 +1695,6 @@ GameObject:
   - component: {fileID: 8483540413986333940}
   - component: {fileID: 3941265300071160078}
   - component: {fileID: 4116039512996670181}
-  - component: {fileID: 4872444316836107903}
   - component: {fileID: 4237490698886839018}
   - component: {fileID: 8817996790114405166}
   - component: {fileID: 2616249242200416331}
@@ -1764,7 +1763,8 @@ MonoBehaviour:
   _pickupPoint: {fileID: 7052962050488469772}
   _coolTime: 0.1
   _currentCoolTime: 0
-  _maxPickup: 1
+  _maxPickup: 20
+  _actionCoolTime: {fileID: 0}
 --- !u!195 &3941265300071160078
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1799,24 +1799,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7a0c2c8f96fdf74d9be5e1516d860e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4872444316836107903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8985960301282656889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bf88475d8d826541af0f50ce14c3273, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interactionLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  _sensorPivot: {x: 0, y: 0.5, z: 0}
-  _distance: 1
-  _rayColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &4237490698886839018
 MonoBehaviour:
   m_ObjectHideFlags: 0

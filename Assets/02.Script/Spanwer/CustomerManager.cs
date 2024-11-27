@@ -75,6 +75,8 @@ namespace EverythingStore.Manger
 		#endregion
 
 		#region Private Method
+
+		[Button("Test")]
 		/// <summary>
 		/// 손님을 스폰합니다.
 		/// </summary>

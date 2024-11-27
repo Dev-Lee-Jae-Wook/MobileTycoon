@@ -1,14 +1,14 @@
 using EverythingStore.Actor;
 using EverythingStore.Actor.Customer;
-using EverythingStore.RayInteraction;
+using EverythingStore.InteractionObject;
 
 namespace EverythingStore.AI.CustomerState
 {
-	public  class CounterDropSellObject : CustomerStateBase, IFSMState
+	public class CounterDropSellObject : CustomerStateBase, IFSMState
 	{
 		#region Field
 		private PickupAndDrop _pickupAndDrop;
-		private CustomerRayInteraction _interactionSensor;
+		private ICustomerInteraction _counter;
 		#endregion
 
 		#region Property
@@ -16,24 +16,26 @@ namespace EverythingStore.AI.CustomerState
 		#endregion
 
 		#region Public Method
-		public CounterDropSellObject(Customer owner) : base(owner)
+		public CounterDropSellObject(Customer owner, ICustomerInteraction counter) : base(owner)
 		{
 			_pickupAndDrop = owner.pickupAndDrop;
-			_interactionSensor = owner.Sensor;
+			_counter = counter;
 		}
 
 		public void Enter()
 		{
-			
+
 		}
 
 		public FSMStateType Excute()
 		{
 			FSMStateType next = Type;
 
-			_interactionSensor.RayCastAndInteraction();
-			
-			if(_pickupAndDrop.HasPickupObject() == false)
+			if (_pickupAndDrop.HasPickupObject() == true)
+			{
+				_counter.InteractionCustomer(_pickupAndDrop);
+			}
+			else
 			{
 				next = FSMStateType.Customer_Counter_WaitSendPackage;
 			}

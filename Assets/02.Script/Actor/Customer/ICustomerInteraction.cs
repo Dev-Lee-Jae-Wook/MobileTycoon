@@ -1,6 +1,6 @@
 ﻿namespace EverythingStore.Actor.Customer
 {
-	internal interface ICustomerInteraction
+	public interface ICustomerInteraction
 	{
 		void InteractionCustomer(PickupAndDrop hand);
 	}
