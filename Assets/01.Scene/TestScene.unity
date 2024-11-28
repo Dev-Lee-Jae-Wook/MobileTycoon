@@ -1219,6 +1219,12 @@ PrefabInstance:
       propertyPath: m_fontStyle
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 1658978751300239144, guid: e91648d7997574004b95a38e7b474633,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6f5cc40e4a1cd458c9901849a7f52a07,
+        type: 3}
     - target: {fileID: 1658978751300239149, guid: e91648d7997574004b95a38e7b474633,
         type: 3}
       propertyPath: m_Name
