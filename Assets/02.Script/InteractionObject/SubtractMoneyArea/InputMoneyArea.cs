@@ -6,13 +6,10 @@ using UnityEngine;
 
 namespace EverythingStore.InteractionObject
 {
-	public class LockArea : MonoBehaviour
+	public class InputMoneyArea : MonoBehaviour
 	{
 		#region Field
-		[SerializeField] private GameObject _targetGameObject;
-
-		[Title("Target")]
-		[SerializeField] private int _targetMoney;
+		private int _targetMoney;
 
 		[Title("CoolTime")]
 		[SerializeField] private float _time;
@@ -26,13 +23,11 @@ namespace EverythingStore.InteractionObject
 		private Player _player;
 
 		private int _subtractMoney = 1;
-
-		private bool _isTargetCompelte = false;
 		private bool _isPlayerDown = false;
+		private bool _isCompelte = false;
 		#endregion
 
 		#region Property
-		public int MaxMoney { get; private set; }
 		#endregion
 
 		#region Event
@@ -41,23 +36,9 @@ namespace EverythingStore.InteractionObject
 		/// </summary>
 		public event Action<int> OnUpdateMoney;
 
-		/// <summary>
-		/// 인자 1 : 현재 레벨
-		/// 인자 2 : 목표 돈
-		/// </summary>
-		public event Action<String,int,int> OnSetupTargetMoney;
-
-		/// <summary>
-		/// 플레이어가 접촉했을 때 호출됩니다.
-		/// </summary>
-		public event Action OnPlayerDown;
-
-		/// <summary>
-		/// 플레이어가 접촉을 끝낼 때 호출 됩니다.
-		/// </summary>
-		public event Action OnPlayerUp;
-
 		public event Action OnCompelte;
+
+		public event Action<int> OnSetUp;
 		#endregion
 
 		#region UnityCycle
@@ -66,8 +47,7 @@ namespace EverythingStore.InteractionObject
 			_player = GameObject.Find("Player").GetComponent<Player>();
 			_detectLayerMask = LayerMask.GetMask("Player");
 			_coolTime = gameObject.AddComponent<CoolTime>();
-			_coolTime.OnComplete += AddTargetMoney;
-			MaxMoney = _targetMoney;
+			_coolTime.OnComplete += InputPlayerMoney;
 		}
 		private void OnDrawGizmos()
 		{
@@ -80,28 +60,24 @@ namespace EverythingStore.InteractionObject
 			//플레이어 접촉 시
 			if (IsDetectPlayer() == true)
 			{
-				if (_isPlayerDown == false)
-				{
-					_isPlayerDown = true;
-					OnPlayerDown?.Invoke();
-				}
 
-				if (_coolTime.IsRunning == false)
+				if (_coolTime.IsRunning == false && _isCompelte == false)
 				{
+					InputPlayerMoney();
 					_coolTime.StartCoolTime(_time);
 				}
-			}
-			else if(_isPlayerDown == true)
-			{
-				_isPlayerDown = false;
-				OnPlayerUp?.Invoke();
 			}
 		}
 
 		#endregion
 
 		#region Public Method
-
+		public void SetUp(int targetMoney)
+		{
+			_targetMoney = targetMoney;
+			OnSetUp?.Invoke(_targetMoney);
+			_isCompelte = false;
+		}
 		#endregion
 
 		#region Private Method
@@ -118,13 +94,8 @@ namespace EverythingStore.InteractionObject
 		/// <summary>
 		/// 돈을 추가합니다.
 		/// </summary>
-		private void AddTargetMoney()
+		private void InputPlayerMoney()
 		{
-			if (_isTargetCompelte == true)
-			{
-				return;
-			}
-
 			int subtractMoney = _subtractMoney;
 
 			if(_player.Wallet.CanSubstactMoney(subtractMoney) == false)
@@ -138,10 +109,8 @@ namespace EverythingStore.InteractionObject
 
 			if (_targetMoney == 0)
 			{
-				_isTargetCompelte = true;
+				_isCompelte = true;
 				OnCompelte?.Invoke();
-				gameObject.SetActive(false);
-				_targetGameObject.SetActive(true);
 			}
 		}
 

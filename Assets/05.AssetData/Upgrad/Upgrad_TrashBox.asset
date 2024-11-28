@@ -9,14 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a129409d94cd1a498d300fe2feb3c87, type: 3}
-  m_Name: Upgrad_SalesStand
+  m_Script: {fileID: 11500000, guid: 63c544fc295127a48991a8b4eff1926b, type: 3}
+  m_Name: Upgrad_TrashBox
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Capacity
   UpgradList:
-  - Cost: 100
+  - Cost: 1
+    Value: 6
+  - Cost: 1
+    Value: 7
+  - Cost: 1
+    Value: 8
+  - Cost: 1
     Value: 9
-  - Cost: 500
-    Value: 12
-  - Cost: 1000
-    Value: 18
+  - Cost: 1
+    Value: 10

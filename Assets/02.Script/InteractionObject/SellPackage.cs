@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace EverythingStore.InteractionObject
 {
-	public class SellPackage: PickableObject
+	public class SellPackage: PickableObject,IPoolObject_CreateInitialization
 	{
 		#region Field
 		[SerializeField] private Transform _packagePoint;
@@ -35,16 +35,15 @@ namespace EverythingStore.InteractionObject
 
 		#region UnityCycle
 
-		private void Awake()
+		#endregion
+
+		#region Public Method
+		public void CreateInitialization()
 		{
 			_pooledObject = GetComponent<PooledObject>();
 			_animator = GetComponent<Animator>();
 			_productWait = new(_packageClip.length);
-			_pooledObject.OnRelease += Init;
 		}
-		#endregion
-
-		#region Public Method
 
 		[Button("Test")]
 		/// <summary>
@@ -97,6 +96,8 @@ namespace EverythingStore.InteractionObject
 			_isPackage = false;
 			_packageCallback = null;
 		}
+
+
 		#endregion
 	}
 }

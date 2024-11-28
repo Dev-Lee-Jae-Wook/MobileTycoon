@@ -2,6 +2,7 @@ using EverythingStore.Actor;
 using EverythingStore.Actor.Customer;
 using EverythingStore.Actor.Player;
 using EverythingStore.AI;
+using EverythingStore.InputMoney;
 using EverythingStore.Optimization;
 using EverythingStore.Sell;
 using EverythingStore.Timer;
@@ -12,11 +13,12 @@ using ReadOnlyAttribute = Sirenix.OdinInspector.ReadOnlyAttribute;
 
 namespace EverythingStore.InteractionObject
 {
-	public class Counter : MonoBehaviour, IPlayerInteraction, ICustomerInteraction, IWaitingLine, IEnterPoint, IInteractionPoint, IEnterableCustomer
+	public class Counter : MonoBehaviour, IPlayerInteraction, ICustomerInteraction, IWaitingLine, IEnterPoint, IInteractionPoint, IEnterableCustomer, IUnlock
 	{
 		#region Field
 		[SerializeField] private ObjectPoolManger _poolManger;
 		[SerializeField] private float _spawnCoolTime = 1.0f;
+		[SerializeField] private int _unlockCost;
 
 		[Title("Point")]
 		[SerializeField] private Transform _spawnPoint;
@@ -33,10 +35,10 @@ namespace EverythingStore.InteractionObject
 		private bool _isUsedCustomer;
 		private int _enterCustomerCount = 0;
 		private CoolTime _spawnPackageCoolTime;
-		private LockArea _addStaff;
+		private InputMoneyArea _addStaff;
 
 		private bool _isFirstInteraction = false;
-		private bool _isStaff = false;
+		private bool _isAuto = false;
 		#endregion
 
 		#region Property
@@ -68,7 +70,6 @@ namespace EverythingStore.InteractionObject
 			_maxCustomer = _watingLine.Max + 1;
 			_spawnPackageCoolTime.OnComplete += SpawnPackage;
 			_addStaff.gameObject.SetActive(false);
-			_addStaff.OnCompelte += StaffOn;
 		}
 
 		void Start()
@@ -78,7 +79,7 @@ namespace EverythingStore.InteractionObject
 
 		private void Update()
 		{
-			if(_isStaff == true)
+			if(_isAuto == true)
 			{
 				Work();
 			}
@@ -204,13 +205,13 @@ namespace EverythingStore.InteractionObject
 		{
 			_moneySpawner = transform.GetComponentInChildren<MoneySpawner>();
 			_watingLine = transform.GetComponentInChildren<WaitingLine>();
-			_addStaff = transform.GetComponentInChildren<LockArea>();
+			_addStaff = transform.GetComponentInChildren<InputMoneyArea>();
 			_spawnPackageCoolTime = gameObject.AddComponent<CoolTime>();
 		}
 
-		private void StaffOn()
+		private void AutoOn()
 		{
-			_isStaff = true;
+			_isAuto = true;
 		}
 
 		private void Work()
@@ -254,6 +255,11 @@ namespace EverythingStore.InteractionObject
 		private bool IsSpawnPackage()
 		{
 			return _sellpackage != null;
+		}
+
+		public void Unlock()
+		{
+			AutoOn();
 		}
 		#endregion
 	}

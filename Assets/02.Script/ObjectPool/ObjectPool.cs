@@ -13,6 +13,7 @@ namespace EverythingStore.Optimization
 		[SerializeField] private PooledObject _prefab;
 
 		private Stack<PooledObject> _pool = new();
+		private ObjectPoolManger _poolManger;
 		#endregion
 
 		#region Property
@@ -20,8 +21,9 @@ namespace EverythingStore.Optimization
 		#endregion
 
 		#region Public Method
-		public void Init()
+		public void Init(ObjectPoolManger manger)
 		{
+			_poolManger = manger;
 			for (int i = 0; i < _initSpawn; i++)
 			{
 				_pool.Push(CreatePooledObject());
@@ -56,6 +58,12 @@ namespace EverythingStore.Optimization
 			popPooledObject.transform.parent = null;
 			popPooledObject.gameObject.SetActive(true);
 
+			//생성 시 초기화 호출
+			if(popPooledObject.TryGetComponent<IPoolObject_GetInitialization>(out var init))
+			{
+				init.GetPoolObjectInitialization();
+			}
+
 			return popPooledObject;
 		}
 
@@ -71,6 +79,17 @@ namespace EverythingStore.Optimization
 			var newPooledObject = Instantiate(_prefab);
 			newPooledObject.Init(this);
 			newPooledObject.name = Type.ToString();
+
+			if(newPooledObject.TryGetComponent<IPoolObject_CreateInitialization>(out var createInit))
+			{
+				createInit.CreateInitialization();
+			}
+
+			if(newPooledObject.TryGetComponent<IPoolObject_SpawnObjectInitialization>(out var spawnInit))
+			{
+				spawnInit.SpawnObjectInitialization(_poolManger);
+			}
+
 			return newPooledObject;
 		}
 		#endregion

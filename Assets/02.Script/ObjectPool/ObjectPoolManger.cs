@@ -27,7 +27,7 @@ namespace EverythingStore.Optimization
 			var pools = transform.GetComponentsInChildren<ObjectPool>();
 			foreach (var pool in pools)
 			{
-				pool.Init();
+				pool.Init(this);
 				_poolTable.Add(pool.Type, pool);
 			}
 		}

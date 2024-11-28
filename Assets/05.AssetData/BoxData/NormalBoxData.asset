@@ -9,14 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a129409d94cd1a498d300fe2feb3c87, type: 3}
-  m_Name: PlayerSpeed
+  m_Script: {fileID: 11500000, guid: 62fe9749e49f0e645819946e0eb17c0d, type: 3}
+  m_Name: NormalBoxData
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: SPEED
-  UpgradList:
-  - Cost: 100
-    Value: 3.1
-  - Cost: 300
-    Value: 3.3
-  - Cost: 500
-    Value: 3.5
+  _boxType: 0
+  _sprite: {fileID: 21300000, guid: 30bdd32f12b9a4aa2a30001178f0679c, type: 3}
+  _probabilityRera: 0.1
+  _probabilityUnique: 0
+  _cost: 100

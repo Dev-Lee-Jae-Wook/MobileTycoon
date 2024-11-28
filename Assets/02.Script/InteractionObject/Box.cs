@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace EverythingStore.InteractionObject
 {
-	public class Box : PickableObject,IPlayerInteraction
+	public class Box : PickableObject,IPlayerInteraction, IPoolObject_CreateInitialization,IPoolObject_SpawnObjectInitialization, IPoolObject_GetInitialization
 	{
 		#region Filed
 		public override PickableObjectType type => PickableObjectType.Box;
@@ -54,20 +54,26 @@ namespace EverythingStore.InteractionObject
 		#endregion
 
 		#region UnityLifeCycle
-		private void Awake()
+		#endregion
+
+		#region Public Method
+		public void CreateInitialization()
 		{
 			_items = new Stack<SellObject>();
 			_itemSpawnPoint = transform.Find("SpawnPoint");
 			_collider = GetComponent<BoxCollider>();
 			var pooledObjecet = GetComponent<PooledObject>();
-			pooledObjecet.OnRelease += Init;
 		}
-		#endregion
 
-		#region Public Method
-		public void Init(ObjectPoolManger manger)
+		public void SpawnObjectInitialization(ObjectPoolManger manger)
 		{
 			_poolMagner = manger;
+		}
+
+		public void GetPoolObjectInitialization()
+		{
+			ChangeState(State.BeforeOpen);
+			_collider.enabled = true;
 		}
 
 		public void InteractionPlayer(Player player)
@@ -93,14 +99,13 @@ namespace EverythingStore.InteractionObject
 			}
 		}
 
+		public void SetInteraction(bool isEnabled)
+		{
+			_collider.enabled = isEnabled;
+		}
 		#endregion
 
 		#region Private Method
-		private void Init()
-		{
-			ChangeState(State.BeforeOpen);
-			_collider.enabled = true;
-		}
 
 		/// <summary>
 		/// 상자를 오픈합니다.
@@ -163,10 +168,9 @@ namespace EverythingStore.InteractionObject
 			_boxVisuals[(int)_state].SetActive(true);
 		}
 
-		internal void SetInteraction(bool isEnabled)
-		{
-			_collider.enabled = isEnabled;
-		}
+
+
+
 
 		#endregion
 

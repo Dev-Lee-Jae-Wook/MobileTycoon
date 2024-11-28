@@ -5,9 +5,9 @@ using UnityEngine;
 namespace EverythingStore.Upgrad
 {
 	[Serializable]
-	public struct UpgradDataStruct
+	public struct UpgradDataStruct<T>
 	{
 		public int Cost;
-		public int Value;
+		public T Value;
 	}
 }

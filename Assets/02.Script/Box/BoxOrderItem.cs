@@ -1,4 +1,6 @@
-using EverythingStore.Actor.Player;
+using EverythingStore.Delivery;
+using Sirenix.OdinInspector;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,49 +10,51 @@ namespace EverythingStore.BoxBox
 	public class BoxOrderItem : MonoBehaviour
 	{
 		#region Field
-		[SerializeField] private BoxOrder _order;
-		[SerializeField] private BoxOrderData _data;
-		[SerializeField] private int _cost;
-		[SerializeField] private TMP_Text _nameText;
-		[SerializeField] private TMP_Text _costText;
+		[SerializeField] private BoxData _boxData;
+		[SerializeField] private Image _image;
+		[SerializeField] private Image _block;
+		[SerializeField] private TMP_Text _name;
+		[SerializeField] private TMP_Text _cost;
+		[SerializeField] private TMP_Text _amount;
+
 		private Button _button;
-		private Wallet _wallet;
 		#endregion
 
 		#region Property
-		#endregion
+		public BoxData BoxData => _boxData;
 
+		public int Cost => _boxData.Cost;
+		#endregion
 		#region Event
+		#endregion
+		#region UnityCycle
 		#endregion
 
 		#region Public Method
-		public void Init(Wallet palyerWallet)
+		public void Init(Action onClick)
 		{
 			_button = GetComponent<Button>();
-			_button.onClick.AddListener(TryBuyItem);
-			_wallet = palyerWallet;
+			_button.onClick.AddListener(()=> onClick());
 
-			_nameText.text = $"{_data.Type} x {_data.Amount}";
-			_costText.text = $"Money : {_cost}";
+			Setup();
+		}
+
+		public void SetBlock(bool isBlock)
+		{
+			_button.interactable = !isBlock;
+			_block.gameObject.SetActive(isBlock);
 		}
 		#endregion
 
 		#region Private Method
-		private void OrderBoxData()
+		[Button("Setup")]
+		private void Setup()
 		{
-			_order.AddOrderData(_data);
-		}
-
-		private void TryBuyItem()
-		{
-			if(_wallet.CanSubstactMoney(_cost) == false)
-			{
-				Debug.Log("구매 불가");
-				return;
-			}
-
-			_wallet.SubtractMoney(_cost);
-			OrderBoxData();
+			_image.sprite = _boxData.Sprite;
+			_name.text = $"{_boxData.BoxType} Box";
+			_cost.text = _boxData.Cost.ToString();
+			gameObject.name = $"BoxOrder_{_boxData.BoxType}";
+			_amount.text = null;
 		}
 		#endregion
 

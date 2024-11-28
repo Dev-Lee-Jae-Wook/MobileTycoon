@@ -1,4 +1,5 @@
 using EverythingStore.InteractionObject;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 
 namespace EverythingStore.Upgrad
 {
-    public class LockAreaUI : MonoBehaviour
+    public class InputMoneyAreaUI : MonoBehaviour
     {
 		#region Field
 		[SerializeField] private string _name;
@@ -21,15 +22,22 @@ namespace EverythingStore.Upgrad
 		#endregion
 
 		#region UnityCycle
-		private void Start()
+		private void Awake()
 		{
-			LockArea moneyArea = GetComponent<LockArea>();
-			_platformLabel.text = _name;
+			InputMoneyArea moneyArea = GetComponent<InputMoneyArea>();
 			moneyArea.OnUpdateMoney += UpdataProgress;
-			_progress.maxValue = moneyArea.MaxMoney;
-			_money.text = _progress.maxValue.ToString();
+			moneyArea.OnSetUp += SetUp;
 		}
 
+		private void OnValidate()
+		{
+			if(_platformLabel == null)
+			{
+				return;
+			}
+
+			_platformLabel.text = _name;
+		}
 
 		#endregion
 
@@ -38,6 +46,13 @@ namespace EverythingStore.Upgrad
 		{
 			_progress.value = _progress.maxValue - money;
 			_money.text = money.ToString();
+		}
+
+		private void SetUp(int targetMoney)
+		{
+			_money.text = targetMoney.ToString();
+			_progress.maxValue = targetMoney;
+			_progress.value = 0f;
 		}
 		#endregion
 	}

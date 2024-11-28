@@ -4,6 +4,8 @@ using EverythingStore.Actor.Player;
 using EverythingStore.AI;
 using EverythingStore.AssetData;
 using EverythingStore.Sell;
+using EverythingStore.Upgrad;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,7 @@ using UnityEngine;
 //가챠 확률 데이터는 좀 더 개량이 필요합니다.
 namespace EverythingStore.InteractionObject
 {
-	public class SalesStand : MonoBehaviour, IPlayerInteraction, ICustomerInteraction, IInteractionPoint, IWaitingLine, IEnterPoint, IEnterableCustomer
+	public class SalesStand : MonoBehaviour, IPlayerInteraction, ICustomerInteraction, IInteractionPoint, IWaitingLine, IEnterPoint, IEnterableCustomer, IUpgradInt
 	{
 		#region Field
 		private Stack<SellObject> _salesObjectStack = new Stack<SellObject>();
@@ -22,16 +24,28 @@ namespace EverythingStore.InteractionObject
 		[SerializeField] private Transform _enterPoint;
 		[SerializeField] private GameObject[] _models;
 		[SerializeField] private int _maxCustomer;
+
+		[Title("Upgrad")]
+		[SerializeField] private SaleStandPivotData[] _pivotDatas;
+		private int _upgradLv = 0;
+
+		[Title("Pivot")]
+		[SerializeField] private Transform _pivot;
+		[SerializeField] private SaleStandPivotData _pivotData;
+
 		private Customer _useCustomer;
 		private GameObject _currentMode;
 		private bool _isCustomerInteraction = true;
 		private int _enterMoveCustomerCount = 0;
 		private bool _isUsedCustomer = false;
+		private int _maxCapacity = 18;
+
+		private InputMoneyArea _upgradArea;
 		#endregion
 
 		#region Property
-		[field:SerializeField] public Transform Pivot { get; private set; }
-		[field: SerializeField] public SaleStandPivotData PivotData { get; private set; }
+		public Transform Pivot => _pivot;
+		public SaleStandPivotData PivotData => _pivotData;
 		public int Capacity => _capacity;
 
 		public Vector3 InteractionPoint => _interactionPoint.position;
@@ -58,8 +72,9 @@ namespace EverythingStore.InteractionObject
 			}
 		}
 
-		private void Start()
+		private void Awake()
 		{
+			_upgradArea = transform.GetComponentInChildren<InputMoneyArea>();
 			_currentMode = _models[0];
 		}
 		#endregion
@@ -214,7 +229,7 @@ namespace EverythingStore.InteractionObject
 			_currentMode.SetActive(false);
 			_currentMode = _models[upgradCount + 1];
 			_currentMode.SetActive(true);
-			PivotData = pivotData;
+			_pivotData = pivotData;
 			Pivot.localPosition = pivotData.PivotLocalPos;
 			UpdateSellItem();
 		}
@@ -252,6 +267,31 @@ namespace EverythingStore.InteractionObject
 		public void RemoveEnterMoveCustomer()
 		{
 			_enterMoveCustomerCount--;
+		}
+
+		public void Upgrad(int value)
+		{
+			_capacity = value;
+			_pivotData = _pivotDatas[_upgradLv];
+			_currentMode.SetActive(false);
+			_currentMode = _models[_upgradLv + 1];
+			_currentMode.SetActive(true);
+			Pivot.localPosition = _pivotData.PivotLocalPos;
+
+			UpdateSellItem();
+			_upgradLv++;
+		}
+
+		internal void MaxUpgrad()
+		{
+			_capacity = _maxCapacity;
+			_pivotData = _pivotDatas[_pivotDatas.Length - 1];
+			_currentMode.SetActive(false);
+			_currentMode = _models.Last();
+			_currentMode.SetActive(true);
+			Pivot.localPosition = _pivotData.PivotLocalPos;
+			_upgradArea.gameObject.SetActive(false);
+			UpdateSellItem();
 		}
 		#endregion
 	}

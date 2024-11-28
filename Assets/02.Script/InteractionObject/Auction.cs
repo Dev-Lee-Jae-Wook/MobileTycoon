@@ -22,7 +22,7 @@ namespace EverythingStore.InteractionObject
 		private AuctionManger _manager;
 
 		[SerializeField] private ObjectPoolManger _poolManger;
-		[SerializeField] private LockArea _lockArea;
+		[SerializeField] private InputMoneyArea _lockArea;
 		[SerializeField] private Transform _spawnPoint;
 		[SerializeField] private MoneySpawner _moneySpawner;
 

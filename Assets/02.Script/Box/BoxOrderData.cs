@@ -7,6 +7,7 @@ namespace EverythingStore.BoxBox
 	{
 		public BoxType Type;
 		public int Amount;
+
 		public BoxOrderData(BoxType type, int amount)
 		{
 			Type = type;

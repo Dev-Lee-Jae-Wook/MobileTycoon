@@ -11,7 +11,9 @@ namespace EverythingStore.InteractionObject
 {
 	public class BoxStorage : MonoBehaviour
 	{
-		#region Field		
+		#region Field	
+		[SerializeField] private ObjectPoolManger _poolManger;
+
 		[Title("Gizmos")]
 		[SerializeField] private bool _gizomo;
 		[SerializeField] private float _gizmoBoxSize;
@@ -37,6 +39,11 @@ namespace EverythingStore.InteractionObject
 		public int Capacity => _capacity;
 		public object Pivot => _pivot;
 		public BoxStoragePointData PivotData => _pivotData;
+
+		/// <summary>
+		/// 여유 공간
+		/// </summary>
+		public int FreeSpace => _capacity - _boxQueue.Count;
 		#endregion
 
 		#region Event
@@ -146,6 +153,19 @@ namespace EverythingStore.InteractionObject
 			}
 			_cBoxMove = null;
 		}
+		#endregion
+
+		#region Test
+		[Button("Test AddBox 10")]
+		public void TestAddBox10()
+		{
+			for(int i = 0; i < 10; i++)
+			{
+				var box = _poolManger.GetPoolObject(PooledObjectType.Box_Normal).GetComponent<Box>();
+				AddBox(box);
+			}
+		}
+
 		#endregion
 	}
 }

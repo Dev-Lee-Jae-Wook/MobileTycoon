@@ -1,12 +1,14 @@
 using EverythingStore.Actor.Player;
 using EverythingStore.InteractionObject;
+using EverythingStore.Upgrad;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace EverythingStore.BoxBox
 {
-	public class TrashCanBox : MonoBehaviour, IPlayerInteraction
+	public class TrashCanBox : MonoBehaviour, IPlayerInteraction, IUpgradInt
 	{
 		#region Field
 		[SerializeField] private Transform _pivot;
@@ -14,6 +16,8 @@ namespace EverythingStore.BoxBox
 		[SerializeField] private float boundaryY;
 		[SerializeField] private int _capacity;
 		private Action _pushableCallback;
+		[SerializeField] private TMP_Text _capacityText;
+		private Canvas _canvasCapacity;
 		#endregion
 
 		#region Property
@@ -23,8 +27,11 @@ namespace EverythingStore.BoxBox
 		#endregion
 
 		#region UnityCycle
-		private void Start()
+		private void Awake()
 		{
+			_canvasCapacity = _capacityText.canvas;
+			UpdateUI(_capacity);
+			ToggleMaxUI(true);
 		}
 		#endregion
 
@@ -37,6 +44,12 @@ namespace EverythingStore.BoxBox
 			box.transform.parent = _pivot;
 			box.transform.localPosition = GetPushLocalPosititon();
 			_trashBoxStack.Push(box);
+			ToggleMaxUI(false);
+		}
+
+		private void ToggleMaxUI(bool isOn)
+		{
+			_canvasCapacity.enabled = isOn;
 		}
 
 		public bool IsFull()
@@ -65,6 +78,11 @@ namespace EverythingStore.BoxBox
 				pickup.Pickup(popBox);
 				_pushableCallback?.Invoke();
 				_pushableCallback = null;
+
+				if(_trashBoxStack.Count == 0)
+				{
+					ToggleMaxUI(true);
+				}
 			}
 		}
 		#endregion
@@ -79,6 +97,16 @@ namespace EverythingStore.BoxBox
 			return Vector3.up * (_trashBoxStack.Count * boundaryY);
 		}
 
+		public void Upgrad(int value)
+		{
+			_capacity = value;
+			UpdateUI(_capacity);
+		}
+
+		private void UpdateUI(int max)
+		{
+			_capacityText.text = $"MAX\n{max}";
+		}
 
 		#endregion
 
