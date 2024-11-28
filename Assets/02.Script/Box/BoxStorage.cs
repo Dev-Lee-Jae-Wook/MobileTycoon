@@ -36,6 +36,7 @@ namespace EverythingStore.InteractionObject
 		#endregion
 
 		#region Property
+		public int Count => _boxQueue.Count;
 		public int Capacity => _capacity;
 		public object Pivot => _pivot;
 		public BoxStoragePointData PivotData => _pivotData;

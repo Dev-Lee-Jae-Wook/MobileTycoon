@@ -1,6 +1,7 @@
 using EverythingStore.Actor.Player;
 using EverythingStore.Delivery;
 using EverythingStore.InteractionObject;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -12,17 +13,22 @@ namespace EverythingStore.BoxBox
 	public class BoxOrder : MonoBehaviour
 	{
 		#region Field
+		[Title("Collaboration")]
 		[SerializeField]private Player _player;
+		[SerializeField] private DeliveryManger _deliveryManger;
+		[SerializeField] private BoxStorage _boxStorage;
+		[SerializeField] private ChoiceBox _choiceBox;
+
+		[Title("Button")]
 		[SerializeField] private Button _buyButton;
 		[SerializeField] private Button _resetButton;
 		[SerializeField] private Button _closeButton;
-		[SerializeField] private DeliveryManger _deliveryManger;
-		[SerializeField] private BoxStorage _boxStorage;
 		[SerializeField] private Transform _boxOrderItemParent;
-		[SerializeField] private ChoiceBox _choiceBox;
-
+		
+		[Title("Text")]
 		[SerializeField] private TMP_Text _totalOrder;
 		[SerializeField] private TMP_Text _totalCost;
+		[SerializeField] private TMP_Text _boxStorageText;
 
 
 		private Canvas _canvas;
@@ -34,21 +40,29 @@ namespace EverythingStore.BoxBox
 		private int _useMoney;
 
 		private int _maxOrder;
+
+		private Animator _animator;
 		#endregion
 
 		#region Property
 		#endregion
 
 		#region Event
+		public event Action OnOrderDelivery;
 		#endregion
 
 		#region UnityCycle
+
+		private void Awake()
+		{
+			_animator = GetComponent<Animator>();
+		}
 
 		private void Start()
 		{
 			_resetButton.onClick.AddListener(ResetOrder);
 			_buyButton.onClick.AddListener(Buy);
-			_closeButton.onClick.AddListener(Close);
+			_closeButton.onClick.AddListener(PopDown);
 
 			_playerWallet = _player.Wallet;
 			_canvas = transform.parent.GetComponent<Canvas>();
@@ -71,8 +85,11 @@ namespace EverythingStore.BoxBox
 			Toggle(true);
 			_useMoney = 0;
 			_maxOrder = _boxStorage.FreeSpace;
+			_boxStorageText.text = $"Box Stroage {_boxStorage.Count} / {_boxStorage.Capacity}";
 			UpdateBoxOrderItem();
 			UpdateOrderInfo();
+
+			_animator.SetTrigger("PopUp");
 		}
 
 		public void AddOrderData(BoxOrderData newOrderData, int cost)
@@ -85,6 +102,9 @@ namespace EverythingStore.BoxBox
 		#endregion
 
 		#region Private Method
+		/// <summary>
+		/// 구매하고자하는 박스를 구매하면 택배가 배달해줌
+		/// </summary>
 		private void Buy()
 		{
 			var copyOrderData = _orderBoxDataList.ToArray();
@@ -92,12 +112,13 @@ namespace EverythingStore.BoxBox
 			_playerWallet.SubtractMoney(_useMoney);
 
 			ResetOrder();
-			Close();
+			PopDown();
+			OnOrderDelivery?.Invoke();
 		}
 
-		private void Close()
+		private void PopDown()
 		{
-			Toggle(false);
+			_animator.SetTrigger("PopDown");
 		}
 
 		private void Toggle(bool isToggle)
@@ -160,11 +181,12 @@ namespace EverythingStore.BoxBox
 			_totalOrder.text = $"Total Order : {totalOrder}";
 			_totalCost.text = $"Total Cost : {totalCost}";
 		}
-		#endregion
 
-		#region Protected Method
+		private void Close()
+		{
+			Toggle(false);
+		}
 		#endregion
-
 
 
 	}

@@ -658,27 +658,27 @@ PrefabInstance:
     - target: {fileID: 5947174858731988570, guid: decdc40a2763a49b484280f00ed38d4e,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5947174858731988570, guid: decdc40a2763a49b484280f00ed38d4e,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5947174858731988570, guid: decdc40a2763a49b484280f00ed38d4e,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8438711698116027284, guid: decdc40a2763a49b484280f00ed38d4e,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8438711698116027284, guid: decdc40a2763a49b484280f00ed38d4e,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1918,7 +1918,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &305650798
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2232,6 +2232,7 @@ GameObject:
   - component: {fileID: 375423589}
   - component: {fileID: 375423590}
   - component: {fileID: 375423591}
+  - component: {fileID: 375423592}
   m_Layer: 5
   m_Name: BoxOrder
   m_TagString: Untagged
@@ -2258,7 +2259,7 @@ RectTransform:
   - {fileID: 868674762}
   - {fileID: 852857121}
   - {fileID: 1807104202}
-  - {fileID: 1867684195}
+  - {fileID: 1630432030}
   - {fileID: 2109358587}
   m_Father: {fileID: 2095520761}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2280,15 +2281,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 4155977604492668679}
+  _deliveryManger: {fileID: 249903128}
+  _boxStorage: {fileID: 1274592754}
+  _choiceBox: {fileID: 305650801}
   _buyButton: {fileID: 852857123}
   _resetButton: {fileID: 1807104204}
   _closeButton: {fileID: 8244999318463917053}
-  _deliveryManger: {fileID: 249903128}
-  _boxStorage: {fileID: 1274592754}
   _boxOrderItemParent: {fileID: 868674762}
-  _choiceBox: {fileID: 305650801}
   _totalOrder: {fileID: 957420783407958352}
   _totalCost: {fileID: 1925881226}
+  _boxStorageText: {fileID: 1630432031}
 --- !u!222 &375423591
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2297,6 +2299,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 375423588}
   m_CullTransparentMesh: 1
+--- !u!95 &375423592
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375423588}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 188ce3cc90bd1ec409f79c1247b72b23, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &392556308
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9918,7 +9941,7 @@ GameObject:
   - component: {fileID: 1630432032}
   - component: {fileID: 1630432031}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Text_BoxStorage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9931,16 +9954,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1630432029}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1867684195}
+  m_Father: {fileID: 375423589}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -150}
   m_SizeDelta: {x: 720, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1630432031
@@ -11716,42 +11739,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21a1fedf547a1a1478009a86f15849a2, type: 3}
---- !u!1 &1867684194
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1867684195}
-  m_Layer: 5
-  m_Name: BoxStorage
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1867684195
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1867684194}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1630432030}
-  m_Father: {fileID: 375423589}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -100}
-  m_SizeDelta: {x: 0, y: 100}
-  m_Pivot: {x: 0.5, y: 1}
 --- !u!1001 &1878210988
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12088,6 +12075,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _boxOrder: {fileID: 375423590}
+  _truck: {fileID: 466509883919362205}
 --- !u!1001 &1925881224
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13072,8 +13060,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -179.5}
-  m_SizeDelta: {x: 500, y: 200}
+  m_AnchoredPosition: {x: 0, y: -156}
+  m_SizeDelta: {x: 800, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2109358588
 MonoBehaviour:

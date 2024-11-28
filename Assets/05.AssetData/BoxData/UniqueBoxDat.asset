@@ -16,4 +16,4 @@ MonoBehaviour:
   _sprite: {fileID: 21300000, guid: eac11acede93246e2b55838994ee8c35, type: 3}
   _probabilityRera: 0.3
   _probabilityUnique: 0.4
-  _cost: 100
+  _cost: 1000
