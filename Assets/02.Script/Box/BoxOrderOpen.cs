@@ -1,4 +1,6 @@
+using EverythingStore.Actor.Player;
 using EverythingStore.InteractionObject;
+using TMPro;
 using UnityEngine;
 
 namespace EverythingStore.BoxBox
@@ -7,15 +9,21 @@ namespace EverythingStore.BoxBox
 	{
 		[SerializeField] private BoxOrder _boxOrder;
 		[SerializeField] private DeliveryTruck _truck;
+		[SerializeField] private PlayerInput _playerInput;
+		[SerializeField] private TMP_Text _display;
 
 		private bool _isInteraction = true;
 
 		private void Start()
 		{
-			//오더를 넣으면 상호 작용 비 활성화
-			_boxOrder.OnOrderDelivery += () => SetInteraction(false);
-			//오더를 넣으면 상호 작용 활성화
-			_truck.OnFinshDelivey += () => SetInteraction(true);
+			//배달 시작
+			_boxOrder.OnOrderDelivery += Delivery;
+			//배달 완료
+			_truck.OnFinshDelivey += BoxOrderAble;
+
+			_boxOrder.OnClose += () => _playerInput.SetControler(true);
+
+			BoxOrderAble();
 		}
 
 		public void SwitchAction()
@@ -26,11 +34,24 @@ namespace EverythingStore.BoxBox
 			}
 
 			_boxOrder.Open();
+			_playerInput.SetControler(false);
 		}
 
 		public void SetInteraction(bool isInteraction)
 		{
 			_isInteraction = isInteraction;
+		}
+
+		private void Delivery()
+		{
+			SetInteraction(false);
+			_display.text = "Box delivery in progress";
+		}
+
+		private void BoxOrderAble()
+		{
+			SetInteraction(true);
+			_display.text = "Box orders available";
 		}
 	}
 }

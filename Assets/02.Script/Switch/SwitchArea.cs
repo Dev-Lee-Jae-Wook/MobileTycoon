@@ -9,8 +9,9 @@ namespace EverythingStore.InteractionObject
 		#region Field
         [SerializeField] private LayerMask _switchAbleLayer;
 		[SerializeField] private Vector3 _size;
+		[SerializeField] private GameObject _switchObject;
         private ISwitch _target;
-
+		
 		private bool _isDown = false;
 		#endregion
 
@@ -23,7 +24,7 @@ namespace EverythingStore.InteractionObject
 		#region UnityCycle
 		private void Awake()
 		{
-			_target = GetComponentInChildren<ISwitch>();
+			_target = _switchObject.GetComponent<ISwitch>();
 		}
 
 		private void Update()

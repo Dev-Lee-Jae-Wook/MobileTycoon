@@ -49,6 +49,7 @@ namespace EverythingStore.BoxBox
 
 		#region Event
 		public event Action OnOrderDelivery;
+		public event Action OnClose;
 		#endregion
 
 		#region UnityCycle
@@ -111,7 +112,6 @@ namespace EverythingStore.BoxBox
 			_deliveryManger.AddOrderData(copyOrderData);
 			_playerWallet.SubtractMoney(_useMoney);
 
-			ResetOrder();
 			PopDown();
 			OnOrderDelivery?.Invoke();
 		}
@@ -185,6 +185,8 @@ namespace EverythingStore.BoxBox
 		private void Close()
 		{
 			Toggle(false);
+			ResetOrder();
+			OnClose?.Invoke();
 		}
 		#endregion
 
