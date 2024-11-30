@@ -35,7 +35,6 @@ namespace EverythingStore.BoxBox
 		{
 			_button = GetComponent<Button>();
 			_button.onClick.AddListener(()=> onClick());
-
 			Setup();
 		}
 
@@ -43,6 +42,11 @@ namespace EverythingStore.BoxBox
 		{
 			_button.interactable = !isBlock;
 			_block.gameObject.SetActive(isBlock);
+		}
+
+		public void UpDateAmount(int amount)
+		{
+			_amount.text = amount.ToString();
 		}
 		#endregion
 
@@ -54,7 +58,7 @@ namespace EverythingStore.BoxBox
 			_name.text = $"{_boxData.BoxType} Box";
 			_cost.text = _boxData.Cost.ToString();
 			gameObject.name = $"BoxOrder_{_boxData.BoxType}";
-			_amount.text = null;
+			_amount.text = "0";
 		}
 		#endregion
 

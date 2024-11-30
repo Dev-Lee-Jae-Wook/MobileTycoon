@@ -34,7 +34,10 @@ namespace EverythingStore.InteractionObject
 		#endregion
 
 		#region UnityCycle
-
+		private void Awake()
+		{
+			GetComponent<PooledObject>().OnRelease += Init;
+		}
 		#endregion
 
 		#region Public Method

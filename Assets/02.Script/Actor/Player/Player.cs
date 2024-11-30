@@ -33,6 +33,7 @@ namespace EverythingStore.Actor.Player
 			_pickupAndDrop = GetComponent<PickupAndDrop>();
 			_movement = GetComponent<PlayerCharacterMovement>();
 			_wallet = new (_initMoney);
+
 		}
 		#endregion
 

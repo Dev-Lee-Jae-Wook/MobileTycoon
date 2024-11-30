@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moneySpanwer: {fileID: 68522864447310597}
-  _interval: {x: 0.2, y: 0.1, z: 0.25}
+  _interval: {x: 0.2, y: 0.1, z: 0.3}
   _debugCubeSize: 0.05
   _debugColor: {r: 0.39040214, g: 0.6784314, b: 0.0078431275, a: 0.5019608}
 --- !u!65 &7597598616947785336
@@ -240,6 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _poolManger: {fileID: 0}
   _spawnCoolTime: 1
+  _unlockCost: 0
   _spawnPoint: {fileID: 6888651344131298372}
   _enterPoint: {fileID: 5027115105687376519}
   _interactionPoint: {fileID: 3355525065971942000}

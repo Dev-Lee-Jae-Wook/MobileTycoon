@@ -1,4 +1,5 @@
 using EverythingStore.BoxBox;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -24,6 +25,7 @@ namespace EverythingStore.Delivery
 		private BoxData _boxData;
 		private int _maxOrder;
 
+		private Action<int> _onChoiceAmount;
 		#endregion
 
 		#region Property
@@ -43,7 +45,7 @@ namespace EverythingStore.Delivery
 		#endregion
 
 		#region Public Method
-		public void Open(BoxData data, int maxOrder)
+		public void Open(BoxData data, int maxOrder, Action<int> choiceAmount)
 		{
 			_boxData = data;
 			_maxOrder = maxOrder;
@@ -52,9 +54,15 @@ namespace EverythingStore.Delivery
 			_title.text = data.BoxType.ToString();
 			_context.text = _boxData.GetContext();
 			_icon.sprite = data.Sprite;
+			_onChoiceAmount = choiceAmount;
 
 			UpdateOrderAmount(0);
 			gameObject.SetActive(true);
+		}
+
+		public void Close()
+		{
+			gameObject.SetActive(false);
 		}
 		#endregion
 
@@ -70,7 +78,9 @@ namespace EverythingStore.Delivery
 				_boxOrder.AddOrderData(newOrderData, cost);
 			}
 
-			gameObject.SetActive(false);
+			_onChoiceAmount?.Invoke(amount);
+
+			Close();
 		}
 
 		private void UpdateOrderAmount(float value)
@@ -89,6 +99,8 @@ namespace EverythingStore.Delivery
 		{
 			_slider.value = 0f;
 		}
+
+
 		#endregion
 
 		#region Protected Method

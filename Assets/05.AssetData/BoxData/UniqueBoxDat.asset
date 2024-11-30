@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _boxType: 2
   _sprite: {fileID: 21300000, guid: eac11acede93246e2b55838994ee8c35, type: 3}
-  _probabilityRera: 0.3
-  _probabilityUnique: 0.4
+  _gachaProbabilityData: {fileID: 11400000, guid: 214acb8c75a4aea48854fe4d595f6d3a,
+    type: 2}
   _cost: 1000

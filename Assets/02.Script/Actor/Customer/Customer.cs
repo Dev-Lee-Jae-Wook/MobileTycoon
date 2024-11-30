@@ -1,15 +1,10 @@
 using EverythingStore.AI;
 using EverythingStore.AI.CustomerState;
-using EverythingStore.Animation;
 using EverythingStore.InteractionObject;
-using EverythingStore.Manger;
-using EverythingStore.RayInteraction;
-using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using ExitStore = EverythingStore.AI.CustomerState.ExitStore;
-using Random = UnityEngine.Random;
 
 namespace EverythingStore.Actor.Customer
 {

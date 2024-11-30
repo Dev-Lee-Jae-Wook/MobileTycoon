@@ -1,4 +1,5 @@
 using EverythingStore.BoxBox;
+using EverythingStore.Gacha;
 using UnityEngine;
 
 namespace EverythingStore.Delivery
@@ -8,8 +9,7 @@ namespace EverythingStore.Delivery
 	{
 		[SerializeField] private BoxType _boxType;
 		[SerializeField] private Sprite _sprite;
-		[Range(0.0f, 1.0f)][SerializeField] private float _probabilityRera;
-		[Range(0.0f, 1.0f)][SerializeField] private float _probabilityUnique;
+		[SerializeField] private GachaProbabilityData _gachaProbabilityData;
 		[SerializeField] private int _cost;
 
 		public Sprite Sprite => _sprite;
@@ -18,10 +18,9 @@ namespace EverythingStore.Delivery
 
 		public string GetContext()
 		{
-			float probabilityNoraml = 1.0f - (_probabilityRera + _probabilityUnique);
-			int np = ConvertPercent(probabilityNoraml);
-			int rp = ConvertPercent(_probabilityRera);
-			int up = ConvertPercent(_probabilityUnique);
+			int np = ConvertPercent(_gachaProbabilityData.ProbabilityNormal);
+			int rp = ConvertPercent(_gachaProbabilityData.ProbabilityRera);
+			int up = ConvertPercent(_gachaProbabilityData.ProbabilityUnique);
 			return $"Normal : {np}%\nRera : {rp}%\nUnique : {up}%";
 		}
 

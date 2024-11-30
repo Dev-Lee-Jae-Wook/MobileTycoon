@@ -1,5 +1,7 @@
 using EverythingStore.Actor;
 using EverythingStore.Actor.Player;
+using EverythingStore.AssetData;
+using EverythingStore.Delivery;
 using EverythingStore.Gacha;
 using EverythingStore.Optimization;
 using EverythingStore.Sell;
@@ -15,9 +17,9 @@ namespace EverythingStore.InteractionObject
 		public override PickableObjectType type => PickableObjectType.Box;
 		private Stack<SellObject> _items;
 
+		[SerializeField] private GachaProbabilityData _gachaProbabilityData;
 		//박스에 상태에 따른 비주얼 오브젝트들
 		[SerializeField] private List<GameObject> _boxVisuals;
-
 		/// <summary>
 		/// 생성된 아이템들의 위치
 		/// </summary>
@@ -38,6 +40,10 @@ namespace EverythingStore.InteractionObject
 		private BoxCollider _collider;
 		private ObjectPoolManger _poolMagner;
 		
+		private Animator _animator;
+
+		private bool _isPickupAble;
+
 		#endregion
 
 		#region Events
@@ -54,6 +60,11 @@ namespace EverythingStore.InteractionObject
 		#endregion
 
 		#region UnityLifeCycle
+		private void Awake()
+		{
+			_animator = GetComponent<Animator>();
+			OnOpenBox += ProductBoxOpen;
+		}
 		#endregion
 
 		#region Public Method
@@ -63,6 +74,11 @@ namespace EverythingStore.InteractionObject
 			_itemSpawnPoint = transform.Find("SpawnPoint");
 			_collider = GetComponent<BoxCollider>();
 			var pooledObjecet = GetComponent<PooledObject>();
+			foreach(var item in _boxVisuals)
+			{
+				item.transform.localPosition = Vector3.zero;
+				item.gameObject.SetActive(false);
+			}
 		}
 
 		public void SpawnObjectInitialization(ObjectPoolManger manger)
@@ -74,6 +90,7 @@ namespace EverythingStore.InteractionObject
 		{
 			ChangeState(State.BeforeOpen);
 			_collider.enabled = true;
+			_isPickupAble = false;
 		}
 
 		public void InteractionPlayer(Player player)
@@ -86,7 +103,7 @@ namespace EverythingStore.InteractionObject
 					Open();
 					break;
 				case State.Open:
-					if (pickup.CanPickup(PickableObjectType.SellObject) == true)
+					if (pickup.CanPickup(PickableObjectType.SellObject) == true && _isPickupAble == true)
 					{
 						var popObject = PopSellObject(pickup);
 						pickup.Pickup(popObject);
@@ -131,9 +148,13 @@ namespace EverythingStore.InteractionObject
 		/// </summary>
 		private void SpawnSellObject()
 		{
-			var sellObjectType = GachaManger.Instance.Gacha().GetComponent<PooledObject>().Type;
+			var sellObjectType = GachaManger.Instance.Gacha(_gachaProbabilityData).GetComponent<PooledObject>().Type;
 			var sellObject = _poolMagner.GetPoolObject(sellObjectType);
-			sellObject.transform.position = _itemSpawnPoint.position;
+
+			sellObject.transform.parent = _itemSpawnPoint;
+			sellObject.transform.localPosition = Vector3.zero;
+			sellObject.transform.localRotation = Quaternion.identity;
+
 			_items.Push(sellObject.GetComponent<SellObject>());
 		}
 
@@ -168,9 +189,15 @@ namespace EverythingStore.InteractionObject
 			_boxVisuals[(int)_state].SetActive(true);
 		}
 
+		private void PickupAble()
+		{
+			_isPickupAble = true;
+		}
 
-
-
+		private void ProductBoxOpen()
+		{
+			_animator.SetTrigger("BoxOpen");
+		}
 
 		#endregion
 

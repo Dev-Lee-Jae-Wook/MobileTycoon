@@ -13,12 +13,6 @@ namespace EverythingStore.Gacha
 
 		#region Field
 		[SerializeField] private GachaData _spawnableData;
-		[Title("Probability")]
-		[Range(0.0f, 1.0f)]
-		[SerializeField] private float _uniqueProablity;
-		[Range(0.0f, 1.0f)]
-		[SerializeField] private float _rareProablity;
-
 		private Dictionary<SellObjectRank, List<SellObject>> _rankSellObjectList = new();
 		#endregion
 
@@ -37,9 +31,9 @@ namespace EverythingStore.Gacha
 		#endregion
 
 		#region Public Method
-		public SellObject Gacha()
+		public SellObject Gacha(GachaProbabilityData probabilityData)
 		{
-			var rank = RandomRank();
+			var rank = RandomRank(probabilityData);
 			var spawnList = _rankSellObjectList[rank];
 			int randomIndex = Random.Range(0, spawnList.Count);
 			return spawnList[randomIndex];
@@ -70,13 +64,13 @@ namespace EverythingStore.Gacha
 			}
 		}
 
-		private SellObjectRank RandomRank()
+		private SellObjectRank RandomRank(GachaProbabilityData probabilityData)
 		{
-			if(SucessRandom(_uniqueProablity) == true)
+			if(SucessRandom(probabilityData.ProbabilityUnique) == true)
 			{
 				return SellObjectRank.Unique;
 			}
-			else if(SucessRandom(_rareProablity) == true)
+			else if(SucessRandom(probabilityData.ProbabilityRera) == true)
 			{
 				return SellObjectRank.Rare;
 			}

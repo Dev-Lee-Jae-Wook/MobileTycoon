@@ -10,11 +10,11 @@ using UnityEngine.UI;
 
 namespace EverythingStore.BoxBox
 {
-	public class BoxOrder : MonoBehaviour
+	public class BoxOrder : PopupUIBase
 	{
 		#region Field
 		[Title("Collaboration")]
-		[SerializeField]private Player _player;
+		[SerializeField] private Player _player;
 		[SerializeField] private DeliveryManger _deliveryManger;
 		[SerializeField] private BoxStorage _boxStorage;
 		[SerializeField] private ChoiceBox _choiceBox;
@@ -22,16 +22,13 @@ namespace EverythingStore.BoxBox
 		[Title("Button")]
 		[SerializeField] private Button _buyButton;
 		[SerializeField] private Button _resetButton;
-		[SerializeField] private Button _closeButton;
 		[SerializeField] private Transform _boxOrderItemParent;
-		
+
 		[Title("Text")]
 		[SerializeField] private TMP_Text _totalOrder;
 		[SerializeField] private TMP_Text _totalCost;
 		[SerializeField] private TMP_Text _boxStorageText;
 
-
-		private Canvas _canvas;
 		private Wallet _playerWallet;
 
 		private BoxOrderItem[] _orderBoxItems;
@@ -40,8 +37,6 @@ namespace EverythingStore.BoxBox
 		private int _useMoney;
 
 		private int _maxOrder;
-
-		private Animator _animator;
 		#endregion
 
 		#region Property
@@ -49,48 +44,17 @@ namespace EverythingStore.BoxBox
 
 		#region Event
 		public event Action OnOrderDelivery;
-		public event Action OnClose;
 		#endregion
 
-		#region UnityCycle
-
-		private void Awake()
-		{
-			_animator = GetComponent<Animator>();
-		}
-
-		private void Start()
-		{
-			_resetButton.onClick.AddListener(ResetOrder);
-			_buyButton.onClick.AddListener(Buy);
-			_closeButton.onClick.AddListener(PopDown);
-
-			_playerWallet = _player.Wallet;
-			_canvas = transform.parent.GetComponent<Canvas>();
-			_orderBoxItems = _boxOrderItemParent.GetComponentsInChildren<BoxOrderItem>();
-
-
-			foreach (var boxItem in _orderBoxItems)
-			{
-				boxItem.Init(() => PopUpChoiceBox(boxItem.BoxData));
-			}
-
-			Toggle(false);
-			_choiceBox.gameObject.SetActive(false);
-		}
-		#endregion
 
 		#region Public Method
-		public void Open()
+		private void Init()
 		{
-			Toggle(true);
-			_useMoney = 0;
+			ResetOrder();
 			_maxOrder = _boxStorage.FreeSpace;
 			_boxStorageText.text = $"Box Stroage {_boxStorage.Count} / {_boxStorage.Capacity}";
 			UpdateBoxOrderItem();
 			UpdateOrderInfo();
-
-			_animator.SetTrigger("PopUp");
 		}
 
 		public void AddOrderData(BoxOrderData newOrderData, int cost)
@@ -108,30 +72,24 @@ namespace EverythingStore.BoxBox
 		/// </summary>
 		private void Buy()
 		{
-			var copyOrderData = _orderBoxDataList.ToArray();
-			_deliveryManger.AddOrderData(copyOrderData);
-			_playerWallet.SubtractMoney(_useMoney);
+			var orderDatas = _orderBoxDataList.ToArray();
+
+			if (orderDatas.Length > 0)
+			{
+				_deliveryManger.AddOrderData(orderDatas);
+				_playerWallet.SubtractMoney(_useMoney);
+				OnOrderDelivery?.Invoke();
+			}
 
 			PopDown();
-			OnOrderDelivery?.Invoke();
 		}
 
-		private void PopDown()
+		private void PopUpChoiceBox(BoxOrderItem boxOrderItem)
 		{
-			_animator.SetTrigger("PopDown");
-		}
-
-		private void Toggle(bool isToggle)
-		{
-			_canvas.enabled = isToggle;
-		}
-
-		private void PopUpChoiceBox(BoxData data)
-		{
-			int orderableCount = GetUseAbleMoney() / data.Cost;
+			int orderableCount = GetUseAbleMoney() / boxOrderItem.BoxData.Cost;
 			int max = Mathf.Clamp(orderableCount, 0, GetOrderAbleCount());
 
-			_choiceBox.Open(data, max);
+			_choiceBox.Open(boxOrderItem.BoxData, max, boxOrderItem.UpDateAmount);
 		}
 
 		private void ResetOrder()
@@ -140,6 +98,11 @@ namespace EverythingStore.BoxBox
 			_useMoney = 0;
 			UpdateBoxOrderItem();
 			UpdateOrderInfo();
+
+			foreach (var item in _orderBoxItems)
+			{
+				item.UpDateAmount(0);
+			}
 		}
 
 		private int GetUseAbleMoney()
@@ -161,7 +124,7 @@ namespace EverythingStore.BoxBox
 		private void UpdateBoxOrderItem()
 		{
 			int useableMoney = GetUseAbleMoney();
-			foreach(var item in _orderBoxItems)
+			foreach (var item in _orderBoxItems)
 			{
 				bool isBlock = item.Cost > useableMoney;
 				item.SetBlock(isBlock);
@@ -173,7 +136,7 @@ namespace EverythingStore.BoxBox
 			int totalOrder = 0;
 			int totalCost = _useMoney;
 
-			foreach(var item in _orderBoxDataList)
+			foreach (var item in _orderBoxDataList)
 			{
 				totalOrder += item.Amount;
 			}
@@ -181,15 +144,27 @@ namespace EverythingStore.BoxBox
 			_totalOrder.text = $"Total Order : {totalOrder}";
 			_totalCost.text = $"Total Cost : {totalCost}";
 		}
-
-		private void Close()
-		{
-			Toggle(false);
-			ResetOrder();
-			OnClose?.Invoke();
-		}
 		#endregion
 
+		#region Protected Method
+		protected override void StartInit()
+		{
+			OnOpen += Init;
 
+			_resetButton.onClick.AddListener(ResetOrder);
+			_buyButton.onClick.AddListener(Buy);
+
+			_playerWallet = _player.Wallet;
+			_orderBoxItems = _boxOrderItemParent.GetComponentsInChildren<BoxOrderItem>();
+
+
+			foreach (var boxItem in _orderBoxItems)
+			{
+				boxItem.Init(() => PopUpChoiceBox(boxItem));
+			}
+
+			_choiceBox.Close();
+		}
+		#endregion
 	}
 }

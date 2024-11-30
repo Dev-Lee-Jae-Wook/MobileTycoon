@@ -2,6 +2,7 @@ using EverythingStore.Actor;
 using EverythingStore.Actor.Player;
 using EverythingStore.AssetData;
 using EverythingStore.Optimization;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,6 +36,12 @@ namespace EverythingStore.InteractionObject
 		#endregion
 
 		#region Public Method
+		[Button("AA")]		
+		private void Test()
+		{
+			AddMoney(100);
+		}
+
 
 		public void AddMoney(int money)
 		{
