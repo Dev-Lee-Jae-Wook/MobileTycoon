@@ -149,7 +149,9 @@ namespace EverythingStore.InteractionObject
 		/// </summary>
 		private SellObject PopSellObject()
 		{
-			return _salesObjectStack.Pop();
+			var sellObject = _salesObjectStack.Pop();
+			sellObject.transform.localScale = Vector3.one;
+			return sellObject;
 		}
 
 		/// <summary>
@@ -158,6 +160,7 @@ namespace EverythingStore.InteractionObject
 		/// <param name="sellObject"></param>
 		public void PushSellObject(SellObject sellObject)
 		{
+			sellObject.transform.localScale = Vector3.one * 0.6f;
 			_salesObjectStack.Push(sellObject);
 		}
 

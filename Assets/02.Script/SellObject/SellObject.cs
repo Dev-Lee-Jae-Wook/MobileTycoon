@@ -1,4 +1,5 @@
 ﻿using EverythingStore.InteractionObject;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace EverythingStore.Sell
@@ -8,6 +9,6 @@ namespace EverythingStore.Sell
 		[field:SerializeField] public int Money {  get; private set; }
 		[field: SerializeField] public SellObjectRank Rank { get; private set; }
 		public override PickableObjectType type => PickableObjectType.SellObject;
-		
+
 	}
 }
