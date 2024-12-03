@@ -87,7 +87,6 @@ namespace EverythingStore.InteractionObject
 			var point = GetPivotPoint(_boxQueue.Count);
 			box.transform.parent = transform;
 			box.transform.localPosition = point;
-			box.SetInteraction(false);
 
 			if (_outputBox.HasBox() == false)
 			{

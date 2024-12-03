@@ -22,7 +22,6 @@ namespace EverythingStore.InteractionObject
 		private AuctionManger _manager;
 
 		[SerializeField] private ObjectPoolManger _poolManger;
-		[SerializeField] private InputMoneyArea _lockArea;
 		[SerializeField] private Transform _spawnPoint;
 		[SerializeField] private MoneySpawner _moneySpawner;
 
@@ -59,9 +58,10 @@ namespace EverythingStore.InteractionObject
 		#region UnityCycle
 		private void Awake()
 		{
-			_lockArea.OnCompelte += () => gameObject.SetActive(true);
 			_chairs = _chairParent.GetComponentsInChildren<Chair>();
 			_manager = GetComponent<AuctionManger>();
+
+			gameObject.SetActive(false);
 		}
 		#endregion
 

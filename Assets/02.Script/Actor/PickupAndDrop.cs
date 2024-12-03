@@ -158,8 +158,9 @@ namespace EverythingStore.Actor
 			{
 				OnAnimationDrop?.Invoke();
 			}
+
 			_bezierCurve.Movement(popObject.transform, endTarget, endTarget.position.y + 1.0f, localPos,
-				()=>callback(popObject));
+				()=>callback?.Invoke(popObject));
 			_actionCoolTime.StartCoolTime(_coolTime);
 
 			return popObject;

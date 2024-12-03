@@ -44,10 +44,7 @@ namespace EverythingStore.InteractionObject
 		#region UnityCycle
 		private void Awake()
 		{
-			_player = GameObject.Find("Player").GetComponent<Player>();
-			_detectLayerMask = LayerMask.GetMask("Player");
-			_coolTime = gameObject.AddComponent<CoolTime>();
-			_coolTime.OnComplete += InputPlayerMoney;
+
 		}
 		private void OnDrawGizmos()
 		{
@@ -72,8 +69,14 @@ namespace EverythingStore.InteractionObject
 		#endregion
 
 		#region Public Method
+
 		public void SetUp(int targetMoney)
 		{
+			_player = GameObject.Find("Player").GetComponent<Player>();
+			_detectLayerMask = LayerMask.GetMask("Player");
+			_coolTime = gameObject.AddComponent<CoolTime>();
+			_coolTime.OnComplete += InputPlayerMoney;
+
 			_targetMoney = targetMoney;
 			OnSetUp?.Invoke(_targetMoney);
 			_isCompelte = false;
@@ -113,6 +116,8 @@ namespace EverythingStore.InteractionObject
 				OnCompelte?.Invoke();
 			}
 		}
+
+
 
 
 		#endregion

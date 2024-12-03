@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17" pages="5">
   <diagram name="전체 시나리오" id="DOYJuDzAEhyiMmyvPIrc">
-    <mxGraphModel dx="2963" dy="1720" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1715" dy="990" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -64,8 +64,11 @@
         <mxCell id="-ojY_TbJWEaNhWdbn5IG-5" value="손님 계산대에 드랍" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
           <mxGeometry x="600" y="200" width="120" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="F43POZafzMb2VDVnIPFl-1" value="11.07" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+        <mxCell id="F43POZafzMb2VDVnIPFl-1" value="11.07" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="545" y="118" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="nkSjHAxlXvBxfvEC5h2b-1" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Part 2 - 전체 시나이로&lt;/h1&gt;&lt;p&gt;&lt;/p&gt;&lt;ol&gt;&lt;li&gt;게임을 첫 실행 하였다면 시네머신으로 간단한 오프닝을 보여준다.&lt;/li&gt;&lt;li&gt;목표 화살표를 통해 튜토리얼을 진행&lt;/li&gt;&lt;ol&gt;&lt;li&gt;픽업해서 판매대에 아이템 드랍&lt;/li&gt;&lt;li&gt;계산대에서 결제 해주기&lt;/li&gt;&lt;li&gt;박스 주문하기&lt;/li&gt;&lt;li&gt;경매장에서 구역 해금&lt;/li&gt;&lt;li&gt;경매장 이용&lt;/li&gt;&lt;/ol&gt;&lt;/ol&gt;&lt;p&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="520" width="440" height="870" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

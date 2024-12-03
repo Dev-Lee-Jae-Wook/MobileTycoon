@@ -285,7 +285,7 @@ namespace EverythingStore.InteractionObject
 			_upgradLv++;
 		}
 
-		internal void MaxUpgrad()
+		public void MaxUpgrad()
 		{
 			_capacity = _maxCapacity;
 			_pivotData = _pivotDatas[_pivotDatas.Length - 1];

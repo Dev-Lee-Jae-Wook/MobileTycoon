@@ -61,7 +61,7 @@ namespace EverythingStore.Spanwer
 			_box.transform.parent = _spawnPoint;
 			_box.transform.localPosition = Vector3.zero;
 			_box.OnEmtpyBox += DestoryBox;
-			_box.SetInteraction(true);
+			_box.InteractionOn();
 		}
 
 		private void DestoryBox()

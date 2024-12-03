@@ -66,7 +66,7 @@ namespace EverythingStore.BoxBox
 			}
 
 			_box.transform.localPosition = Vector3.zero;
-			_box.SetInteraction(true);
+			_box.InteractionOn();
 		}
 
 		private void BoxToTrashCan()

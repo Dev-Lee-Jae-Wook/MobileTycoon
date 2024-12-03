@@ -7,8 +7,10 @@ namespace EverythingStore.Upgrad
 	public class UpgradSystemInt : MonoBehaviour
 	{
 		#region Field
-		[SerializeField] private InputMoneyArea _inputMoneyArea;
+		[SerializeField] private GameObject _targetObject;
 		[SerializeField] private UpgradData_Int upgradData;
+		
+		private InputMoneyArea _inputMoneyArea;
 		private int _lv = 0;
 		private IUpgradInt _target;
 		#endregion
@@ -20,10 +22,17 @@ namespace EverythingStore.Upgrad
 		#region UnityCycle
 		private void Awake()
 		{
-			_target = GetComponent<IUpgradInt>();
+			_target = _targetObject.GetComponent<IUpgradInt>();
+
+			_inputMoneyArea = GetComponent<InputMoneyArea>();
 			_inputMoneyArea.OnCompelte += Upgrad;
+		}
+
+		private void Start()
+		{
 			_inputMoneyArea.SetUp(upgradData.UpgradList[_lv].Cost);
 		}
+
 		#endregion
 
 		#region Public Method

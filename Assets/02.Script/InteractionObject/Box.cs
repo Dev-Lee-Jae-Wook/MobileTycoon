@@ -84,13 +84,15 @@ namespace EverythingStore.InteractionObject
 		public void SpawnObjectInitialization(ObjectPoolManger manger)
 		{
 			_poolMagner = manger;
+			GetPoolObjectInitialization();
 		}
 
 		public void GetPoolObjectInitialization()
 		{
 			ChangeState(State.BeforeOpen);
-			_collider.enabled = true;
+			_collider.enabled = false;
 			_isPickupAble = false;
+			_animator.SetTrigger("Init");
 		}
 
 		public void InteractionPlayer(Player player)
@@ -116,9 +118,9 @@ namespace EverythingStore.InteractionObject
 			}
 		}
 
-		public void SetInteraction(bool isEnabled)
+		public void InteractionOn()
 		{
-			_collider.enabled = isEnabled;
+			_collider.enabled = true;
 		}
 		#endregion
 
