@@ -12,7 +12,9 @@ namespace EverythingStore.GameEvent
 		Totorial_Money,
 		Totorial_BoxOrder,
 		First_BoxOrder,
-		Tutorial_EnterBoxOrder
+		Tutorial_EnterBoxOrder,
+		Tutorial_Delivery,
+		UnlockableAuction
 	}
 
 	public class GameEventManager : Singleton<GameEventManager>

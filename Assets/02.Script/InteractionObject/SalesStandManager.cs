@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EverythingStore.Manger
+namespace EverythingStore.Manager
 {
     public class SalesStandManager : MonoBehaviour
     {

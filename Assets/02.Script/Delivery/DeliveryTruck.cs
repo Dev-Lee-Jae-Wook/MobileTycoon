@@ -1,6 +1,3 @@
-using EverythingStore.AI;
-using EverythingStore.AI.CustomerState;
-using EverythingStore.AI.DeliveryTruckState;
 using EverythingStore.InteractionObject;
 using EverythingStore.Optimization;
 using EverythingStore.BoxBox;
@@ -8,9 +5,8 @@ using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-[RequireComponent(typeof(NavmeshMove), typeof(FSMMachine))]
+
 public class DeliveryTruck : MonoBehaviour
 {
 	#region Field
@@ -19,19 +15,17 @@ public class DeliveryTruck : MonoBehaviour
 	[SerializeField] private Transform _initPoint;
 	[SerializeField] private Transform _arrivePoint;
 	[SerializeField] private Transform _exitPoint;
+
 	[Title("BoxStorage")]
 	[SerializeField] private BoxStorage _boxStorage;
 
-	private FSMMachine _machine;
 	private Queue<Box> _boxQueue = new();
-	private NavmeshMove _move;
-	private BoxOrderData[] _testData = { new(BoxType.Normal, 10) };
+	
+	private Animator _animator;
 	#endregion
 
 	#region Property
 	public bool IsDelivery { get; private set; }
-	public BoxOrderData[] OrderData { get; private set; }
-	public ObjectPoolManger PoolManger => _poolManger;
 	#endregion
 
 	#region Event
@@ -41,46 +35,27 @@ public class DeliveryTruck : MonoBehaviour
 	#region UnityCycle
 	private void Awake()
 	{
-		_move = GetComponent<NavmeshMove>();
-		_machine = GetComponent<FSMMachine>();
-
-		List<IFSMState> states = new List<IFSMState>();
-
-		states.Add(new SpawnBox(this));
-		states.Add(new MoveToPoint(_move, _arrivePoint.position, FSMStateType.DeliveryTruck_MoveTo_ArrivePoint, FSMStateType.DeliveryTruck_BoxSendToStoreage));
-		states.Add(new BoxSendToStoreSorage(this));
-		states.Add(new MoveToPoint(_move, _exitPoint.position, FSMStateType.DeliveryTruck_MoveTo_ExitPoint, FSMStateType.DeliveryTruck_DeliveryEnd));
-		states.Add(new DeliveryEnd(this));
-
-		_machine.SetUpState(states);
+		_animator = GetComponent<Animator>();
 	}
 
 	#endregion
 
 	#region Public Method
+
 	/// <summary>
 	/// 배달 프로세스를 시작합니다.
 	/// </summary>
-	public void StartDeliveryProcess(BoxOrderData[] orderData)
+	public void StartDeliveryProcess()
 	{
-		OrderData = orderData;
-		_machine.StartMachine(FSMStateType.DeliveryTruck_SpawnBox);
+		_animator.SetTrigger("Delivery");
 	}
 
-	/// <summary>
-	/// 생성된 박스를 추가합니다.
-	/// </summary>
-	/// <param name="pooledObject"></param>
-	public void AddBox(PooledObject pooledObject)
-	{
-		pooledObject.gameObject.SetActive(false);
-		_boxQueue.Enqueue(pooledObject.GetComponent<Box>());
-	}
+
 
 	/// <summary>
 	/// 박스를 상점의 박스 저장고에게 넘겨줍니다.
 	/// </summary>
-	public void Delivery()
+	private void Delivery()
 	{
 		while(_boxQueue.Count > 0)
 		{
@@ -93,16 +68,67 @@ public class DeliveryTruck : MonoBehaviour
 	/// <summary>
 	/// 초기 위치로 돌아가고 배달이 끝남을 알림니다.
 	/// </summary>
-	public void FinshDelivery()
+	private void FinshDelivery()
 	{
-		transform.position = _initPoint.position;
-		transform.rotation = _initPoint.rotation;
-		_machine.StopMachine();
 		OnFinshDelivey?.Invoke();
 	}
 	#endregion
 
 	#region Private Method
+	/// <summary>
+	/// 생성된 박스를 추가합니다.
+	/// </summary>
+	/// <param name="pooledObject"></param>
+	private void AddBox(PooledObject pooledObject)
+	{
+		pooledObject.gameObject.SetActive(false);
+		_boxQueue.Enqueue(pooledObject.GetComponent<Box>());
+	}
+
+	public void SpawnBox(BoxOrderData[] datas)
+	{
+		int amount;
+		foreach (var item in datas)
+		{
+			amount = item.Amount;
+			while (amount > 0)
+			{
+				AddBox(GetBox(item.Type));
+				amount--;
+			}
+		}
+	}
+
+
+	/// <summary>
+	/// BoxType을 PooledObjectType으로 변환합니다.
+	/// </summary>
+	private PooledObjectType ConvertPooledObjectType(BoxType boxType)
+	{
+		PooledObjectType result = PooledObjectType.Box_Normal;
+
+		switch (boxType)
+		{
+			case BoxType.Rare:
+				result = PooledObjectType.Box_Rare;
+				break;
+			case BoxType.Unique:
+				result = PooledObjectType.Box_Unique;
+				break;
+			case BoxType.Lengendary:
+				result = PooledObjectType.Box_Lengendary;
+				break;
+		}
+
+		return result;
+	}
+
+	private PooledObject GetBox(BoxType boxType)
+	{
+		var pooledObjectType = ConvertPooledObjectType(boxType);
+		return _poolManger.GetPoolObject(pooledObjectType);
+	}
+
 	#endregion
 
 

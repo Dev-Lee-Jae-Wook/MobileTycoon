@@ -49,8 +49,7 @@ namespace EverythingStore.AI.CustomerState
 		{
 			if(Tutorial.Instance.isGotoCounter == false)
 			{
-				GameEventManager.Instance.OnEvent(GameEventType.Totorial_Counter);
-				Tutorial.Instance.isGotoCounter = true;
+				Tutorial.Instance.GoToCounter();
 			}
 		}
 		#endregion

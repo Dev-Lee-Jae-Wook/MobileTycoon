@@ -109,8 +109,7 @@ namespace EverythingStore.InteractionObject
 			{
 				if (Tutorial.Instance.isPickup == false)
 				{
-					GameEventManager.Instance.OnEvent(GameEventType.Totorial_Pickup);
-					Tutorial.Instance.isPickup = true;
+					Tutorial.Instance.PickUp();
 				}
 			}
 

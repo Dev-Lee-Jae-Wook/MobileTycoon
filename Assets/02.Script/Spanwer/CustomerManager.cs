@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace EverythingStore.Manger
+namespace EverythingStore.Manager
 {
 	public class CustomerManager : MonoBehaviour
 	{

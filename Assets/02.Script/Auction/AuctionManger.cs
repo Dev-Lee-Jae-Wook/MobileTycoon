@@ -1,6 +1,6 @@
 using EverythingStore.Actor.Customer;
 using EverythingStore.InteractionObject;
-using EverythingStore.Manger;
+using EverythingStore.Manager;
 using EverythingStore.Timer;
 using Sirenix.OdinInspector;
 using System;

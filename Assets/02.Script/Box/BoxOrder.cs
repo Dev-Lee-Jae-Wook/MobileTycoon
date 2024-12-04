@@ -1,5 +1,6 @@
 using EverythingStore.Actor.Player;
 using EverythingStore.Delivery;
+using EverythingStore.GameEvent;
 using EverythingStore.InteractionObject;
 using Sirenix.OdinInspector;
 using System;
@@ -76,8 +77,9 @@ namespace EverythingStore.BoxBox
 
 			if (orderDatas.Length > 0)
 			{
-				_deliveryManger.AddOrderData(orderDatas);
+				_deliveryManger.SetOrderData(orderDatas);
 				_playerWallet.SubtractMoney(_useMoney);
+				_deliveryManger.StartDelivery();
 				OnOrderDelivery?.Invoke();
 			}
 

@@ -18,6 +18,7 @@ namespace EverythingStore.InputMoney
 
 		#region Property
 		public event Action OnUnlock;
+		public bool IsUnlock => _isUnlock;
 		#endregion
 
 		#region Event

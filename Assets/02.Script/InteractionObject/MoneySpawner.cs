@@ -90,8 +90,7 @@ namespace EverythingStore.InteractionObject
 			_moneys.Clear();
 			if(Tutorial.Instance.isGetMoney == false)
 			{
-				GameEventManager.Instance.OnEvent(GameEventType.Totorial_BoxOrder);
-				Tutorial.Instance.isGetMoney = true;
+				Tutorial.Instance.GetMoney();
 			}
 		}
 

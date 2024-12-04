@@ -36,7 +36,7 @@ namespace EverythingStore.BoxBox
 
 			if(Tutorial.Instance.isEnterBoxOrder == false)
 			{
-				GameEventManager.Instance.OnEvent(GameEventType.Tutorial_EnterBoxOrder);
+				Tutorial.Instance.EnterBoxOrder();
 			}
 
 			_boxOrder.Open();

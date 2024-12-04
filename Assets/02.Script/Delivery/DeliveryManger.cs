@@ -1,4 +1,5 @@
 using EverythingStore.BoxBox;
+using EverythingStore.GameEvent;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,29 +26,31 @@ namespace EverythingStore.Delivery
 		#endregion
 
 		#region Public Method
-		public void AddOrderData(BoxOrderData[] orderData)
+		public void SetOrderData(BoxOrderData[] orderData)
 		{
 			if (orderData.Length == 0)
 			{
 				return;
 			}
 
-			if (_truck.IsDelivery == true)
+			_truck.SpawnBox(orderData);
+		}
+
+		public void StartDelivery()
+		{
+			if (Tutorial.Instance.isDeliveryBox == false)
 			{
-				_order.Enqueue(orderData);
+				Tutorial.Instance.DeliveryBox();
 			}
-            else
-            {
-				StartDeilvery(orderData);
-            }
-        }
+			else
+			{
+				_truck.StartDeliveryProcess();
+			}
+		}
 		#endregion
 
 		#region Private Method
-		private void StartDeilvery(BoxOrderData[] orderData)
-		{
-			_truck.StartDeliveryProcess(orderData);
-		}
+
 		#endregion
 
 

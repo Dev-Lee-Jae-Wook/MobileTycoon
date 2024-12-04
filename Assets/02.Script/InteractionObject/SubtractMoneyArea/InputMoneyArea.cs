@@ -42,10 +42,6 @@ namespace EverythingStore.InteractionObject
 		#endregion
 
 		#region UnityCycle
-		private void Awake()
-		{
-
-		}
 		private void OnDrawGizmos()
 		{
 			Gizmos.color = _debugColor;

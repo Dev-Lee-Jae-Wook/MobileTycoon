@@ -2,10 +2,12 @@ using EverythingStore.Actor;
 using EverythingStore.Actor.Customer;
 using EverythingStore.Actor.Player;
 using EverythingStore.AuctionSystem;
+using EverythingStore.InputMoney;
 using EverythingStore.Optimization;
 using EverythingStore.Prob;
 using EverythingStore.Sell;
 using EverythingStore.Timer;
+using EverythingStore.UI;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
@@ -24,6 +26,8 @@ namespace EverythingStore.InteractionObject
 		[SerializeField] private ObjectPoolManger _poolManger;
 		[SerializeField] private Transform _spawnPoint;
 		[SerializeField] private MoneySpawner _moneySpawner;
+		[SerializeField] private UnlockArea _unlockArea;
+		[SerializeField] private NavigationUI _navigationUI;
 
 
 		[Title("Point")]
@@ -62,6 +66,7 @@ namespace EverythingStore.InteractionObject
 			_manager = GetComponent<AuctionManger>();
 
 			gameObject.SetActive(false);
+			_unlockArea.OnUnlock += () => _navigationUI.OffNavigation();
 		}
 		#endregion
 

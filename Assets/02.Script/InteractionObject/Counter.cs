@@ -172,8 +172,7 @@ namespace EverythingStore.InteractionObject
 			_moneySpawner.AddMoney(money);
 			if(Tutorial.Instance.isSpawnMoney == false)
 			{
-				GameEventManager.Instance.OnEvent(GameEventType.Totorial_Money);
-				Tutorial.Instance.isSpawnMoney = true;
+				Tutorial.Instance.SpawnMoney();
 			}
 		}
 
