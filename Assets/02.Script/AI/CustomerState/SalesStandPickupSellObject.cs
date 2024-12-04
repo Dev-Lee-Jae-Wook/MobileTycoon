@@ -1,5 +1,6 @@
 using EverythingStore.Actor;
 using EverythingStore.Actor.Customer;
+using EverythingStore.GameEvent;
 using EverythingStore.InteractionObject;
 using EverythingStore.RayInteraction;
 
@@ -46,6 +47,11 @@ namespace EverythingStore.AI.CustomerState
 
 		public void Exit()
 		{
+			if(Tutorial.Instance.isGotoCounter == false)
+			{
+				GameEventManager.Instance.OnEvent(GameEventType.Totorial_Counter);
+				Tutorial.Instance.isGotoCounter = true;
+			}
 		}
 		#endregion
 

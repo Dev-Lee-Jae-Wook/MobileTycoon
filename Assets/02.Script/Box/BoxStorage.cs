@@ -1,5 +1,6 @@
 using EverythingStore.AssetData;
 using EverythingStore.BoxBox;
+using EverythingStore.GameEvent;
 using EverythingStore.Optimization;
 using Sirenix.OdinInspector;
 using System.Collections;
@@ -33,6 +34,8 @@ namespace EverythingStore.InteractionObject
 		[Title("Box Output")]
 		[SerializeField] private OutputBox _outputBox;
 		[SerializeField] private Transform _boxOutputPoint;
+
+		private int _outputBoxCount = 0;
 		#endregion
 
 		#region Property
@@ -100,6 +103,17 @@ namespace EverythingStore.InteractionObject
 
 		private void SendToBoxOutput()
 		{
+			_outputBoxCount++;
+
+			if (_outputBoxCount == 3)
+			{
+				if (Tutorial.Instance.isPickup == false)
+				{
+					GameEventManager.Instance.OnEvent(GameEventType.Totorial_Pickup);
+					Tutorial.Instance.isPickup = true;
+				}
+			}
+
 			if (_outputBox.HasBox() == true || _boxQueue.Count == 0)
 			{
 				return;
@@ -116,6 +130,16 @@ namespace EverythingStore.InteractionObject
 		{
 			_pivotData.SavePointData(Capacity, points);
 		}
+
+		public void TutorialSpawnBox()
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				var box = _poolManger.GetPoolObject(PooledObjectType.Box_Normal).GetComponent<Box>();
+				AddBox(box);
+			}
+		}
+
 		#endregion
 
 		#region Private Method
@@ -155,17 +179,5 @@ namespace EverythingStore.InteractionObject
 		}
 		#endregion
 
-		#region Test
-		[Button("Test AddBox 10")]
-		public void TestAddBox10()
-		{
-			for(int i = 0; i < 10; i++)
-			{
-				var box = _poolManger.GetPoolObject(PooledObjectType.Box_Normal).GetComponent<Box>();
-				AddBox(box);
-			}
-		}
-
-		#endregion
 	}
 }

@@ -1,4 +1,5 @@
 using EverythingStore.Actor.Player;
+using EverythingStore.GameEvent;
 using EverythingStore.InteractionObject;
 using TMPro;
 using UnityEngine;
@@ -31,6 +32,11 @@ namespace EverythingStore.BoxBox
 			if(_isInteraction == false)
 			{
 				return;
+			}
+
+			if(Tutorial.Instance.isEnterBoxOrder == false)
+			{
+				GameEventManager.Instance.OnEvent(GameEventType.Tutorial_EnterBoxOrder);
 			}
 
 			_boxOrder.Open();

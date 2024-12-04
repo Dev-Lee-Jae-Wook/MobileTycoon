@@ -2,6 +2,7 @@ using EverythingStore.Actor;
 using EverythingStore.Actor.Customer;
 using EverythingStore.Actor.Player;
 using EverythingStore.AI;
+using EverythingStore.GameEvent;
 using EverythingStore.InputMoney;
 using EverythingStore.Optimization;
 using EverythingStore.Sell;
@@ -169,6 +170,11 @@ namespace EverythingStore.InteractionObject
 		private void CreateMoney(int money)
 		{
 			_moneySpawner.AddMoney(money);
+			if(Tutorial.Instance.isSpawnMoney == false)
+			{
+				GameEventManager.Instance.OnEvent(GameEventType.Totorial_Money);
+				Tutorial.Instance.isSpawnMoney = true;
+			}
 		}
 
 		/// <summary>

@@ -1,6 +1,7 @@
 using EverythingStore.Actor;
 using EverythingStore.Actor.Player;
 using EverythingStore.AssetData;
+using EverythingStore.GameEvent;
 using EverythingStore.Optimization;
 using Sirenix.OdinInspector;
 using System;
@@ -87,6 +88,11 @@ namespace EverythingStore.InteractionObject
 			}
 
 			_moneys.Clear();
+			if(Tutorial.Instance.isGetMoney == false)
+			{
+				GameEventManager.Instance.OnEvent(GameEventType.Totorial_BoxOrder);
+				Tutorial.Instance.isGetMoney = true;
+			}
 		}
 
 		private void SpawnMoney(int spawnMoney)

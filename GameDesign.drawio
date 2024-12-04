@@ -1,6 +1,6 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17" pages="5">
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17" pages="6">
   <diagram name="전체 시나리오" id="DOYJuDzAEhyiMmyvPIrc">
-    <mxGraphModel dx="1715" dy="990" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="3742" dy="2160" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -66,9 +66,6 @@
         </mxCell>
         <mxCell id="F43POZafzMb2VDVnIPFl-1" value="11.07" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="545" y="118" width="50" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="nkSjHAxlXvBxfvEC5h2b-1" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Part 2 - 전체 시나이로&lt;/h1&gt;&lt;p&gt;&lt;/p&gt;&lt;ol&gt;&lt;li&gt;게임을 첫 실행 하였다면 시네머신으로 간단한 오프닝을 보여준다.&lt;/li&gt;&lt;li&gt;목표 화살표를 통해 튜토리얼을 진행&lt;/li&gt;&lt;ol&gt;&lt;li&gt;픽업해서 판매대에 아이템 드랍&lt;/li&gt;&lt;li&gt;계산대에서 결제 해주기&lt;/li&gt;&lt;li&gt;박스 주문하기&lt;/li&gt;&lt;li&gt;경매장에서 구역 해금&lt;/li&gt;&lt;li&gt;경매장 이용&lt;/li&gt;&lt;/ol&gt;&lt;/ol&gt;&lt;p&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="40" y="520" width="440" height="870" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
@@ -1465,7 +1462,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="bYqy-PoPsd5sBC3ANO_h" name="Format">
-    <mxGraphModel dx="1247" dy="1204" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1231" dy="1188" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -2167,6 +2164,160 @@
         <mxCell id="1" parent="0" />
         <mxCell id="BSQ5xlhcKTVJFszgDr2K-2" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Prop List&lt;/h1&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;박스&lt;/li&gt;&lt;li&gt;박스 저장고&lt;/li&gt;&lt;li&gt;판매 상품&lt;/li&gt;&lt;li&gt;판매대&lt;/li&gt;&lt;li&gt;계산대&lt;/li&gt;&lt;li&gt;쓰레기 통&lt;/li&gt;&lt;li&gt;박스 주문&lt;/li&gt;&lt;li&gt;트럭&lt;/li&gt;&lt;li&gt;경매장&lt;/li&gt;&lt;li&gt;잠금 구역&lt;/li&gt;&lt;li&gt;업그레이드 판&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="40" y="40" width="210" height="220" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="ChQ5iq09TeK9QrxlpfjE" name="GameEvent">
+    <mxGraphModel dx="1055" dy="609" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-1" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Part 2 - 전체 시나이로&lt;/h1&gt;&lt;p&gt;&lt;/p&gt;&lt;ol&gt;&lt;li&gt;게임을 첫 실행 하였다면 시네머신으로 간단한 오프닝을 보여준다.&lt;/li&gt;&lt;li&gt;목표 화살표를 통해 튜토리얼을 진행&lt;/li&gt;&lt;ol&gt;&lt;li&gt;픽업해서 판매대에 아이템 드랍&lt;/li&gt;&lt;li&gt;계산대에서 결제 해주기&lt;/li&gt;&lt;li&gt;박스 주문하기&lt;/li&gt;&lt;li&gt;경매장에서 구역 해금&lt;/li&gt;&lt;li&gt;경매장 이용&lt;/li&gt;&lt;/ol&gt;&lt;/ol&gt;&lt;p&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="41" y="150" width="440" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="aAoFjWtNT1MWGlVcUcYq-3" target="aAoFjWtNT1MWGlVcUcYq-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-3" value="박스 저장고로 안내" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="571" y="280" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-4" value="픽업 테이블로 안내" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="571" y="360" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-5" value="첫 손님이 픽업을 완료한 경우" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="771" y="240" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-6" value="계산대로 안내" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="791" y="270" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-7" value="첫 계산을 완료한 경우" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="771" y="360" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-8" value="돈 획득처 안내" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="791" y="390" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-9" value="돈 첫 획득" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="991" y="240" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-10" value="박스 주문대로 안내" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1011" y="270" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-11" value="박스 첫 소환" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="991" y="360" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="aAoFjWtNT1MWGlVcUcYq-13">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1071" y="470" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-13" value="박스 전달되는거 보여주기" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1001" y="400" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-14" value="경매장 언락구역 안내" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1011" y="470" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-15" value="시네머신으로 보여주기" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1011" y="510" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-16" value="처음 게임 시작" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="556" y="250" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-17" value="1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="611" y="220" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-18" value="2" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="821" y="200" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-19" value="3" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="836" y="340" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-20" value="4" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1051" y="210" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-21" value="5" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1056" y="330" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-22" value="GameManger가 게임이 첫 시작인지를 판단&lt;div&gt;첫 시작인 경우 FirstGameEvent를 호출한다.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;FirstGameEvent&lt;/div&gt;&lt;div&gt;-화살표를 박스 저장고로 안내&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="506" y="458" width="250" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-23" value="GameEvent.Trigger(GameEvent)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="641" y="640" width="190" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="aAoFjWtNT1MWGlVcUcYq-25" target="aAoFjWtNT1MWGlVcUcYq-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-25" value="GameManger" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="441" y="650" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-26" value="GameEventItem" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1760" y="233" width="400" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-27" value="Responsibility (책임)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1760" y="273" width="400" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-28" value="자신이 어떤 이벤트인지를 알고 있다." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="aAoFjWtNT1MWGlVcUcYq-27">
+          <mxGeometry y="26" width="400" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-29" value="이벤트 호출 시의 프로세스를 알고 있다." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="aAoFjWtNT1MWGlVcUcYq-27">
+          <mxGeometry y="52" width="400" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="aAoFjWtNT1MWGlVcUcYq-31" target="aAoFjWtNT1MWGlVcUcYq-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-31" value="GameEven" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="243" width="400" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-32" value="Responsibility (책임)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="283" width="400" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-33" value="게임내의 모든 GameEventItem을 알고 있다." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="aAoFjWtNT1MWGlVcUcYq-32">
+          <mxGeometry y="26" width="400" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-34" value="게임 이벤트를 호출 할 수 있다." style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="aAoFjWtNT1MWGlVcUcYq-32">
+          <mxGeometry y="52" width="400" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-35" value="FirstGameEvent" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1755" y="483" width="160" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-36" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="aAoFjWtNT1MWGlVcUcYq-35">
+          <mxGeometry y="26" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.524;entryY=1.038;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="aAoFjWtNT1MWGlVcUcYq-35" target="aAoFjWtNT1MWGlVcUcYq-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-38" value="FirstPickupToSellStands" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1970" y="483" width="160" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-39" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="aAoFjWtNT1MWGlVcUcYq-38">
+          <mxGeometry y="26" width="160" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.526;entryY=1.038;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="aAoFjWtNT1MWGlVcUcYq-38" target="aAoFjWtNT1MWGlVcUcYq-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-41" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Tutorial_GameStart&lt;/h1&gt;&lt;p&gt;조건 : 게임이 처음 시작되는 경우&lt;/p&gt;&lt;p&gt;프로스세스&lt;/p&gt;&lt;p&gt;박스 저장고에 노멀 박스 3개를 소환한다.&lt;/p&gt;&lt;p&gt;네비게이션으로 박스 저장고를 가르킨다.&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="41" y="800" width="229" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-42" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Totorial_Pickup&lt;/h1&gt;&lt;p&gt;조건 : 픽업을 처음 한 경우&lt;/p&gt;&lt;p&gt;프로스세스&lt;/p&gt;&lt;p&gt;네비게이션으로 판매대를 가르킨다.&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="360" y="800" width="229" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-43" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Totorial_Counter&lt;/h1&gt;&lt;p&gt;조건 : 손님 처음 카운터로 이동하는 경우&lt;/p&gt;&lt;p&gt;프로세스&lt;/p&gt;&lt;p&gt;네비게이션 카운터 가르키기&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="641" y="800" width="229" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-44" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Totorial_Money&lt;/h1&gt;&lt;p&gt;조건 : 처음으로 카운터에 머니를 생성하는 경우&lt;/p&gt;&lt;p&gt;프로세스&lt;/p&gt;&lt;p&gt;네비게이션 카운터 돈 생성위치&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="922" y="800" width="229" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-45" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Totorial_OrderBox&lt;/h1&gt;&lt;p&gt;조건 : 돈을 처음 획득한 경우&lt;/p&gt;&lt;p&gt;프로세스&lt;/p&gt;&lt;p&gt;박스 주문 위치로 이동 시키기&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1241" y="800" width="279" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-46" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Tutorial_DeliveryTruck&lt;/h1&gt;&lt;p&gt;조건 : 박스를 처음 주문하는 경우&lt;/p&gt;&lt;p&gt;&lt;b&gt;프로세스&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;시네머신&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;돌리 연출을 통해서 배달되는 장면을 보여준다.&lt;/li&gt;&lt;li&gt;도착을 하면 BoxStorage을 보고 있는 카메라로 전환 일정 시간 대기&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1600" y="800" width="390" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-47" value="ㅁㄴㅇ" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="710" y="998" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="aAoFjWtNT1MWGlVcUcYq-49" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Auction Unlock&lt;/h1&gt;&lt;p&gt;조건 : 튜토가 끝난 경우&lt;/p&gt;&lt;p&gt;&lt;b&gt;프로세스&lt;/b&gt;&lt;/p&gt;&lt;p&gt;옥션을 목표로 설정&lt;/p&gt;&lt;p&gt;시네머신&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;옥션 위치 가리키기 카메라 보여주기&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="2080" y="800" width="390" height="240" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

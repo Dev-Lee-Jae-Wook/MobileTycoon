@@ -40,7 +40,7 @@ namespace EverythingStore.Manger
 				lockArea.gameObject.SetActive(false);
 			}
 
-			SetSaleStand(1, 2);
+			SetSaleStand(1, 0);
 			_salesStandUpgradList[0].OnAllComplete += ()=> ActiveLockArea(0);
 			_salesStandUpgradList[1].OnAllComplete += () => ActiveLockArea(1);
 		}
