@@ -52,7 +52,8 @@ namespace EverythingStore.Upgrad
 		
 		private string GetPickupDescriptaion()
 		{
-			return $"Max Pickup : {_pickupData.UpgradList[_lvPickup].Value}";
+			//return $"Max Pickup : {_pickupData._upgradList[_lvPickup].Value}";
+			return null;
 		}
 
 		private string GetNextSpeedCost()
@@ -89,9 +90,11 @@ namespace EverythingStore.Upgrad
 
 			_lvSpeed++;
 			_player.SetSpeed(_speedData.UpgradList[_lvSpeed].Value);
+			_player.SetSpeedLV(_lvSpeed);
 			UpdateNextSpeedCost();
 
 			_speed.UpdateItem(GetSpeedDescriptaion(), GetNextSpeedCost());
+			_player.Save();
 		}
 
 		private void TryPickupUpgrad()
@@ -107,17 +110,19 @@ namespace EverythingStore.Upgrad
 			}
 
 			_lvPickup++;
-			_player.SetPickupCapcity(_pickupData.UpgradList[_lvPickup].Value);
+			//_player.SetPickupCapcity(_pickupData._upgradList[_lvPickup].Value);
+			_player.SetPickupLV(_lvPickup);
 			UpdateNextPickupCost();
 
 			_pickup.UpdateItem(GetPickupDescriptaion(), GetNextPickupCost());
+			_player.Save();
 		}
 
 		private void UpdateNextSpeedCost()
 		{
 			if (IsSpeedMax() == false)
 			{
-				_speedNextCost = _speedData.UpgradList[_lvSpeed + 1].Cost;
+				_speedNextCost = _speedData.UpgradList[_lvSpeed + 1].NextUpgradCost;
 			}
 		}
 
@@ -125,7 +130,7 @@ namespace EverythingStore.Upgrad
 		{
 			if (IsPickUpMax() == false)
 			{
-				_pickUpNextCost = _pickupData.UpgradList[_lvPickup + 1].Cost;
+			//	_pickUpNextCost = _pickupData._upgradList[_lvPickup + 1].NextUpgradCost;
 			}
 		}
 
@@ -136,7 +141,8 @@ namespace EverythingStore.Upgrad
 		
 		private bool IsPickUpMax()
 		{
-			return _lvPickup == _pickupData.UpgradList.Count - 1;
+			return false;
+			//return _lvPickup == _pickupData.UpgradList.Count - 1;
 		}
 
 
@@ -146,8 +152,11 @@ namespace EverythingStore.Upgrad
 		protected override void StartInit()
 		{
 			_wallet = _player.Wallet;
-			_player.SetPickupCapcity(_pickupData.UpgradList[0].Value);
-			_player.SetSpeed(_speedData.UpgradList[0].Value);
+			_lvPickup = _player.PickupLv;
+			_lvSpeed = _player.SpeedLv;
+
+			//_player.SetPickupCapcity(_pickupData._upgradList[_lvPickup].Value);
+			_player.SetSpeed(_speedData.UpgradList[_lvSpeed].Value);
 			UpdateNextPickupCost();
 			UpdateNextSpeedCost();
 

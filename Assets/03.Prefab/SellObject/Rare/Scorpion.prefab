@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Height>k__BackingField: 0.3427938
-  <Money>k__BackingField: 50
+  <Money>k__BackingField: 500
   <Rank>k__BackingField: 1
 --- !u!114 &-4142264543790056626
 MonoBehaviour:
@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c45b6be3f1db8b428d25adb7f728c8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 11
+  <Type>k__BackingField: 12
   _pool: {fileID: 0}
 --- !u!1 &9037696693345159238
 GameObject:

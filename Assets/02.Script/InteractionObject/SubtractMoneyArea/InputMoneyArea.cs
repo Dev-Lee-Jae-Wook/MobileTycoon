@@ -1,5 +1,6 @@
 using EverythingStore.Actor.Player;
 using EverythingStore.Timer;
+using EverythingStore.Upgrad;
 using Sirenix.OdinInspector;
 using System;
 using UnityEngine;
@@ -9,7 +10,9 @@ namespace EverythingStore.InteractionObject
 	public class InputMoneyArea : MonoBehaviour
 	{
 		#region Field
+		[SerializeField] InputMoneyAreaUI _ui;
 		private int _targetMoney;
+		private int _progressMoney;
 
 		[Title("CoolTime")]
 		[SerializeField] private float _time;
@@ -32,16 +35,22 @@ namespace EverythingStore.InteractionObject
 
 		#region Event
 		/// <summary>
-		/// 인자 : 남는 돈
+		/// 인자 :  현재 넣은 돈
 		/// </summary>
 		public event Action<int> OnUpdateMoney;
 
 		public event Action OnCompelte;
-
-		public event Action<int> OnSetUp;
 		#endregion
 
 		#region UnityCycle
+		private void Awake()
+		{
+			_player = GameObject.Find("Player").GetComponent<Player>();
+			_detectLayerMask = LayerMask.GetMask("Player");
+			_coolTime = gameObject.AddComponent<CoolTime>();
+			_coolTime.OnComplete += InputPlayerMoney;
+		}
+
 		private void OnDrawGizmos()
 		{
 			Gizmos.color = _debugColor;
@@ -66,16 +75,18 @@ namespace EverythingStore.InteractionObject
 
 		#region Public Method
 
-		public void SetUp(int targetMoney)
+		public void Initialize(int targetMoney, int progressMoney)
 		{
-			_player = GameObject.Find("Player").GetComponent<Player>();
-			_detectLayerMask = LayerMask.GetMask("Player");
-			_coolTime = gameObject.AddComponent<CoolTime>();
-			_coolTime.OnComplete += InputPlayerMoney;
-
 			_targetMoney = targetMoney;
-			OnSetUp?.Invoke(_targetMoney);
-			_isCompelte = false;
+			_progressMoney = progressMoney;
+			_ui.Initialize(this, _targetMoney, _progressMoney);
+			_isCompelte = _progressMoney >= _targetMoney;
+
+			OnUpdateMoney?.Invoke(_progressMoney);
+			if(_isCompelte == true)
+			{
+				gameObject.SetActive(false);
+			}
 		}
 		#endregion
 
@@ -102,11 +113,16 @@ namespace EverythingStore.InteractionObject
 				subtractMoney = _player.Wallet.Money;
 			}
 
-			_player.Wallet.SubtractMoney(_subtractMoney);
-			_targetMoney -= _subtractMoney;
-			OnUpdateMoney?.Invoke(_targetMoney);
+			if(subtractMoney == 0)
+			{
+				return;
+			}
 
-			if (_targetMoney == 0)
+			_player.Wallet.SubtractMoney(subtractMoney);
+			_progressMoney += subtractMoney;
+			OnUpdateMoney?.Invoke(_progressMoney);
+
+			if (_progressMoney == _targetMoney)
 			{
 				_isCompelte = true;
 				OnCompelte?.Invoke();

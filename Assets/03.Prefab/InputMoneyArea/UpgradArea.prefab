@@ -198,7 +198,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f277d890a21582343aca441c30958ea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _time: 0.2
+  _ui: {fileID: 4321563094036402611}
+  _time: 0.05
   _debugColor: {r: 0, g: 1, b: 0.14653754, a: 1}
   _size: {x: 1, y: 1, z: 1}
 --- !u!114 &1742988651242158989

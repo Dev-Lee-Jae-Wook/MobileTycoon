@@ -191,10 +191,13 @@ MonoBehaviour:
   - {fileID: 7127262463357332522}
   - {fileID: 9158514903785411482}
   _maxCustomer: 4
+  _upgradeSystem: {fileID: 199964218610500551}
   _pivotDatas:
+  - {fileID: 11400000, guid: 0785d8627c5e5d1499545e49edc3b7a9, type: 2}
   - {fileID: 11400000, guid: 9e7e9324c25ce304b80c3a7ba0078a61, type: 2}
   - {fileID: 11400000, guid: a4ae4c14cf2df3e4cac2ed8a7b7c0231, type: 2}
   - {fileID: 11400000, guid: 9bc807f5a1e35954e9856aa43e3838a4, type: 2}
+  _capacitys: 06000000090000000c00000012000000
   _pivot: {fileID: 4609373679961758228}
   _pivotData: {fileID: 11400000, guid: 0785d8627c5e5d1499545e49edc3b7a9, type: 2}
 --- !u!65 &3958916411815542111
@@ -293,11 +296,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UpgradArea
       objectReference: {fileID: 0}
-    - target: {fileID: 1819041711021437386, guid: 0361c0c1e9c999941a914553c4cbe233,
-        type: 3}
-      propertyPath: _time
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 1965973428331161928, guid: 0361c0c1e9c999941a914553c4cbe233,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -374,6 +372,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1942806896528472138}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &199964218610500551 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1742988651242158989, guid: 0361c0c1e9c999941a914553c4cbe233,
+    type: 3}
+  m_PrefabInstance: {fileID: 1942806896528472138}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cdefc44c73292d4bb3c9fcf39935d53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6001791615840144868
 PrefabInstance:
   m_ObjectHideFlags: 0

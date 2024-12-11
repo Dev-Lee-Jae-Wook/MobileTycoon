@@ -14,7 +14,7 @@ namespace EverythingStore.GameEvent
 		#endregion
 
 		#region Property
-		public override GameEventType Type => GameEventType.Tutorial_Delivery;
+		public override GameTargetType Type => GameTargetType.Tutorial_Delivery;
 		#endregion
 
 
@@ -27,7 +27,7 @@ namespace EverythingStore.GameEvent
 			_product.stopped += (tmp) =>
 			{
 				_input.SetProductFixControl(false);
-				GameEventManager.Instance.OnEvent(GameEventType.UnlockableAuction);
+				GameEventManager.Instance.OnEvent(GameTargetType.Product_UnlockAuction);
 			};
 		}
 		#endregion

@@ -77,7 +77,7 @@ GameObject:
   - component: {fileID: -2258427665909823973}
   - component: {fileID: 1721148312948921514}
   m_Layer: 0
-  m_Name: SellPackage
+  m_Name: Package
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c45b6be3f1db8b428d25adb7f728c8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 17
+  <Type>k__BackingField: 18
   _pool: {fileID: 0}
 --- !u!95 &1721148312948921514
 Animator:

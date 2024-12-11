@@ -24,9 +24,12 @@ namespace EverythingStore.Actor.Player
 		#endregion
 
 		#region Public Method
-		public Wallet(int initMoney) 
+
+		public void SetMoney(in int money)
 		{
-			_money = initMoney;
+			_money = money;
+			OnUpdate?.Invoke(_money);
+			OnAddMoney?.Invoke();
 		}
 
 		public void AddMoney(int money)

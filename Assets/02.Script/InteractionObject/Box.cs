@@ -29,14 +29,14 @@ namespace EverythingStore.InteractionObject
 		/// <summary>
 		/// 상자의 상태
 		/// </summary>
-		private enum State
+		public enum BoxState
 		{
 			BeforeOpen,
 			Open,
 			Emtpy
 		}
 
-		private State _state;
+		private BoxState _state;
 
 		private BoxCollider _collider;
 		private ObjectPoolManger _poolMagner;
@@ -90,7 +90,7 @@ namespace EverythingStore.InteractionObject
 
 		public void GetPoolObjectInitialization()
 		{
-			ChangeState(State.BeforeOpen);
+			ChangeState(BoxState.BeforeOpen);
 			_collider.enabled = false;
 			_isPickupAble = false;
 			_animator.SetTrigger("Init");
@@ -102,10 +102,10 @@ namespace EverythingStore.InteractionObject
 
 			switch (_state)
 			{
-				case State.BeforeOpen:
+				case BoxState.BeforeOpen:
 					Open();
 					break;
-				case State.Open:
+				case BoxState.Open:
 					if (pickup.CanPickup(PickableObjectType.SellObject) == true && _isPickupAble == true)
 					{
 						var popObject = PopSellObject(pickup);
@@ -133,7 +133,7 @@ namespace EverythingStore.InteractionObject
 		private void Open()
 		{
 			SpawnSellObject();
-			ChangeState(State.Open);
+			ChangeState(BoxState.Open);
 		}
 
 		/// <summary>
@@ -168,24 +168,24 @@ namespace EverythingStore.InteractionObject
 		{
 			//상호작용에 반응하지 못하게한다.
 			_collider.enabled = false;
-			ChangeState(State.Emtpy);
+			ChangeState(BoxState.Emtpy);
 		}
 
 		/// <summary>
 		/// 상자의 상태에 따라 맞는 행동을 정의합니다.
 		/// </summary>
-		private void ChangeState(State state)
+		private void ChangeState(BoxState state)
 		{
 			_boxVisuals[(int)_state].SetActive(false);
 			_state = state;
 			switch (_state)
 			{
-				case State.BeforeOpen:
+				case BoxState.BeforeOpen:
 					break;
-				case State.Open:
+				case BoxState.Open:
 					OnOpenBox?.Invoke();
 					break;
-				case State.Emtpy:
+				case BoxState.Emtpy:
 					OnEmtpyBox?.Invoke();
 					break;
 			}

@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 1922021876462056138}
   - component: {fileID: 67701457476923719}
   - component: {fileID: 1351204493410192227}
-  - component: {fileID: 7810640352082450118}
+  - component: {fileID: 8686429047113969060}
   m_Layer: 6
   m_Name: LockArea
   m_TagString: Untagged
@@ -149,10 +149,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f277d890a21582343aca441c30958ea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _time: 0.1
+  _ui: {fileID: 67701457476923719}
+  _time: 0.01
   _debugColor: {r: 0, g: 1, b: 0.14653754, a: 1}
   _size: {x: 1, y: 1, z: 1}
---- !u!114 &7810640352082450118
+--- !u!114 &8686429047113969060
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -161,13 +162,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3302835004673739976}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 202030e085e368744bf0af351e6cb55d, type: 3}
+  m_Script: {fileID: 11500000, guid: 92e9611642435f84ebb000a65a4f15dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isUnlock: 0
-  _area: {fileID: 1351204493410192227}
-  _targetMoney: 10
-  _unlockTarget: {fileID: 0}
+  _targetMoney: 0
 --- !u!1 &3892248546473438705
 GameObject:
   m_ObjectHideFlags: 0

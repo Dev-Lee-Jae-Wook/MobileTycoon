@@ -34,7 +34,7 @@ namespace EverythingStore.BoxBox
 				return;
 			}
 
-			if(Tutorial.Instance.isEnterBoxOrder == false)
+			if(GameEventManager.Instance.GameTarget == GameTargetType.Tutorial_BoxOrder)
 			{
 				Tutorial.Instance.EnterBoxOrder();
 			}

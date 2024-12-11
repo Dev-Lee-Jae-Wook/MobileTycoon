@@ -132,9 +132,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Height>k__BackingField: 0.4550309
-  <Money>k__BackingField: 10
+  <Money>k__BackingField: 100
   <Rank>k__BackingField: 0
-  <SalesStandScale>k__BackingField: {x: 0.6, y: 0.6, z: 0.6}
 --- !u!114 &-2548291502245923174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c45b6be3f1db8b428d25adb7f728c8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 4
+  <Type>k__BackingField: 5
   _pool: {fileID: 0}
 --- !u!1001 &2425028355828227467
 PrefabInstance:

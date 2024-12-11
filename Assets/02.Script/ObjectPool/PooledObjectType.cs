@@ -7,6 +7,8 @@ namespace EverythingStore.Optimization
 {
 	public enum PooledObjectType
 	{ 
+		None,
+
 		Box_Normal,
 		Box_Rare,
 		Box_Unique,

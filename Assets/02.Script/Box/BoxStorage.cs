@@ -107,7 +107,7 @@ namespace EverythingStore.InteractionObject
 
 			if (_outputBoxCount == 3)
 			{
-				if (Tutorial.Instance.isPickup == false)
+				if (GameEventManager.Instance.GameTarget == GameTargetType.Tutorial_GameStart)
 				{
 					Tutorial.Instance.PickUp();
 				}

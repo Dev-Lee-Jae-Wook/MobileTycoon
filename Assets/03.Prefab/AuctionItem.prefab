@@ -47,7 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c45b6be3f1db8b428d25adb7f728c8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 19
+  <Type>k__BackingField: 20
+  _pool: {fileID: 0}
 --- !u!114 &901696066018757281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,6 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c51a3201f892a4494e934d643304fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Height>k__BackingField: 0
   _itemPoint: {fileID: 8217272768021379396}
 --- !u!1 &5598888451639346446
 GameObject:

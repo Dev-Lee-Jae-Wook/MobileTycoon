@@ -38,7 +38,7 @@ namespace EverythingStore.Delivery
 
 		public void StartDelivery()
 		{
-			if (Tutorial.Instance.isDeliveryBox == false)
+			if (GameEventManager.Instance.GameTarget == GameTargetType.Tutorial_EnterBoxOrder)
 			{
 				Tutorial.Instance.DeliveryBox();
 			}

@@ -3,6 +3,7 @@ using EverythingStore.Actor.Customer;
 using EverythingStore.Actor.Player;
 using EverythingStore.AI;
 using EverythingStore.AssetData;
+using EverythingStore.Optimization;
 using EverythingStore.Sell;
 using EverythingStore.Upgrad;
 using Sirenix.OdinInspector;
@@ -14,7 +15,7 @@ using UnityEngine;
 //가챠 확률 데이터는 좀 더 개량이 필요합니다.
 namespace EverythingStore.InteractionObject
 {
-	public class SalesStand : MonoBehaviour, IPlayerInteraction, ICustomerInteraction, IInteractionPoint, IWaitingLine, IEnterPoint, IEnterableCustomer, IUpgradInt
+	public class SalesStand : MonoBehaviour, IPlayerInteraction, ICustomerInteraction, IInteractionPoint, IWaitingLine, IEnterPoint, IEnterableCustomer
 	{
 		#region Field
 		private Stack<SellObject> _salesObjectStack = new Stack<SellObject>();
@@ -26,8 +27,9 @@ namespace EverythingStore.InteractionObject
 		[SerializeField] private int _maxCustomer;
 
 		[Title("Upgrad")]
+		[SerializeField] private UpgradSystemInt _upgradeSystem;
 		[SerializeField] private SaleStandPivotData[] _pivotDatas;
-		private int _upgradLv = 0;
+		[SerializeField] private int[] _capacitys;
 
 		[Title("Pivot")]
 		[SerializeField] private Transform _pivot;
@@ -39,8 +41,10 @@ namespace EverythingStore.InteractionObject
 		private int _enterMoveCustomerCount = 0;
 		private bool _isUsedCustomer = false;
 		private int _maxCapacity = 18;
+		#endregion
 
-		private InputMoneyArea _upgradArea;
+		#region Event
+		public event Action OnAllUpgard;
 		#endregion
 
 		#region Property
@@ -53,6 +57,11 @@ namespace EverythingStore.InteractionObject
 		public Vector3 EnterPoint => _enterPoint.position;
 
 		public int MaxCustomer => _waitingLine.Max + 1;
+
+		public Stack<SellObject> SalesObjectStack => _salesObjectStack;
+
+		public UpgradSystemInt UpgradSystem => _upgradeSystem;
+
 		#endregion
 
 		#region UnityCycle
@@ -71,15 +80,26 @@ namespace EverythingStore.InteractionObject
 				Gizmos.DrawCube(worldPos, Vector3.one * 0.1f);
 			}
 		}
-
-		private void Awake()
-		{
-			_upgradArea = transform.GetComponentInChildren<InputMoneyArea>();
-			_currentMode = _models[0];
-		}
 		#endregion
 
-		#region Public Method 
+		#region Public Method
+		public void Inititalize(int lv, int moneyLeft, PooledObjectType[] sellObjects)
+		{
+			_currentMode = _models[0];
+
+			//업그레이드 시스템 초기화
+			_upgradeSystem.Inititalize(lv, moneyLeft, SetSalesStand);
+
+			//진열되어 있던 상품 생성하기
+			foreach (var poolType in sellObjects)
+			{
+				if (poolType != PooledObjectType.None)
+				{
+					SellObject sellObject = ObjectPoolManger.Instance.GetPoolObject(poolType).GetComponent<SellObject>();
+					PushSellObject(sellObject);
+				}
+			}
+		}
 
 		/// <summary>
 		/// 플레이어 손에 있는 판매품을 판매대에 전시합니다.
@@ -105,7 +125,6 @@ namespace EverythingStore.InteractionObject
 				var sellObject = pickupAndDrop.PeekObject().GetComponent<SellObject>();
 				pickupAndDrop.Drop(Pivot, GetCurrentSloatPosition(), (pickupObject) =>
 				{
-					pickupObject.transform.localRotation = Quaternion.Euler(0.0f, 180f, 0.0f);
 					PushSellObject(sellObject);
 
 					if (pickupAndDrop.IsRunningDrop() == false)
@@ -160,6 +179,9 @@ namespace EverythingStore.InteractionObject
 		/// <param name="sellObject"></param>
 		public void PushSellObject(SellObject sellObject)
 		{
+			sellObject.transform.parent = _pivot;
+			sellObject.transform.localPosition = GetCurrentSloatPosition();
+			sellObject.transform.localRotation = Quaternion.Euler(0, 180f, 0f);
 			sellObject.transform.localScale = Vector3.one * 0.6f;
 			_salesObjectStack.Push(sellObject);
 		}
@@ -182,6 +204,19 @@ namespace EverythingStore.InteractionObject
 			_waitingLine.EnqueueCustomer(customer);
 			RemoveEnterMoveCustomer();
 			return FSMStateType.Stop;
+		}
+
+
+		public void SetSalesStand(int lv)
+		{
+			_capacity = _capacitys[lv];
+			_pivotData = _pivotDatas[lv];
+			_currentMode?.SetActive(false);
+			_currentMode = _models[lv];
+			_currentMode.SetActive(true);
+			Pivot.localPosition = _pivotData.PivotLocalPos;
+
+			UpdateSellItem();
 		}
 
 		#endregion
@@ -226,16 +261,7 @@ namespace EverythingStore.InteractionObject
 			}
 		}
 
-		public void Upgrad(int upgradCount, int capacity, SaleStandPivotData pivotData)
-		{
-			_capacity = capacity;
-			_currentMode.SetActive(false);
-			_currentMode = _models[upgradCount + 1];
-			_currentMode.SetActive(true);
-			_pivotData = pivotData;
-			Pivot.localPosition = pivotData.PivotLocalPos;
-			UpdateSellItem();
-		}
+
 
 		private void UpdateSellItem()
 		{
@@ -272,30 +298,8 @@ namespace EverythingStore.InteractionObject
 			_enterMoveCustomerCount--;
 		}
 
-		public void Upgrad(int value)
-		{
-			_capacity = value;
-			_pivotData = _pivotDatas[_upgradLv];
-			_currentMode.SetActive(false);
-			_currentMode = _models[_upgradLv + 1];
-			_currentMode.SetActive(true);
-			Pivot.localPosition = _pivotData.PivotLocalPos;
 
-			UpdateSellItem();
-			_upgradLv++;
-		}
 
-		public void MaxUpgrad()
-		{
-			_capacity = _maxCapacity;
-			_pivotData = _pivotDatas[_pivotDatas.Length - 1];
-			_currentMode.SetActive(false);
-			_currentMode = _models.Last();
-			_currentMode.SetActive(true);
-			Pivot.localPosition = _pivotData.PivotLocalPos;
-			_upgradArea.gameObject.SetActive(false);
-			UpdateSellItem();
-		}
 		#endregion
 	}
 }

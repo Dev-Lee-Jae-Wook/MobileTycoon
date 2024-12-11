@@ -1,3 +1,5 @@
+using EverythingStore.Save;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,7 +7,7 @@ using UnityEngine.UI;
 
 namespace EverythingStore.UI
 {
-	public class NavigationUI : MonoBehaviour
+	public class Navigation : MonoBehaviour
 	{
 		#region Field
 		[SerializeField] private Canvas _canvas;
@@ -15,8 +17,10 @@ namespace EverythingStore.UI
 		[SerializeField] private Vector2 _dotRange;
 		[SerializeField] private TMP_Text _distanceText;
 
+		[Title("Target Icon")]
+		[SerializeField] private RectTransform _rectTransfrom;
+
 		private Camera _mainCam;
-		private RectTransform _rectTransfrom;
 		private int _width;
 		private int _height;
 		private Image _image;
@@ -32,7 +36,6 @@ namespace EverythingStore.UI
 		#region UnityCycle
 		private void Awake()
 		{
-			_rectTransfrom = GetComponent<RectTransform>();
 			_mainCam = Camera.main;
 			_width = Screen.width;
 			_height = Screen.height;
@@ -141,18 +144,10 @@ namespace EverythingStore.UI
 			float distance = Vector3.Distance(_player.transform.position, _target.transform.position);
 			_distanceText.text = $"{distance:N2}M";
 		}
+
 		#endregion
 
 		#region Protected Method
 		#endregion
-
-
-
-
-
-
-
-
-
 	}
 }

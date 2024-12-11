@@ -13,11 +13,11 @@ namespace EverythingStore.GameEvent
 		#region Field
 		[SerializeField] private PlayerInput _input;
 		[SerializeField] private PlayableDirector _product;
-		[SerializeField] private NavigationUI _navigation;
+		[SerializeField] private GameTargetType _nextType;
 		#endregion
 
 		#region Property
-		public override GameEventType Type => GameEventType.UnlockableAuction;
+		public override GameTargetType Type => GameTargetType.Product_UnlockAuction;
 		#endregion
 
 		#region Event
@@ -33,8 +33,8 @@ namespace EverythingStore.GameEvent
 			_product.Play();
 			_product.stopped += (tmp) =>
 			{
-				_navigation.SetTarget(transform);
 				_input.SetProductFixControl(false);
+				GameEventManager.Instance.OnEvent(_nextType);
 			};
 		}
 		#endregion

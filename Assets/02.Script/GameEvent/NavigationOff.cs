@@ -7,10 +7,10 @@ namespace EverythingStore.GameEvent
 {
 	public class NavigationOff : GameEventBase
 	{
-		public override GameEventType Type => _eventType;
+		public override GameTargetType Type => _eventType;
 
-		[SerializeField] private NavigationUI _navigation;
-		[SerializeField] private GameEventType _eventType;
+		[SerializeField] private Navigation _navigation;
+		[SerializeField] private GameTargetType _eventType;
 
 		public override void OnEvent()
 		{

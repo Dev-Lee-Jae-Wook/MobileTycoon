@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Height>k__BackingField: 0.6499871
-  <Money>k__BackingField: 10
+  <Money>k__BackingField: 100
   <Rank>k__BackingField: 0
 --- !u!114 &-5555030659808117778
 MonoBehaviour:
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c45b6be3f1db8b428d25adb7f728c8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 6
+  <Type>k__BackingField: 7
   _pool: {fileID: 0}
 --- !u!1001 &7711818330945495367
 PrefabInstance:

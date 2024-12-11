@@ -7,7 +7,7 @@ namespace EverythingStore.Upgrad
 	[Serializable]
 	public struct UpgradDataStruct<T>
 	{
-		public int Cost;
+		public int NextUpgradCost;
 		public T Value;
 	}
 }

@@ -7,12 +7,12 @@ namespace EverythingStore.GameEvent
 	public class Tutorial_GameStart : GameEventBase
 	{
 		#region Field
-		[SerializeField] private NavigationUI _navigation;
+		[SerializeField] private Navigation _navigation;
 		[SerializeField] private BoxStorage _boxStorage;
 		#endregion
 
 		#region Property
-		public override GameEventType Type => GameEventType.Tutorial_GameStart;
+		public override GameTargetType Type => GameTargetType.Tutorial_GameStart;
 		#endregion
 
 		#region Event

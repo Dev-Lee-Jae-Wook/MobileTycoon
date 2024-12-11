@@ -47,7 +47,7 @@ namespace EverythingStore.AI.CustomerState
 
 		public void Exit()
 		{
-			if(Tutorial.Instance.isGotoCounter == false)
+			if(GameEventManager.Instance.GameTarget == GameTargetType.Tutorial_Pickup)
 			{
 				Tutorial.Instance.GoToCounter();
 			}

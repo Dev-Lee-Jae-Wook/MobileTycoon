@@ -170,7 +170,7 @@ namespace EverythingStore.InteractionObject
 		private void CreateMoney(int money)
 		{
 			_moneySpawner.AddMoney(money);
-			if(Tutorial.Instance.isSpawnMoney == false)
+			if(GameEventManager.Instance.GameTarget == GameTargetType.Tutorial_Counter)
 			{
 				Tutorial.Instance.SpawnMoney();
 			}

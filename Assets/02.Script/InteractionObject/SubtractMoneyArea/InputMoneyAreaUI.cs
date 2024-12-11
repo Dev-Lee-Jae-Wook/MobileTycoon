@@ -16,18 +16,14 @@ namespace EverythingStore.Upgrad
 		[SerializeField] private Slider _progress;
 		[SerializeField] private TMP_Text _platformLabel;
 		[SerializeField] private TMP_Text _money;
+
+		private int _targetMoney;
 		#endregion
 
 		#region Event
 		#endregion
 
 		#region UnityCycle
-		private void Awake()
-		{
-			InputMoneyArea moneyArea = GetComponent<InputMoneyArea>();
-			moneyArea.OnUpdateMoney += UpdataProgress;
-			moneyArea.OnSetUp += SetUp;
-		}
 
 		private void OnValidate()
 		{
@@ -41,18 +37,24 @@ namespace EverythingStore.Upgrad
 
 		#endregion
 
-		#region Private Method
-		private void UpdataProgress(int money)
+		public void Initialize(InputMoneyArea area, int targetMoney, int progressMoney)
 		{
-			_progress.value = _progress.maxValue - money;
-			_money.text = money.ToString();
+			_targetMoney = targetMoney;
+			area.OnUpdateMoney += UpdataProgress;
+			_progress.maxValue = targetMoney;
+			UpdataProgress(progressMoney);
 		}
 
-		private void SetUp(int targetMoney)
+		#region Private Method
+		private void UpdataProgress(int progressMoney)
 		{
-			_money.text = targetMoney.ToString();
-			_progress.maxValue = targetMoney;
-			_progress.value = 0f;
+			_progress.value = progressMoney;
+			_money.text = GetMoneyLeft(progressMoney).ToString();
+		}
+
+		private int GetMoneyLeft(int money)
+		{
+			return _targetMoney - money;
 		}
 		#endregion
 	}

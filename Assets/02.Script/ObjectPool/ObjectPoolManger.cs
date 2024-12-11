@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace EverythingStore.Optimization
 {
-	public class ObjectPoolManger : MonoBehaviour
+	public class ObjectPoolManger : Singleton<ObjectPoolManger>
 	{
 		private Dictionary<PooledObjectType, ObjectPool> _poolTable = new();
 
@@ -22,7 +22,7 @@ namespace EverythingStore.Optimization
 			return _poolTable[type].GetPooledObject();
 		}
 
-		private void Awake()
+		protected override void AwakeInit()
 		{
 			var pools = transform.GetComponentsInChildren<ObjectPool>();
 			foreach (var pool in pools)

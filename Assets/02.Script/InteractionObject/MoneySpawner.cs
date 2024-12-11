@@ -88,7 +88,7 @@ namespace EverythingStore.InteractionObject
 			}
 
 			_moneys.Clear();
-			if(Tutorial.Instance.isGetMoney == false)
+			if(GameEventManager.Instance.GameTarget == GameTargetType.Tutorial_Money)
 			{
 				Tutorial.Instance.GetMoney();
 			}

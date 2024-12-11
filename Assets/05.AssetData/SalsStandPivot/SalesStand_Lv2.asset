@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dfda4c06664c524cb8b8dd8b3e1a07d, type: 3}
   m_Name: SalesStand_Lv2
   m_EditorClassIdentifier: 
-  <PivotLocalPos>k__BackingField: {x: -0.5, y: 0.21367928, z: 0}
+  <PivotLocalPos>k__BackingField: {x: -0.5, y: 0.40949234, z: 0}
   <PivotPoints>k__BackingField:
   - {x: 0, y: 0, z: 0}
   - {x: 0.5, y: 0, z: 0}
   - {x: 1, y: 0, z: 0}
-  - {x: 0, y: 0.35, z: 0}
-  - {x: 0.5, y: 0.35, z: 0}
-  - {x: 1, y: 0.35, z: 0}
-  - {x: 0, y: 0.7, z: 0}
-  - {x: 0.5, y: 0.7, z: 0}
-  - {x: 1, y: 0.7, z: 0}
+  - {x: 0, y: 0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: 1, y: 0.5, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0.5, y: 1, z: 0}
+  - {x: 1, y: 1, z: 0}
+  - {x: 0, y: 1.5, z: 0}
+  - {x: 0.5, y: 1.5, z: 0}
+  - {x: 1, y: 1.5, z: 0}

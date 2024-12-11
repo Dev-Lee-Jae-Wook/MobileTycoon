@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c544fc295127a48991a8b4eff1926b, type: 3}
   m_Name: Upgrad_SalesStand_0
   m_EditorClassIdentifier: 
-  UpgradList:
-  - Cost: 1
-    Value: 9
-  - Cost: 1
-    Value: 12
-  - Cost: 1
-    Value: 18
+  _upgradList:
+  - NextUpgradCost: 10
+    Value: 0
+  - NextUpgradCost: 20
+    Value: 1
+  - NextUpgradCost: 30
+    Value: 2
+  - NextUpgradCost: 40
+    Value: 3

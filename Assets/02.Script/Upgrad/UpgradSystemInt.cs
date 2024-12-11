@@ -7,58 +7,80 @@ namespace EverythingStore.Upgrad
 	public class UpgradSystemInt : MonoBehaviour
 	{
 		#region Field
-		[SerializeField] private GameObject _targetObject;
 		[SerializeField] private UpgradData_Int upgradData;
-		
+		private int _lv;
+		private int _maxLv;
 		private InputMoneyArea _inputMoneyArea;
-		private int _lv = 0;
-		private IUpgradInt _target;
+
+		private Action<int> _upgradCallback;
 		#endregion
 
 		#region Event
 		public event Action OnAllComplete;
+		public event Action OnUpgrad;
 		#endregion
 
-		#region UnityCycle
-		private void Awake()
-		{
-			_target = _targetObject.GetComponent<IUpgradInt>();
-
-			_inputMoneyArea = GetComponent<InputMoneyArea>();
-			_inputMoneyArea.OnCompelte += Upgrad;
-		}
-
-		private void Start()
-		{
-			_inputMoneyArea.SetUp(upgradData.UpgradList[_lv].Cost);
-		}
-
+		#region Property
+		public InputMoneyArea InputMoneyArea => _inputMoneyArea;
+		public int MaxLv => upgradData.GetMaxLv();
 		#endregion
 
 		#region Public Method
-		public void Upgrad()
+
+		public void Inititalize(int lv, int moneyLeft,Action<int> upgradCallBack)
 		{
-			var value = upgradData.UpgradList[_lv].Value;
-			_target.Upgrad(value);
-			_lv++;
-			
-			if(CanNextUpgrad() == true)
+			_lv = lv;
+			_maxLv = upgradData.GetMaxLv();
+			_upgradCallback = upgradCallBack;
+
+			_inputMoneyArea = GetComponent<InputMoneyArea>();
+			_inputMoneyArea.OnCompelte += Upgrad;
+			OnAllComplete += () => gameObject.SetActive(false);
+
+			_upgradCallback?.Invoke(GetValue());
+
+			if (IsMaxUpgrad() == true)
 			{
-				int nextCost = upgradData.UpgradList[_lv].Cost;
-				_inputMoneyArea.SetUp(nextCost);
+				_upgradCallback?.Invoke(upgradData.GetUpgradData(_maxLv).Value);
+				OnAllComplete?.Invoke();
 			}
 			else
 			{
-				_inputMoneyArea.gameObject.SetActive(false);
+				_inputMoneyArea.Initialize(GetNextCost(), moneyLeft);
+			}
+		}
+
+		public void Upgrad()
+		{
+			_lv++;
+			_upgradCallback?.Invoke(GetValue());
+			OnUpgrad?.Invoke();
+			if (IsMaxUpgrad() == true)
+			{
 				OnAllComplete?.Invoke();
+			}
+			else
+			{
+				_inputMoneyArea.Initialize(GetNextCost(), 0);
 			}
 		}
 		#endregion
 
 		#region Private Method
-		private bool CanNextUpgrad()
+
+		private int GetValue()
 		{
-			return _lv < upgradData.UpgradList.Count;
+			return upgradData.GetUpgradData(_lv).Value;
+		}
+
+		private int GetNextCost()
+		{
+			return upgradData.GetUpgradData(_lv).NextUpgradCost;
+		}
+
+		private bool IsMaxUpgrad()
+		{
+			return _lv == _maxLv;
 		}
 		#endregion
 

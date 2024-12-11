@@ -2169,7 +2169,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="ChQ5iq09TeK9QrxlpfjE" name="GameEvent">
-    <mxGraphModel dx="1055" dy="609" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2940" dy="1697" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -2311,7 +2311,7 @@
           <mxGeometry x="1241" y="800" width="279" height="170" as="geometry" />
         </mxCell>
         <mxCell id="aAoFjWtNT1MWGlVcUcYq-46" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;Tutorial_DeliveryTruck&lt;/h1&gt;&lt;p&gt;조건 : 박스를 처음 주문하는 경우&lt;/p&gt;&lt;p&gt;&lt;b&gt;프로세스&lt;/b&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;시네머신&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;돌리 연출을 통해서 배달되는 장면을 보여준다.&lt;/li&gt;&lt;li&gt;도착을 하면 BoxStorage을 보고 있는 카메라로 전환 일정 시간 대기&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="1600" y="800" width="390" height="240" as="geometry" />
+          <mxGeometry x="1600" y="790" width="390" height="240" as="geometry" />
         </mxCell>
         <mxCell id="aAoFjWtNT1MWGlVcUcYq-47" value="ㅁㄴㅇ" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
           <mxGeometry x="710" y="998" width="60" height="30" as="geometry" />

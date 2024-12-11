@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace EverythingStore.BoxBox
 {
-	public class TrashCanBox : MonoBehaviour, IPlayerInteraction, IUpgradInt
+	public class TrashCanBox : MonoBehaviour, IPlayerInteraction
 	{
 		#region Field
 		[SerializeField] private Transform _pivot;
@@ -18,6 +18,14 @@ namespace EverythingStore.BoxBox
 		private Action _pushableCallback;
 		[SerializeField] private TMP_Text _capacityText;
 		private Canvas _canvasCapacity;
+
+		public event Action OnUpgrad;
+		public event Action OnAllUpgard;
+
+		public int Lv => throw new NotImplementedException();
+
+		public int MaxLv => throw new NotImplementedException();
+
 		#endregion
 
 		#region Property
@@ -106,6 +114,11 @@ namespace EverythingStore.BoxBox
 		private void UpdateUI(int max)
 		{
 			_capacityText.text = $"MAX\n{max}";
+		}
+
+		public void Upgrad(int lv, out int nextCost)
+		{
+			throw new NotImplementedException();
 		}
 
 		#endregion

@@ -6,12 +6,12 @@ namespace EverythingStore.GameEvent
 	public class Totorial_SimpleNavigation : GameEventBase
 	{
 		#region Field
-		[SerializeField] private NavigationUI _navigation;
-		[SerializeField] private GameEventType _type;
+		[SerializeField] private Navigation _navigation;
+		[SerializeField] private GameTargetType _type;
 		#endregion
 
 		#region Property
-		public override GameEventType Type => _type;
+		public override GameTargetType Type => _type;
 		#endregion
 
 		#region Event
