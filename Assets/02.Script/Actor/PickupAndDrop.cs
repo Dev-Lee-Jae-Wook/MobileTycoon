@@ -63,6 +63,30 @@ namespace EverythingStore.Actor
 		#endregion
 
 		#region Public Method
+		public PooledObjectType[] GetPickupObjects()
+		{
+			var pickupObjects = _pickObjectStack.ToArray();
+			PooledObjectType[] pickupObjectTypes = new PooledObjectType[pickupObjects.Length];
+			for (int i = 0; i < pickupObjectTypes.Length; i++)
+			{
+				pickupObjectTypes[i] = pickupObjects[i].GetComponent<PooledObject>().Type;
+			}
+			return pickupObjectTypes;
+		}
+
+		/// <summary>
+		/// 저장된 픽업 오브젝트를 불러올 때 호출 합니다.
+		/// </summary>
+		public void LoadPickupObject(PooledObjectType[] pickupObjects)
+		{
+			foreach (var type in pickupObjects)
+			{
+				var pickUpObject = ObjectPoolManger.Instance.GetPoolObject(type).GetComponent<PickableObject>();
+				Push(pickUpObject);
+			}
+			OnAnimationPickup?.Invoke();
+		}
+
 		/// <summary>
 		/// 가능한 조건 1. 픽업한 오브젝트가 동일해야된다 2.쿨타임이 아니여야된다 3.현재 픽업 수가 최대 개수보다 작아야된다.
 		/// </summary>
@@ -194,6 +218,11 @@ namespace EverythingStore.Actor
 		private void Push(PickableObject pickableObject)
 		{
 			_pickObjectStack.Push(pickableObject);
+			pickableObject.transform.parent = _pickupPoint;
+			pickableObject.transform.localPosition = GetPickupLocalPosition();
+			pickableObject.transform.localRotation = Quaternion.identity;
+			pickableObject.transform.localScale = Vector3.one;
+
 			_nextHeight += pickableObject.Height;
 			_pickupObjectsType = pickableObject.type;
 		}

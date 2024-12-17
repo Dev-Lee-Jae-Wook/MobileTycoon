@@ -1,5 +1,7 @@
+using Codice.CM.Common;
 using EverythingStore.InteractionObject;
 using EverythingStore.Save;
+using EverythingStore.Upgrad;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
@@ -13,11 +15,15 @@ namespace EverythingStore.Actor.Player
 	{
 		#region Field
 		[SerializeField] private Transform _getItemPoint;
+		[SerializeField] private UpgradPlayer _upgrad;
 		private PlayerCharacterMovement _movement;
 		private PickupAndDrop _pickupAndDrop;
 		private Wallet _wallet;
-
 		private PlayerData _savePlayerData;
+
+		private int _speedLv;
+		private int _pickupLv;
+
 		#endregion
 
 		#region Property
@@ -25,8 +31,8 @@ namespace EverythingStore.Actor.Player
 		public PickupAndDrop PickupAndDrop => _pickupAndDrop;
 		public Wallet Wallet => _wallet;
 
-		public int SpeedLv => _savePlayerData.speedLv;
-		public int PickupLv=> _savePlayerData.pickupLv;
+		public int SpeedLv => _speedLv;
+		public int PickupLv=> _pickupLv;
 
 		public string SaveFileName => "PlayerData";
 		#endregion
@@ -41,9 +47,59 @@ namespace EverythingStore.Actor.Player
 			_movement = GetComponent<PlayerCharacterMovement>();
 			_wallet = new();
 
-			if(SaveSystem.HasSaveData(SaveFileName) == false)
+			InitSaveData();
+			SaveManager.Instance.RegisterSave(this);
+		}
+
+		private void Start()
+		{
+			SetupSaveData();
+		}
+
+		/// <summary>
+		/// Save Data에 맞추어서 설정합니다.
+		/// </summary>
+		private void SetupSaveData()
+		{
+			transform.position = new Vector3(_savePlayerData.worldPos_X, _savePlayerData.worldPos_Y, _savePlayerData.worldPos_Z);
+			_upgrad.Initialize(this, _speedLv, _pickupLv);
+			_wallet.SetMoney(_savePlayerData.money);
+			if (_savePlayerData.PickupObjects.Length > 0)
 			{
-				InitSaveData();
+				_pickupAndDrop.LoadPickupObject(_savePlayerData.PickupObjects);
+			}
+		}
+		#endregion
+
+		#region Public Method
+
+		public void SetSpeedLV(int lv)
+		{
+			_speedLv = lv;
+		}
+
+		public void SetPickupLV(int lv)
+		{
+			_pickupLv = lv;
+		}
+
+		public void SetSpeed(float speed)
+		{
+			Debug.Log($"[Player] Speed : {speed}");
+			_movement.Speed = speed;
+		}
+
+		public void SetPickupCapcity(int capacity)
+		{
+			Debug.Log($"[Player] PickupCapcity : {capacity}");
+			_pickupAndDrop.SetMaxPickup(capacity);
+		}
+
+		public void InitSaveData()
+		{
+			if (SaveSystem.HasSaveData(SaveFileName) == false)
+			{
+				_savePlayerData = new(transform.position.x, transform.position.y, transform.position.z);
 				Save();
 			}
 			else
@@ -52,48 +108,22 @@ namespace EverythingStore.Actor.Player
 				Debug.Log("[Save] Load Player Data");
 			}
 
-			Debug.Log(Application.persistentDataPath);
+		_speedLv = _savePlayerData.speedLv;
+		_pickupLv  = _savePlayerData.pickupLv;
 
-			SaveManager.Instance.RegisterSave(this);
 		}
 
-		private void Start()
-		{
-			_wallet.SetMoney(_savePlayerData.money);
-		}
-		#endregion
-
-		#region Public Method
-
-		public void SetSpeedLV(int lv)
-		{
-			_savePlayerData.speedLv = lv;
-			Save();
-		}
-
-		public void SetPickupLV(int lv)
-		{
-			_savePlayerData.pickupLv = lv;
-			Save();
-		}
-
-		public void SetSpeed(float speed)
-		{
-			_movement.Speed = speed;
-		}
-
-		public void SetPickupCapcity(int capacity)
-		{
-			_pickupAndDrop.SetMaxPickup(capacity);
-		}
-
-		public void InitSaveData()
-		{
-			_savePlayerData = new PlayerData();
-		}
-
+		[Button("Debug Save")]
 		public async void Save()
 		{
+			_savePlayerData.speedLv = _speedLv;
+			_savePlayerData.pickupLv = _pickupLv;
+			_savePlayerData.money = _wallet.Money;
+			_savePlayerData.worldPos_X = transform.position.x;
+			_savePlayerData.worldPos_Y = transform.position.y;
+			_savePlayerData.worldPos_Z = transform.position.z;
+			_savePlayerData.PickupObjects = _pickupAndDrop.GetPickupObjects();
+
 			 await SaveSystem.SaveData<PlayerData>(_savePlayerData, SaveFileName);
 		}
 		#endregion

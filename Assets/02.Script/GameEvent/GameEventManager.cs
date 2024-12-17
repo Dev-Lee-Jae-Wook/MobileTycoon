@@ -16,27 +16,27 @@ namespace EverythingStore.GameEvent
 		Tutorial_EnterBoxOrder =	1 << 5,
 		Tutorial_Delivery =				1 << 6,
 		Product_UnlockAuction =	1 << 7,
-		Auction =							1 << 8,
-		EndTarget =						1 << 9,
+		Tutorial_End =					1 << 8,
+		Auction =							1 << 9,
+		EndTarget =						1 << 10,
 	}
 
 	public class GameEventManager : Singleton<GameEventManager>, ISave
 	{
 		#region Field
 		private Dictionary<GameTargetType, GameEventBase> _gameEventTable = new();
-
-		private GameTarget _targetData;
-
-		public string SaveFileName => "GameTarget";
-
-		private GameTargetType _targetDataUpdateMask = GameTargetType.Tutorial_BoxOrder | GameTargetType.Auction | GameTargetType.EndTarget;
+		private GameTargetData _targetData;
+		private GameTargetType _targetDataUpdateMask = GameTargetType.Tutorial_BoxOrder  | GameTargetType.Auction;
+		private GameTargetType _currentType;
 		#endregion
 
 		#region Property
+		public string SaveFileName => "GameTarget";
 		public GameTargetType GameTarget => _targetData.Type;
 		#endregion
 
 		#region Event
+
 		#endregion
 
 		#region UnityCycle
@@ -48,26 +48,16 @@ namespace EverythingStore.GameEvent
 				_gameEventTable.Add(item.Type, item);
 			}
 
-			if (SaveSystem.HasSaveData(SaveFileName) == false)
-			{
-				InitSaveData();
-				Save();
-			}
-			else
-			{
-				_targetData = SaveSystem.LoadData<GameTarget>(SaveFileName);
-			}
+			InitSaveData();
 		}
-
 
 		private void Start()
 		{
-			OnEvent(_targetData.Type);
+			OnEvent(_currentType);
 		}
 		#endregion
 
 		#region Public Method
-
 		public void OnEvent(GameTargetType type)
 		{
 			if (type == GameTargetType.None)
@@ -78,6 +68,11 @@ namespace EverythingStore.GameEvent
 			_gameEventTable[type].OnEvent();
 
 			CheckSave(type);
+		}
+
+		public void OnEventCallback(GameTargetType type, Action callback)
+		{
+			_gameEventTable[type].OnEvented += callback;
 		}
 
 		private void CheckSave(GameTargetType type)
@@ -92,21 +87,23 @@ namespace EverythingStore.GameEvent
 
 		public void InitSaveData()
 		{
-			_targetData = new GameTarget();
+			if (SaveSystem.HasSaveData(SaveFileName) == false)
+			{
+				_targetData = new GameTargetData();
+				Save();
+			}
+			else
+			{
+				_targetData = SaveSystem.LoadData<GameTargetData>(SaveFileName);
+			}
+
+			_currentType = _targetData.Type;
 		}
 
 		public async void Save()
 		{
-			await SaveSystem.SaveData<GameTarget>(_targetData, SaveFileName);
+			await SaveSystem.SaveData<GameTargetData>(_targetData, SaveFileName);
 		}
-
-		#endregion
-
-		#region Private Method
-		#endregion
-
-		#region Protected Method
-
 		#endregion
 
 	}

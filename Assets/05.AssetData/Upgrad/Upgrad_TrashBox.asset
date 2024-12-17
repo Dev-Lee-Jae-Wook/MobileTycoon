@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c544fc295127a48991a8b4eff1926b, type: 3}
   m_Name: Upgrad_TrashBox
   m_EditorClassIdentifier: 
-  UpgradList:
-  - Cost: 1
-    Value: 6
-  - Cost: 1
+  _upgradList:
+  - NextUpgradCost: 1
+    Value: 3
+  - NextUpgradCost: 2
+    Value: 5
+  - NextUpgradCost: 3
     Value: 7
-  - Cost: 1
-    Value: 8
-  - Cost: 1
-    Value: 9
-  - Cost: 1
+  - NextUpgradCost: 4
     Value: 10
+  - NextUpgradCost: 5
+    Value: 16

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace EverythingStore.GameEvent
@@ -5,6 +6,11 @@ namespace EverythingStore.GameEvent
 	public abstract class GameEventBase:MonoBehaviour
 	{
 		public abstract GameTargetType Type { get; }
-		public abstract void OnEvent();
+		public virtual void OnEvent()
+		{
+			OnEvented?.Invoke();
+		}
+
+		public event Action OnEvented;
 	}
 }

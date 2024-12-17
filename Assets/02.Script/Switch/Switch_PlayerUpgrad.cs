@@ -8,7 +8,6 @@ namespace EverythingStore.Switch
 	public class Switch_PlayerUpgrad : MonoBehaviour, ISwitch
 	{
 		#region Field
-		[SerializeField] private PlayerInput  _input;
 		[SerializeField] private UpgradPlayer _upgrad;
 		#endregion
 
@@ -19,17 +18,12 @@ namespace EverythingStore.Switch
 		#endregion
 
 		#region UnityCycle
-		private void Start()
-		{
-			_upgrad.OnOpen += () => _input.SetControler(false);
-			_upgrad.OnClose += () => _input.SetControler(true);
-		}
 		#endregion
 
 		#region Public Method
 		public void SwitchAction()
 		{
-			_upgrad.Open();
+			_upgrad.Popup();
 		}
 		#endregion
 

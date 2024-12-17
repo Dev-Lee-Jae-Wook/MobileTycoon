@@ -36,6 +36,15 @@ namespace EverythingStore.InputMoney
 				gameObject.SetActive(false);
 				_targetObject.gameObject.SetActive(true);
 			};
+
+			if(isUnlock == true)
+			{
+				gameObject.SetActive(false);
+			}
+			else
+			{
+				_targetObject.SetActive(false);
+			}
 		}
 		#endregion
 

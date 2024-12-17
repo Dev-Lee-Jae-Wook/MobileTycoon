@@ -17,8 +17,6 @@ namespace EverythingStore.GameEvent
 		public override GameTargetType Type => GameTargetType.Tutorial_Delivery;
 		#endregion
 
-
-
 		#region Public Method
 		public override void OnEvent()
 		{
@@ -29,6 +27,7 @@ namespace EverythingStore.GameEvent
 				_input.SetProductFixControl(false);
 				GameEventManager.Instance.OnEvent(GameTargetType.Product_UnlockAuction);
 			};
+			base.OnEvent();
 		}
 		#endregion
 

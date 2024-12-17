@@ -14,23 +14,12 @@ namespace EverythingStore.GameEvent
 		public override GameTargetType Type => _type;
 		#endregion
 
-		#region Event
-		#endregion
-
-		#region UnityCycle
-		#endregion
-
 		#region Public Method
 		public override void OnEvent()
 		{
 			_navigation.SetTarget(transform);
+			base.OnEvent();
 		}
-		#endregion
-
-		#region Private Method
-		#endregion
-
-		#region Protected Method
 		#endregion
 	}
 }

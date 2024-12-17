@@ -1,4 +1,5 @@
 using EverythingStore.Actor.Player;
+using EverythingStore.BoxBox;
 using EverythingStore.Delivery;
 using EverythingStore.GameEvent;
 using EverythingStore.InteractionObject;
@@ -9,9 +10,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace EverythingStore.BoxBox
+namespace EverythingStore.UI.PopUp
 {
-	public class BoxOrder : PopupUIBase
+	[RequireComponent(typeof(BottomUpPopdownTrigger))]
+	public class BoxOrder : BottomUpPopup
 	{
 		#region Field
 		[Title("Collaboration")]
@@ -83,7 +85,7 @@ namespace EverythingStore.BoxBox
 				OnOrderDelivery?.Invoke();
 			}
 
-			PopDown();
+			Popdown();
 		}
 
 		private void PopUpChoiceBox(BoxOrderItem boxOrderItem)
@@ -149,9 +151,9 @@ namespace EverythingStore.BoxBox
 		#endregion
 
 		#region Protected Method
-		protected override void StartInit()
+		protected override void Start_Intilaize()
 		{
-			OnOpen += Init;
+			OnPopup += Init;
 
 			_resetButton.onClick.AddListener(ResetOrder);
 			_buyButton.onClick.AddListener(Buy);

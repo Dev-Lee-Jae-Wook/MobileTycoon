@@ -1,7 +1,9 @@
 using EverythingStore.GameEvent;
+using EverythingStore.InteractionObject;
 using EverythingStore.Optimization;
 using System;
 using System.Collections.Generic;
+using System.Security.Principal;
 using static EverythingStore.InteractionObject.Box;
 
 namespace EverythingStore.Save
@@ -9,11 +11,11 @@ namespace EverythingStore.Save
 	public abstract class SaveData { }
 
 	[Serializable]
-	public class GameTarget : SaveData
+	public class GameTargetData : SaveData
 	{
 		public GameTargetType Type;
 
-		public GameTarget()
+		public GameTargetData()
 		{
 			Type = GameTargetType.Tutorial_GameStart;
 		}
@@ -37,11 +39,25 @@ namespace EverythingStore.Save
 		/// </summary>
 		public int pickupLv;
 
-		public PlayerData()
+		public float worldPos_X;
+		public float worldPos_Y;
+		public float worldPos_Z;
+
+		public PooledObjectType[] PickupObjects;
+
+		public PlayerData(float posX, float posY, float posZ)
 		{
 			money = 0;
 			speedLv = 0;
 			pickupLv = 0;
+			worldPos_X = posX;
+			worldPos_Y = posY;
+			worldPos_Z = posZ;
+		}
+
+		public void UpdatePickupObject(PooledObjectType[] pickupObjects)
+		{
+			PickupObjects = pickupObjects;
 		}
 	}
 
@@ -139,6 +155,12 @@ namespace EverythingStore.Save
 		/// 언락이 해금되어 있는가?
 		/// </summary>
 		public bool isUnlock;
+
+		/// <summary>
+		/// 해금에 들어간 돈
+		/// </summary>
+		public int progressMoney;
+
 		/// <summary>
 		/// 옥션 쿨타임
 		/// </summary>
@@ -181,15 +203,46 @@ namespace EverythingStore.Save
 		/// 레벨
 		/// </summary>
 		public int lv;
+
 		/// <summary>
-		/// 놓여있는 박스 갯수
+		/// 업그레이드 진행 돈
 		/// </summary>
-		public int putBoxCount;
+		public int progressMoney;
+
+		public PooledObjectType[] trashBoxTypes;
+		public int lastIndex;
 
 		public TrashBoxData()
 		{
 			lv = 0;
-			putBoxCount = 0;
+			progressMoney = 0;
+			trashBoxTypes = new PooledObjectType[18];
+			for (int i = 0; i < trashBoxTypes.Length; i++)
+			{
+				trashBoxTypes[i] = PooledObjectType.None;
+			}
+			lastIndex = -1;
+		}
+
+		public void PushTrashBoxTypes(PooledObjectType type)
+		{
+			lastIndex++;
+			trashBoxTypes[lastIndex] = type;
+		}
+
+		public void PopTrashBox()
+		{
+			trashBoxTypes[lastIndex] = PooledObjectType.None;
+			lastIndex--;
+		}
+
+		public void Clear()
+		{
+			for (int i = 0; i < trashBoxTypes.Length; i++)
+			{
+				trashBoxTypes[i] = PooledObjectType.None;
+			}
+			lastIndex = 0;
 		}
 	}
 }

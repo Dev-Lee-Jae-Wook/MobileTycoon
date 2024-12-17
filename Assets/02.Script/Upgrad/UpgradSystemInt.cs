@@ -27,7 +27,7 @@ namespace EverythingStore.Upgrad
 
 		#region Public Method
 
-		public void Inititalize(int lv, int moneyLeft,Action<int> upgradCallBack)
+		public void Inititalize(int lv, int progressMoney,Action<int> upgradCallBack)
 		{
 			_lv = lv;
 			_maxLv = upgradData.GetMaxLv();
@@ -46,7 +46,7 @@ namespace EverythingStore.Upgrad
 			}
 			else
 			{
-				_inputMoneyArea.Initialize(GetNextCost(), moneyLeft);
+				_inputMoneyArea.Initialize(GetNextCost(), progressMoney);
 			}
 		}
 

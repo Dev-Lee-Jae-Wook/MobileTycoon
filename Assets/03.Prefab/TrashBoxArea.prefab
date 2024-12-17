@@ -187,8 +187,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pivot: {fileID: 7044828045328369661}
   boundaryY: 0.3733801
-  _capacity: 5
   _capacityText: {fileID: 8909336850604436833}
+  _upgradSystem: {fileID: 8253581183174303464}
 --- !u!65 &1410436923955595087
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -499,12 +499,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3871278383442743989, guid: 0361c0c1e9c999941a914553c4cbe233,
         type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 943740ed2ff034fc48ce7c5125f00570,
-        type: 2}
-    - target: {fileID: 3871278383442743989, guid: 0361c0c1e9c999941a914553c4cbe233,
-        type: 3}
       propertyPath: m_fontStyle
       value: 16
       objectReference: {fileID: 0}
@@ -513,12 +507,6 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 32
       objectReference: {fileID: 0}
-    - target: {fileID: 3871278383442743989, guid: 0361c0c1e9c999941a914553c4cbe233,
-        type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -4171563015097924827, guid: 943740ed2ff034fc48ce7c5125f00570,
-        type: 2}
     - target: {fileID: 4321563094036402611, guid: 0361c0c1e9c999941a914553c4cbe233,
         type: 3}
       propertyPath: _name
@@ -535,3 +523,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7690682148925252965}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8253581183174303464 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1742988651242158989, guid: 0361c0c1e9c999941a914553c4cbe233,
+    type: 3}
+  m_PrefabInstance: {fileID: 7690682148925252965}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cdefc44c73292d4bb3c9fcf39935d53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

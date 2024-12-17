@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 478163a2451aa6b488014d936f337cc0, type: 3}
   m_Name: Upgrad_Speed
   m_EditorClassIdentifier: 
-  UpgradList:
-  - Cost: 0
+  _upgradList:
+  - NextUpgradCost: 0
     Value: 3
-  - Cost: 1
+  - NextUpgradCost: 1
     Value: 3.5
-  - Cost: 2
+  - NextUpgradCost: 2
     Value: 4
-  - Cost: 3
+  - NextUpgradCost: 3
+    Value: 4.25
+  - NextUpgradCost: 4
     Value: 4.5

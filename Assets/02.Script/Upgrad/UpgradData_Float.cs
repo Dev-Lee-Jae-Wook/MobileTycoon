@@ -6,6 +6,16 @@ namespace EverythingStore.Upgrad
 	[CreateAssetMenu(fileName = "NewUpgradDataFloat", menuName = "CustomData/UpgradDataFloat")]
 	public class UpgradData_Float : ScriptableObject
 	{
-		public  List<UpgradDataStruct<float>> UpgradList;
+		[SerializeField] private  List<UpgradDataStruct<float>> _upgradList;
+
+		public UpgradDataStruct<float> GetUpgradData(int lv)
+		{
+			return _upgradList[lv];
+		}
+
+		public int GetMaxLv()
+		{
+			return _upgradList.Count - 1;
+		}
 	}
 }

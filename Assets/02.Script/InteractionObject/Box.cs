@@ -123,6 +123,17 @@ namespace EverythingStore.InteractionObject
 		{
 			_collider.enabled = true;
 		}
+
+		/// <summary>
+		/// 상자를 빈상자로 변환합니다.
+		/// </summary>
+		public void EmptyBox()
+		{
+			//상호작용에 반응하지 못하게한다.
+			_collider.enabled = false;
+			ChangeState(BoxState.Emtpy);
+		}
+
 		#endregion
 
 		#region Private Method
@@ -161,15 +172,7 @@ namespace EverythingStore.InteractionObject
 			_items.Push(sellObject.GetComponent<SellObject>());
 		}
 
-		/// <summary>
-		/// 상자를 빈상자로 변환합니다.
-		/// </summary>
-		private void EmptyBox()
-		{
-			//상호작용에 반응하지 못하게한다.
-			_collider.enabled = false;
-			ChangeState(BoxState.Emtpy);
-		}
+
 
 		/// <summary>
 		/// 상자의 상태에 따라 맞는 행동을 정의합니다.
@@ -201,6 +204,8 @@ namespace EverythingStore.InteractionObject
 		{
 			_animator.SetTrigger("BoxOpen");
 		}
+
+
 
 		#endregion
 

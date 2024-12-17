@@ -22,16 +22,16 @@ namespace EverythingStore.UI
 		#region UnityCycle
 		private void Start()
 		{
-			UpdateMoney(_player.Wallet.Money);
-			_player.Wallet.OnUpdate += UpdateMoney;
+			UpdateMoney(_player.Wallet.GetFormatSuffix());
+			_player.Wallet.OnUpdateString += UpdateMoney;
 		}
 		#endregion
 
 
 		#region Private Method
-		private void UpdateMoney(int money)
+		private void UpdateMoney(string money)
 		{
-			_text.text = $"Money : {money:D5}";
+			_text.text = $"Money : {money}";
 		}
 		#endregion
 

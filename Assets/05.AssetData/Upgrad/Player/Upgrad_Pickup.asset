@@ -12,16 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c544fc295127a48991a8b4eff1926b, type: 3}
   m_Name: Upgrad_Pickup
   m_EditorClassIdentifier: 
-  UpgradList:
-  - Cost: 0
+  _upgradList:
+  - NextUpgradCost: 0
     Value: 3
-  - Cost: 1
-    Value: 5
-  - Cost: 2
-    Value: 8
-  - Cost: 3
-    Value: 10
-  - Cost: 4
-    Value: 14
-  - Cost: 5
-    Value: 18
+  - NextUpgradCost: 1
+    Value: 6
+  - NextUpgradCost: 2
+    Value: 9
+  - NextUpgradCost: 3
+    Value: 12
+  - NextUpgradCost: 4
+    Value: 15

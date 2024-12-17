@@ -49,6 +49,11 @@ namespace EverythingStore.UI
 		// Update is called once per frame
 		void Update()
 		{
+			NavigationUpdate();
+		}
+
+		private void NavigationUpdate()
+		{
 			Vector2 screenPos = WorldToScreenPos(_target.position);
 
 			//영역 밖에 있는 경우 Dot 네비게이션 출력
@@ -91,9 +96,11 @@ namespace EverythingStore.UI
 		#region Public Method
 		public void SetTarget(Transform target)
 		{
-			_canvas.enabled = true;
 			_target = target;
+
+			NavigationUpdate();
 			gameObject.SetActive(true);
+			_canvas.enabled = true;
 		}
 
 		public void OffNavigation()

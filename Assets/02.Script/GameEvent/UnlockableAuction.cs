@@ -1,10 +1,6 @@
 using EverythingStore.Actor.Player;
-using EverythingStore.InputMoney;
-using EverythingStore.InteractionObject;
-using EverythingStore.UI;
 using UnityEngine;
 using UnityEngine.Playables;
-using UnityEngine.UI;
 
 namespace EverythingStore.GameEvent
 {
@@ -20,12 +16,6 @@ namespace EverythingStore.GameEvent
 		public override GameTargetType Type => GameTargetType.Product_UnlockAuction;
 		#endregion
 
-		#region Event
-		#endregion
-
-		#region UnityCycle
-		#endregion
-
 		#region Public Method
 		public override void OnEvent()
 		{
@@ -36,13 +26,8 @@ namespace EverythingStore.GameEvent
 				_input.SetProductFixControl(false);
 				GameEventManager.Instance.OnEvent(_nextType);
 			};
+			base.OnEvent();
 		}
-		#endregion
-
-		#region Private Method
-		#endregion
-
-		#region Protected Method
 		#endregion
 	}
 }

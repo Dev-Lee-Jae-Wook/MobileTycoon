@@ -15,6 +15,7 @@ namespace EverythingStore.GameEvent
 		public override void OnEvent()
 		{
 			_navigation.OffNavigation();
+			base.OnEvent();
 		}
 	}
 }

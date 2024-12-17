@@ -1,4 +1,5 @@
 using EverythingStore.Actor.Customer;
+using EverythingStore.GameEvent;
 using EverythingStore.InteractionObject;
 using EverythingStore.Manager;
 using EverythingStore.Timer;
@@ -27,9 +28,9 @@ namespace EverythingStore.AuctionSystem
 		[SerializeField] private CustomerManager _customerManager;
 		[SerializeField] private float _closeTime;
 		[SerializeField] private float _waitTime = 10.0f;
+		[SerializeField]private Auction _auction;
 		private AuctionParticipant _lastBid;
 		private int _bidMoney;
-		private Auction _auction;
 		private AuctionSubmit _submit;
 		private AuctionParticipant[] _participants;
 		private float _currentWaitTime;
@@ -69,8 +70,7 @@ namespace EverythingStore.AuctionSystem
 		private void Awake()
 		{
 			_submit = new(this);
-			_auction = GetComponent<Auction>();
-			_closeTimer = GetComponent<CoolTime>();
+			_closeTimer = gameObject.AddComponent<CoolTime>();
 			_closeTimer.OnUpdateTime += UpdateCloseTime;
 			_closeTimer.OnComplete += () => ChangeAuctionState(AuctionState.WaitAuctionItem);
 			_auction.OnReadyCustomer += ReadyCustomer;
@@ -79,6 +79,11 @@ namespace EverythingStore.AuctionSystem
 		private void Start()
 		{
 			ChangeAuctionState(AuctionState.WaitAuctionItem);
+			if (GameEventManager.Instance.GameTarget < GameTargetType.Auction)
+			{
+				gameObject.SetActive(false);
+				GameEventManager.Instance.OnEventCallback(GameTargetType.Product_UnlockAuction,()=> gameObject.SetActive(true));
+			}
 		}
 		#endregion
 

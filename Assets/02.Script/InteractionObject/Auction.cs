@@ -6,6 +6,7 @@ using EverythingStore.GameEvent;
 using EverythingStore.InputMoney;
 using EverythingStore.Optimization;
 using EverythingStore.Prob;
+using EverythingStore.Save;
 using EverythingStore.Sell;
 using EverythingStore.Timer;
 using EverythingStore.UI;
@@ -17,14 +18,13 @@ using UnityEngine;
 
 namespace EverythingStore.InteractionObject
 {
-    public class Auction : MonoBehaviour,IPlayerInteraction
+    public class Auction : MonoBehaviour,IPlayerInteraction, ISave
     {
 
 		#region Field
 		private AuctionItem _auctionItem;
-		private AuctionManger _manager;
 
-		[SerializeField] private ObjectPoolManger _poolManger;
+		[SerializeField] private AuctionManger _manager;
 		[SerializeField] private Transform _spawnPoint;
 		[SerializeField] private MoneySpawner _moneySpawner;
 		[SerializeField] private UnlockSystem _unlockArea;
@@ -46,11 +46,15 @@ namespace EverythingStore.InteractionObject
 		
 		private List<CustomerAuction> _customerList = new();
 		private Action _setAuctionItem;
+
+		private AuctionData _saveData;
 		#endregion
 
 		#region Property
 		public Vector3 EnterPoint => _enterPoint.position;
 		public Vector3 PickupPoint => _interactionPoint.position;
+
+		public string SaveFileName => "AuctionData";
 		#endregion
 
 		#region Event
@@ -63,10 +67,20 @@ namespace EverythingStore.InteractionObject
 		private void Awake()
 		{
 			_chairs = _chairParent.GetComponentsInChildren<Chair>();
-			_manager = GetComponent<AuctionManger>();
+			InitSaveData();
+		}
 
-			gameObject.SetActive(false);
-			_unlockArea.OnUnlock += () => GameEventManager.Instance.OnEvent(GameTargetType.EndTarget);
+		private void Start()
+		{
+			if(GameEventManager.Instance.GameTarget <= GameTargetType.Auction)
+			{
+				_unlockArea.OnUnlock += () =>
+				{
+					GameEventManager.Instance.OnEvent(GameTargetType.EndTarget);
+					Save();
+				};
+			}
+			_unlockArea.Initialization(_saveData.isUnlock, _saveData.progressMoney);
 		}
 		#endregion
 
@@ -109,7 +123,7 @@ namespace EverythingStore.InteractionObject
 		/// </summary>
 		public void SpawnAcutionItemCase()
 		{
-			_auctionItem = _poolManger.GetPoolObject(PooledObjectType.AuctionItem).GetComponent<AuctionItem>();
+			_auctionItem = ObjectPoolManger.Instance.GetPoolObject(PooledObjectType.AuctionItem).GetComponent<AuctionItem>();
 			_auctionItem.transform.parent = _spawnPoint;
 			_auctionItem.transform.localPosition = Vector3.zero;
 		}
@@ -133,6 +147,24 @@ namespace EverythingStore.InteractionObject
 		public void CustomerReady(CustomerAuction owner)
 		{
 			OnReadyCustomer?.Invoke(owner);
+		}
+
+		public void InitSaveData()
+		{
+			if(SaveSystem.HasSaveData(SaveFileName) == false)
+			{
+				_saveData = new();
+				Save();
+			}
+			else
+			{
+				_saveData = SaveSystem.LoadData<AuctionData>(SaveFileName);
+			}
+		}
+
+		public async void Save()
+		{
+			await SaveSystem.SaveData<AuctionData>(_saveData, SaveFileName);
 		}
 		#endregion
 

@@ -1,6 +1,7 @@
 using EverythingStore.Actor.Player;
 using EverythingStore.GameEvent;
 using EverythingStore.InteractionObject;
+using EverythingStore.UI.PopUp;
 using TMPro;
 using UnityEngine;
 
@@ -39,7 +40,7 @@ namespace EverythingStore.BoxBox
 				Tutorial.Instance.EnterBoxOrder();
 			}
 
-			_boxOrder.Open();
+			_boxOrder.Popup();
 			_playerInput.SetControler(false);
 		}
 

@@ -15,24 +15,13 @@ namespace EverythingStore.GameEvent
 		public override GameTargetType Type => GameTargetType.Tutorial_GameStart;
 		#endregion
 
-		#region Event
-		#endregion
-
-		#region UnityCycle
-		#endregion
-
 		#region Public Method
 		public override void OnEvent()
 		{
 			_navigation.SetTarget(transform);
 			_boxStorage.TutorialSpawnBox();
+			base.OnEvent();
 		}
-		#endregion
-
-		#region Private Method
-		#endregion
-
-		#region Protected Method
 		#endregion
 	}
 }
