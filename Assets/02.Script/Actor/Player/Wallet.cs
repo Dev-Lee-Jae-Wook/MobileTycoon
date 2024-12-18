@@ -1,6 +1,4 @@
 
-using Codice.CM.Client.Differences.Merge;
-using EverythingStore.InteractionObject;
 using System;
 
 namespace EverythingStore.Actor.Player

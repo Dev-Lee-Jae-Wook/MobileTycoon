@@ -7,7 +7,6 @@ using EverythingStore.Upgrad;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEditor.MaterialProperty;
 
 namespace EverythingStore.Manager
 {

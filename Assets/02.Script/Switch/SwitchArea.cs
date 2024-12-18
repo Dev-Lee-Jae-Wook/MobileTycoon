@@ -8,6 +8,7 @@ namespace EverythingStore.InteractionObject
 	{ 
 		#region Field
         [SerializeField] private LayerMask _switchAbleLayer;
+		[SerializeField] private Vector3 _offset;
 		[SerializeField] private Vector3 _size;
 		[SerializeField] private GameObject _switchObject;
         private ISwitch _target;
@@ -46,7 +47,7 @@ namespace EverythingStore.InteractionObject
 
 		private void OnDrawGizmos()
 		{
-			Gizmos.DrawWireCube(transform.position, _size);
+			Gizmos.DrawWireCube(GetOffset(), _size);
 		}
 		#endregion
 
@@ -56,12 +57,17 @@ namespace EverythingStore.InteractionObject
 		#region Private Method
 		private bool IsDetect()
 		{
-			var hitColliders = Physics.OverlapBox(transform.position, _size * 0.5f, Quaternion.identity, _switchAbleLayer);
+			var hitColliders = Physics.OverlapBox(GetOffset(), _size * 0.5f, Quaternion.identity, _switchAbleLayer);
 			if (hitColliders.Length > 0)
 			{
 				return true;
 			}
 			return false;
+		}
+
+		private Vector3 GetOffset()
+		{
+			return transform.position+ _offset;
 		}
 		#endregion
 

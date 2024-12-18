@@ -8,10 +8,19 @@ namespace EverythingStore.Actor.Customer
 {
 	public class WaitingLine : MonoBehaviour
 	{
+		private enum WaitDiraction
+		{
+			Forward,
+			Back,
+			Right,
+			Left,
+		}
+
 		#region Field
 		[SerializeField] private Transform _startPoint;
 		[SerializeField] private int _max;
 		[SerializeField] private float _interval;
+		[SerializeField] private WaitDiraction _waitDiraction;
 		private Queue<Customer> _customerQueue = new();
 		private Vector3 _nextWaitingPoint;
 		#endregion
@@ -39,9 +48,11 @@ namespace EverythingStore.Actor.Customer
 				return;
 
 			Gizmos.color = Color.yellow;
+			Vector3 dir = GetDiraction();
+
 			for (int i = 0; i < _max; i++)
 			{
-				Gizmos.DrawCube(GetPoint(i), Vector3.one * 0.1f);
+				Gizmos.DrawCube(GetPoint(i), Vector3.one * 0.2f);
 			}
 		}
 		#endregion
@@ -77,9 +88,24 @@ namespace EverythingStore.Actor.Customer
 		#region Private Method
 		private Vector3 GetPoint(int index)
 		{
-			return _startPoint.position + (Vector3.back * (_interval * index));
+			return _startPoint.position + (GetDiraction() * (_interval * index));
 		}
 
+		private Vector3 GetDiraction()
+		{
+			switch (_waitDiraction)
+			{
+				case WaitDiraction.Forward:
+					return _startPoint.forward;
+				case WaitDiraction.Back:
+					return -_startPoint.forward;
+				case WaitDiraction.Right:
+					return _startPoint.right;
+				case WaitDiraction.Left:
+					return -_startPoint.right;
+			}
+			return Vector3.zero;
+		}
 
 		#endregion
 

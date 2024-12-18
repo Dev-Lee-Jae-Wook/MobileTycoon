@@ -25,6 +25,8 @@ namespace EverythingStore.UI
 		private int _height;
 		private Image _image;
 		private Transform _target;
+
+		Vector3 disXZ = new Vector3(1.0f, 0.0f, 1.0f);
 		#endregion
 
 		#region Property
@@ -148,7 +150,11 @@ namespace EverythingStore.UI
 
 		private void UpdateTarget()
 		{
-			float distance = Vector3.Distance(_player.transform.position, _target.transform.position);
+
+			Vector3 start = Vector3.Cross(_player.transform.position, disXZ);
+			Vector3 target = Vector3.Cross(_target.transform.position, disXZ);
+
+			float distance = Vector3.Distance(start, target);
 			_distanceText.text = $"{distance:N2}M";
 		}
 

@@ -196,7 +196,6 @@ GameObject:
   - component: {fileID: 1926788659586481258}
   - component: {fileID: 6925974611289410808}
   - component: {fileID: 7583103374646067547}
-  - component: {fileID: 2065310859095242511}
   m_Layer: 6
   m_Name: Counter
   m_TagString: Untagged
@@ -297,20 +296,7 @@ MonoBehaviour:
   _startPoint: {fileID: 1161177405877980531}
   _max: 11
   _interval: 1
---- !u!114 &2065310859095242511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4200210757918502875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92e9611642435f84ebb000a65a4f15dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _money: 100
-  _inputMoneyArea: {fileID: 1255423443369165881}
+  _waitDiraction: 0
 --- !u!1 &4440308623491686072
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,18 +519,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21a1fedf547a1a1478009a86f15849a2, type: 3}
---- !u!114 &1255423443369165881 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3236980365529901097, guid: 21a1fedf547a1a1478009a86f15849a2,
-    type: 3}
-  m_PrefabInstance: {fileID: 4431604183134989328}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f277d890a21582343aca441c30958ea9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &8555705244025462657 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5421137753602585489, guid: 21a1fedf547a1a1478009a86f15849a2,

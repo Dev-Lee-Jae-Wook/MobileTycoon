@@ -58,6 +58,7 @@ namespace EverythingStore.InteractionObject
 		{
 			_outputBox.OnEmptyBox += SendToBoxOutput;
 		}
+#if UNITY_EDITOR
 		private void OnDrawGizmos()
 		{
 			if (_gizomo == false)
@@ -79,7 +80,8 @@ namespace EverythingStore.InteractionObject
 				count++;
 			}
 		}
-		#endregion
+#endif
+#endregion
 
 		#region Public Method
 		/// <summary>
@@ -123,11 +125,6 @@ namespace EverythingStore.InteractionObject
 
 			OutputBox();
 			return;
-		}
-
-		public void SavePointData(List<Vector3> points)
-		{
-			_pivotData.SavePointData(Capacity, points);
 		}
 
 		public void TutorialSpawnBox()

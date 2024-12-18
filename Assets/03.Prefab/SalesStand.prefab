@@ -252,6 +252,7 @@ MonoBehaviour:
   _startPoint: {fileID: 7710557609724832007}
   _max: 3
   _interval: 1
+  _waitDiraction: 1
 --- !u!1 &8970218416188874822
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using EverythingStore.AI.CustomerStateAuction;
 using UnityEngine;
 
 namespace EverythingStore.InteractionObject
@@ -7,22 +8,21 @@ namespace EverythingStore.InteractionObject
 		#region Field
 		[SerializeField] Animator _animator;
 		private bool _isOpen = false;
-		#endregion
 
+
+
+
+		#endregion
 		#region Property
 		#endregion
-
 		#region Event
 		#endregion
-
 		#region UnityCycle
 		#endregion
-
 		#region Public Method
 		public void SwitchAction()
 		{
 			_isOpen = !_isOpen;
-			Debug.Log($"isOpen {_isOpen}");
 			_animator.SetBool("IsOpen", _isOpen);
 		}
 		#endregion
